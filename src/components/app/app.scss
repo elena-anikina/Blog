@@ -1,0 +1,13 @@
+@import "src/components/app/global-variables";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  background-color: $backgroundColor;
+}
+

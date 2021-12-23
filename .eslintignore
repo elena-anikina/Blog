@@ -1,0 +1,6 @@
+build
+node_modules
+src/components
+src/helpers
+src/redux
+src/services
