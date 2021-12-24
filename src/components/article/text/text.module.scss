@@ -1,0 +1,43 @@
+@import "src/components/app/global-variables";
+
+.container {
+  width: 682px;
+  margin-right: 50px;
+}
+
+.titleContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.title {
+  color: $infoColor;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.likes {
+  margin-left: 15px;
+}
+
+.tags {
+  line-height: 15px;
+  font-size: 12px;
+  font-weight: 400;
+  color: $textColorSecondary;
+  margin-bottom: 10px;
+}
+
+.tag {
+  border: 1px solid $textColorSecondary;
+  border-radius: 2px;
+  padding: 2px 4px;
+  margin-right: 8px;
+}
+
+.text {
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 400;
+  color: $textColor;
+}

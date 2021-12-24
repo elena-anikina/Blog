@@ -3,6 +3,7 @@
 header {
   display: flex;
   width: 100%;
+  margin-bottom: 26px;
   box-sizing: border-box;
   justify-content: space-between;
   height: 80px;
@@ -23,7 +24,7 @@ header {
   display: flex;
 }
 
-button {
+.loginButtons button {
   width: 109px;
   height: 51px;
   padding: 6px 19px;
@@ -38,7 +39,7 @@ button {
   color: $headingColor;
 }
 
-button:nth-child(2) {
+.loginButtons button:nth-child(2) {
   color: $successColor;
   border: 1px solid $successColor;
   border-radius: 5px;

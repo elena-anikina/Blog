@@ -1,0 +1,32 @@
+@import "src/components/app/global-variables";
+
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.arrow {
+  margin: 0;
+  padding: 0;
+  display: block;
+  background-color: transparent;
+  border: none;
+  color: $textColor;
+  align-self: center;
+  padding-top: 4px;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+.paginationBtn {
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  color: $textColor;
+  margin-right: 10px;
+  margin-left: 10px;
+}

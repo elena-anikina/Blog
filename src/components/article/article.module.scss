@@ -1,0 +1,41 @@
+@import "src/components/app/global-variables";
+
+.article {
+  display: flex;
+  justify-content: space-between;
+  max-height: 200px;
+  width: 100%;
+  padding: 15px 19px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 26px;
+  font-family: $fontFamily;
+  background-color: $white;
+}
+
+.userContainer {
+  display: flex;
+}
+
+
+.userNameContainer {
+  margin-right: 12px;
+}
+
+.userName {
+  color: $headingColor;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.date {
+  font-size: 12px;
+  line-height: 22px;
+  color: $textColorSecondary;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+}
