@@ -1,12 +1,16 @@
 import React from "react";
 import classes from "./text.module.scss";
+import likeFalse from '../like-false.svg';
 
 const Text = () => {
     return (
         <div className={classes.container}>
             <div className={classes.titleContainer}>
                 <span className={classes.title}>Some article title</span>
-                <div className={classes.likes}>*Likes*</div>
+                <div className={classes.likes}>
+                    <img src={likeFalse} alt="" />
+                    <span className={classes.likesNumber}>12</span>
+                </div>
             </div>
             <div className={classes.tags}>
                 <span className={classes.tag}>Tag1</span>

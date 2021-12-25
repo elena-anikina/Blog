@@ -7,7 +7,7 @@ export default class RealworldApi {
             .then((response) => {
                 if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
 
-                return response;
+                return response.json();
             })
     }
 }

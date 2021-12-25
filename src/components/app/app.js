@@ -1,13 +1,17 @@
 import React from 'react';
 import Header from '../header/header';
 import './app.scss';
-import Main from "../main/main";
+import {Routes, Route, Link} from "react-router-dom"
+import HomePage from "../pages/home-page";
 
 const App = () => {
     return (
         <>
             <Header />
-            <Main />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/articles" element={<HomePage />} />
+            </Routes>
         </>
     );
 };

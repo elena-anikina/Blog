@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from "react-redux";
+import store from './redux/store';
 import {BrowserRouter} from "react-router-dom";
 import App from './components/app/app';
 import RealworldApi from "./services/realworld-api";
+import HomePage from "./components/pages/home-page";
 
-const realWorldApi = new RealworldApi();
-
-realWorldApi.getArticles().then((result) => {
-    console.log(result);
-})
 
 ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>,
     document.getElementById('root')
 );
