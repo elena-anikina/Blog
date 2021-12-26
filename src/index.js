@@ -8,6 +8,13 @@ import RealworldApi from "./services/realworld-api";
 import HomePage from "./components/pages/home-page";
 
 
+fetch('https://api.realworld.io/api/articles')
+    .then((response) => response.json())
+    .then((body) => {
+        console.log(body)
+    })
+
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>

@@ -4,37 +4,4 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: $backgroundColor;
-  margin-top: 100px;
-}
-
-body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  padding: 0 0;
-}
-
-@media screen and (min-width: 600px) {
-body {
-    padding: 0 5%;
-  }
-}
-
-@media screen and (min-width: 800px) {
-body {
-    padding: 0 10%;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-body {
-    padding: 0 15%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-body {
-    padding: 0 20%;
-  }
 }

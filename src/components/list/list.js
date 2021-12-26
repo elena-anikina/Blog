@@ -4,12 +4,18 @@ import Article from "../article/article";
 import {connect} from "react-redux";
 import * as actions from "../../redux/actions";
 
-const List = ({fetchArticles}) => {
-    const [articles, setArticles] = useState([]);
+const List = ({fetchArticles, articles: data}) => {
     useEffect(() => {
-        console.log('Hello from use effect')
         fetchArticles();
     }, [])
+
+    console.log(data);
+
+    const articles = data.map((article) => {
+        return (
+            <Article {...article} />
+        );
+    });
     return (
         <section className={classes.articlesAll}>
             <Article />
