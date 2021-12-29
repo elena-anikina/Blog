@@ -3,26 +3,25 @@ import classes from "./list.module.scss";
 import Article from "../article/article";
 import {connect} from "react-redux";
 import * as actions from "../../redux/actions";
+import Pagination from "../pagination/pagination";
 
-const List = ({fetchArticles, articles: data}) => {
-    useEffect(() => {
-        fetchArticles();
-    }, [])
+const List = ({fetchArticles, articles: data, page, trimStart, trimEnd, calcPagination, arrowStart, arrowEnd}) => {
 
-    console.log(data);
+    useEffect(() => { fetchArticles() }, [])
 
-    const articles = data.map((article) => {
-        return (
-            <Article {...article} />
-        );
-    });
+    const articles = data.map((article) => (<Article key={article.id} {...article} preview />));
+    const articles5 = articles.slice(trimStart, trimEnd);
+    const pagination = data.length > 5 ? <Pagination
+                                                    data={data}
+                                                    page={page}
+                                                    func={calcPagination}
+                                                    arrowStart={arrowStart}
+                                                    arrowEnd={arrowEnd} /> : null;
+
     return (
         <section className={classes.articlesAll}>
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
+            {articles5}
+            {pagination}
         </section>
     );
 };

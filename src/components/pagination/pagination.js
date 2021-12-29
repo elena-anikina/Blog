@@ -1,25 +1,39 @@
 import React from "react";
 import classes from "./pagination.module.scss";
+import arrow1 from './arrow1.svg';
+import arrow2 from './arrow2.svg';
 
-const Pagination = () => {
-
-    const numberOfArticles = 40;
+const Pagination = ({data, page, func, arrowStart, arrowEnd}) => {
+    const numberOfArticles = data.length;
     const numberOfArticlesPerPage = 5;
-    const currentPage = 1;
     const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
 
-    const trimStart = (currentPage - 1) * numberOfArticlesPerPage;
-    const trimEnd  = trimStart + numberOfArticlesPerPage;
 
-    const pagination = [];
+    const pagination = Array.from({length: numberOfPages}, (v, k) => k+1);
+
+    const paginationRender = pagination.map((el, i) => {
+        let paginationClasses = [classes.paginationBtn];
+        console.log(pagination, page);
+        if (el === page) {
+            paginationClasses.push(classes.active)
+        }
+        return <button
+                        key={i}
+                        className={paginationClasses.join(' ')}
+                        onClick={func} >
+                        {el}
+               </button>
+    });
+
+
+    const classNamesStart = arrowStart ? `${classes.arrow1} ${classes.activeArrow}` : classes.arrow1;
+    const classNamesEnd = arrowEnd ? `${classes.arrow2} ${classes.activeArrow}` : classes.arrow2;
 
     return (
         <div className={classes.pagination}>
-                    <button className={classes.arrow}>{'<'}</button>
-                    <button className={classes.paginationBtn}>1</button>
-                    <button className={classes.paginationBtn}>2</button>
-                    <button className={classes.paginationBtn}>3</button>
-                    <button className={classes.arrow}>{'>'}</button>
+                    <button className={classNamesStart} />
+                        {paginationRender}
+                    <button className={classNamesEnd} />
         </div>
     );
 };

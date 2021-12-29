@@ -1,25 +1,28 @@
 import React from "react";
 import classes from "./text.module.scss";
 import likeFalse from '../like-false.svg';
+import {Link} from "react-router-dom";
 
-const Text = () => {
+const Text = ({title, favoritesCount, tagList, description, slug, id, body, preview}) => {
+
+    console.log(body);
+
+    const tags = tagList.map((tag, i) => tag ? (<span key={i} className={classes.tag}>{tag}</span>) : null);
+
+    const fullText = !preview ? body : null;
+
     return (
         <div className={classes.container}>
             <div className={classes.titleContainer}>
-                <span className={classes.title}>Some article title</span>
+                <Link className={classes.title} to={`/articles/${slug}`}>{title}</Link>
                 <div className={classes.likes}>
                     <img src={likeFalse} alt="" />
-                    <span className={classes.likesNumber}>12</span>
+                    <span className={classes.likesNumber}>{favoritesCount}</span>
                 </div>
             </div>
-            <div className={classes.tags}>
-                <span className={classes.tag}>Tag1</span>
-                <span className={classes.tag}>Some Tag</span>
-            </div>
-            <div className={classes.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
+            <div className={classes.tags}>{tags}</div>
+            <div className={classes.text}>{description}</div>
+            <div className={classes.fullText}>{fullText}</div>
         </div>
 
     );

@@ -15,3 +15,8 @@ export const fetchArticles = () => (dispatch) => {
             dispatch(fetchArticlesError())
         })
 };
+
+export const calcPagination = (e) => {
+    const {textContent: page} = e.target;
+    return {type: 'CALC_PAGINATION', page};
+};

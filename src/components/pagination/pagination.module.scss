@@ -7,26 +7,79 @@
   margin-bottom: 20px;
 }
 
-.arrow {
+.arrow1 {
   margin: 0;
-  padding: 0;
   display: block;
   background-color: transparent;
   border: none;
   color: $textColor;
   align-self: center;
-  padding-top: 4px;
+  padding-top: 5px;
   margin-right: 12px;
   margin-left: 12px;
+  width: 7.12px;
+  height: 10.49px;
+  background: no-repeat url("./arrow1.svg");
+}
+
+.arrow1.activeArrow {
+  width: 7.12px;
+  height: 10.49px;
+  cursor: pointer;
+  background: no-repeat url("./arrow2.svg");
+  transform: scale(-1, 1);
+}
+
+.arrow2.activeArrow {
+  margin: 0;
+  display: block;
+  background-color: transparent;
+  border: none;
+  color: $textColor;
+  align-self: center;
+  padding-top: 5px;
+  margin-right: 12px;
+  margin-left: 12px;
+  cursor: pointer;
+  transform: none;
+  width: 7.12px;
+  height: 10.49px;
+  background: no-repeat url("./arrow2.svg");
+}
+
+.arrow2 {
+  margin: 0;
+  display: block;
+  background-color: transparent;
+  border: none;
+  color: $textColor;
+  align-self: center;
+  padding-top: 5px;
+  margin-right: 12px;
+  margin-left: 12px;
+  width: 7.12px;
+  height: 10.49px;
+  background: no-repeat url("./arrow1.svg");
+  transform: scale(-1, 1);
 }
 
 .paginationBtn {
   width: 22px;
   height: 22px;
   font-size: 12px;
+  line-height: 22px;
   background-color: transparent;
   border: none;
   color: $textColor;
   margin-right: 10px;
   margin-left: 10px;
+  cursor: pointer;
+}
+
+.active {
+  width: 22px;
+  height: 22px;
+  background-color: $infoColor;
+  border-radius: 4px;
+  color: $white;
 }
