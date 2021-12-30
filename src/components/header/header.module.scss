@@ -27,7 +27,7 @@ header {
   display: flex;
 }
 
-.loginButtons button {
+.loginButtons .btn {
   width: 109px;
   height: 51px;
   padding: 6px 19px;
@@ -40,10 +40,27 @@ header {
   cursor: pointer;
   background-color: $white;
   color: $headingColor;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  cursor: pointer;
 }
 
-.loginButtons button:nth-child(2) {
+.loginButtons .btn:nth-child(2) {
   color: $successColor;
   border: 1px solid $successColor;
   border-radius: 5px;
+}
+
+button {
+  background-color: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }

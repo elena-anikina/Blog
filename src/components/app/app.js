@@ -5,6 +5,7 @@ import {Routes, Route, Link} from "react-router-dom"
 import HomePage from "../pages/home-page";
 import Layout from "../layout/layout";
 import ArticlePage from "../pages/article-page";
+import SignInPage from "../pages/sign-in-page";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
                     <Route index element={<HomePage />} />
                     <Route path="articles" element={<HomePage />} />
                     <Route path="/articles/:slug" element={<ArticlePage />} />
+                    <Route path="/sign-in" element={<SignInPage />} />
                     <Route path="*" element={<div>No page found</div>} />
                 </Route>
             </Routes>

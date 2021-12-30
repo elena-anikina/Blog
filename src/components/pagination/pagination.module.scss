@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  font-family: $fontFamily;
 }
 
 .arrow1 {
@@ -70,6 +71,7 @@
   line-height: 22px;
   background-color: transparent;
   border: none;
+  font-family: $fontFamily;
   color: $textColor;
   margin-right: 10px;
   margin-left: 10px;

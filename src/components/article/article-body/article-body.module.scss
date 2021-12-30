@@ -1,0 +1,10 @@
+@import "src/components/app/global-variables";
+
+.fullText {
+  display: block;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 14px;
+  line-height: 22px;
+  color: $textColor;
+}

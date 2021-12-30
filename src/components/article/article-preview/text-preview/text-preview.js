@@ -1,15 +1,11 @@
 import React from "react";
-import classes from "./text.module.scss";
+import classes from "./text-preview.module.scss";
 import likeFalse from '../like-false.svg';
 import {Link} from "react-router-dom";
 
-const Text = ({title, favoritesCount, tagList, description, slug, id, body, preview}) => {
-
-    console.log(body);
+const TextPreview = ({title, favoritesCount, tagList, description, slug, id}) => {
 
     const tags = tagList.map((tag, i) => tag ? (<span key={i} className={classes.tag}>{tag}</span>) : null);
-
-    const fullText = !preview ? body : null;
 
     return (
         <div className={classes.container}>
@@ -22,10 +18,9 @@ const Text = ({title, favoritesCount, tagList, description, slug, id, body, prev
             </div>
             <div className={classes.tags}>{tags}</div>
             <div className={classes.text}>{description}</div>
-            <div className={classes.fullText}>{fullText}</div>
         </div>
 
     );
 };
 
-export default Text;
+export default TextPreview;

@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../article.module.scss";
+import classes from "../../article.module.scss";
 import imageDefault from "../avatar.png";
 import { format } from 'date-fns'
 

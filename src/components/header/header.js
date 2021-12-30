@@ -9,8 +9,13 @@ const Header = () => {
                 Realworld Blog
             </Link>
             <div className={classes.loginButtons}>
-                <button>Sign In</button>
-                <button>Sign Up</button>
+                <Link to="/sign-in" className={classes.btn}>
+                    <button>Sign In</button>
+                </Link>
+
+                <Link to="/sign-in" className={classes.btn}>
+                    <button>Sign Up</button>
+                </Link>
             </div>
         </header>
     );

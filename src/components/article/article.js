@@ -1,14 +1,15 @@
 import React from "react";
 import classes from "./article.module.scss";
-import avatar from "./avatar.png";
-import Text from "./text/text";
-import UserInfo from "./user-info/user-info";
+import TextPreview from "./article-preview/text-preview/text-preview";
+import UserInfo from "./article-preview/user-info/user-info";
+import ArticlePreview from "./article-preview/article-preview";
+import ArticleBody from "./article-body/article-body";
 
 const Article = ({preview, ...article}) => {
     return (
         <div className={classes.article}>
-            <Text {...article} preview={preview} />
-            <UserInfo {...article} />
+            <ArticlePreview {...article} />
+            <ArticleBody preview={preview} {...article} />
         </div>
     );
 };
