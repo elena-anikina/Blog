@@ -3,7 +3,8 @@ import classes from "./pagination.module.scss";
 import arrow1 from './arrow1.svg';
 import arrow2 from './arrow2.svg';
 
-const Pagination = ({data, page, func, arrowStart, arrowEnd}) => {
+const Pagination = ({data, func, details: {page, arrowStart, arrowEnd}}) => {
+
     const numberOfArticles = data.length;
     const numberOfArticlesPerPage = 5;
     const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
@@ -13,7 +14,6 @@ const Pagination = ({data, page, func, arrowStart, arrowEnd}) => {
 
     const paginationRender = pagination.map((el, i) => {
         let paginationClasses = [classes.paginationBtn];
-        console.log(pagination, page);
         if (el === page) {
             paginationClasses.push(classes.active)
         }

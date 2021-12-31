@@ -9,9 +9,10 @@ const reducer = (state = initialState, action) => {
             const articlesWithId1 = action.articles.map(el => ({id: uuid(), ...el}));
             const articlesWithId2 = action.articles.map(el => ({id: uuid(), ...el}));
             const articlesWithId3 = action.articles.map(el => ({id: uuid(), ...el}));
+            const articlesWithId4 = action.articles.map(el => ({id: uuid(), ...el}));
             return {
                 ...state,
-                articles: [...articlesWithId1, ...articlesWithId2, ...articlesWithId3]
+                articles: [...articlesWithId1, ...articlesWithId2, ...articlesWithId3, ...articlesWithId4]
             }
 
         case 'FETCH_ARTICLES_ERROR':
@@ -27,6 +28,7 @@ const reducer = (state = initialState, action) => {
             const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
             return {
                 ...state,
+                pagination: {page: Number(action.page), trimStart, trimEnd, arrowStart: !(Number(action.page) === 1), arrowEnd: Number(action.page) < numberOfPages},
                 page: Number(action.page),
                 trimStart,
                 trimEnd,

@@ -1,6 +1,6 @@
 @import "src/components/app/global-variables";
 
-.signIn {
+.formProfile {
   justify-content: flex-start;
   width: 360px;
   background-color: $white;
@@ -65,7 +65,7 @@
   margin-bottom: 8px;
 }
 
-.signUpOffer {
+.additionalText {
   width: 100%;
   text-align: center;
   font-size: 12px;
@@ -73,7 +73,7 @@
   color: #8C8C8C;
 }
 
-.signUpOffer .signUp {
+.additionalText .signUp {
   text-decoration: none;
   color: $infoColor;
   cursor: pointer;

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./article.module.scss";
 import TextPreview from "./article-preview/text-preview/text-preview";
-import UserInfo from "./article-preview/user-info/user-info";
+import User from "./article-preview/user/user";
 import ArticlePreview from "./article-preview/article-preview";
 import ArticleBody from "./article-body/article-body";
 

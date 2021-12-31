@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import * as actions from "../../redux/actions";
 import Pagination from "../pagination/pagination";
 
-const List = ({fetchArticles, articles: data, page, trimStart, trimEnd, calcPagination, arrowStart, arrowEnd}) => {
+const List = ({fetchArticles, articles: data, calcPagination, pagination: {trimStart, trimEnd, ...details}}) => {
 
     useEffect(() => { fetchArticles() }, [])
 
@@ -13,10 +13,8 @@ const List = ({fetchArticles, articles: data, page, trimStart, trimEnd, calcPagi
     const articles5 = articles.slice(trimStart, trimEnd);
     const pagination = data.length > 5 ? <Pagination
                                                     data={data}
-                                                    page={page}
                                                     func={calcPagination}
-                                                    arrowStart={arrowStart}
-                                                    arrowEnd={arrowEnd} /> : null;
+                                                    details={details}/> : null;
 
     return (
         <section className={classes.articlesAll}>

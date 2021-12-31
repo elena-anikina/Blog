@@ -23,11 +23,11 @@ header {
   color: rgba(0, 0, 0, 0.85);
 }
 
-.loginButtons {
+.headerButtons {
   display: flex;
 }
 
-.loginButtons .btn {
+.headerButtons .btn {
   width: 109px;
   height: 51px;
   padding: 6px 19px;
@@ -47,7 +47,7 @@ header {
   cursor: pointer;
 }
 
-.loginButtons .btn:nth-child(2) {
+.btn.green {
   color: $successColor;
   border: 1px solid $successColor;
   border-radius: 5px;

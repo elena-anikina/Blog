@@ -6,6 +6,7 @@ import HomePage from "../pages/home-page";
 import Layout from "../layout/layout";
 import ArticlePage from "../pages/article-page";
 import SignInPage from "../pages/sign-in-page";
+import SignUpPage from "../pages/sign-up-page";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                     <Route path="articles" element={<HomePage />} />
                     <Route path="/articles/:slug" element={<ArticlePage />} />
                     <Route path="/sign-in" element={<SignInPage />} />
+                    <Route path="/sign-up" element={<SignUpPage />} />
                     <Route path="*" element={<div>No page found</div>} />
                 </Route>
             </Routes>
