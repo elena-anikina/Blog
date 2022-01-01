@@ -25,12 +25,32 @@ header {
 
 .headerButtons {
   display: flex;
+  justify-content: space-between;
+}
+
+.headerButtons.authorized .btn:first-child {
+  margin-right: 25px;
+  color: $successColor;
+  font-size: 14px;
+  line-height: 22px;
+  width: 112px;
+  height: 31px;
+  border: 1px solid $successColor;
+  border-radius: 4px;
+}
+
+.headerButtons.authorized .btn:last-child {
+  margin-left: 25px;
+  color: $headingColor;
+  border: 1px solid $headingColor;
+}
+
+.headerButtons.headerNotAuthorized .btn:first-child {
+  margin-right: 25px;
 }
 
 .headerButtons .btn {
-  width: 109px;
   height: 51px;
-  padding: 6px 19px;
   align-self: center;
   box-sizing: border-box;
   font-size: $headerFontSize;
@@ -45,12 +65,14 @@ header {
   justify-content: center;
   align-self: center;
   cursor: pointer;
+  padding: 0;
 }
 
 .btn.green {
   color: $successColor;
   border: 1px solid $successColor;
   border-radius: 5px;
+  padding: 6px 19px;
 }
 
 button {

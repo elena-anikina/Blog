@@ -20,3 +20,17 @@ export const calcPagination = (e) => {
     const {textContent: page} = e.target;
     return {type: 'CALC_PAGINATION', page};
 };
+
+export const inputChangeSignUp = (e) => {
+    const {value, name} = e.target;
+    console.log(e);
+    console.log(name);
+    console.log(value);
+    return {type: 'INPUT_CHANGE_SIGNUP', value, name};
+};
+
+export const signUpSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
+    return {type: 'SIGNUP_SUBMIT'}
+};

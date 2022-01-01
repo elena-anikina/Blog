@@ -8,7 +8,7 @@ const HeaderNotAuthorized = () => {
         <header>
             <Title />
 
-            <div className={classes.headerButtons}>
+            <div className={`${classes.headerButtons} ${classes.headerNotAuthorized}`}>
                 <LogBtn text="Sign In" link="/sign-in" />
                 <LogBtn text="Sign Up" link="/sign-up" style="green" />
             </div>

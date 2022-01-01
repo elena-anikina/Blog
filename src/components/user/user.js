@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./user.module.scss";
-import imageDefault from "../avatar.png";
+import imageDefault from "./avatar.png";
 import { format } from 'date-fns'
 
 

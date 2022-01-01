@@ -11,4 +11,22 @@ export default class RealworldApi {
                 return response.json();
             })
     }
+
+    async registerUser(username, email, password) {
+        return fetch(`${this.baseUrl2}/users`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {username, email, password}
+            })
+        })
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
+    }
+
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './article-preview.module.scss';
 import TextPreview from "./text-preview/text-preview";
-import User from "./user/user";
+import User from "../../user/user";
 
 const ArticlePreview = ({preview, ...article}) => {
     return (

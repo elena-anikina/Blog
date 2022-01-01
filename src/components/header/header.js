@@ -1,22 +1,18 @@
 import React from "react";
+import {connect} from "react-redux";
 import classes from './header.module.scss';
 import Title from "./components/title";
 import LogBtn from "./components/log-btn";
-import User from "../article/article-preview/user/user";
+import User from "../user/user";
+import HeaderNotAuthorized from "./header-not-authorized";
+import HeaderAuthorized from "./header-authorized";
 
-const Header = () => {
-    return (
-        <header>
-            <Title />
-
-            <div className={classes.headerButtons}>
-                <LogBtn text="Sign In" link="/sign-in" />
-                <User author={{username: 'Gerome'}} />
-                <LogBtn text="Sign Up" link="/sign-up" style="green" />
-            </div>
-
-        </header>
-    );
+const Header = ({authorized}) => {
+    return authorized ? <HeaderAuthorized /> : <HeaderNotAuthorized />;
 };
 
-export default Header;
+
+
+const mapStateToProps = ({authorized}) => ({authorized});
+
+export default connect(mapStateToProps)(Header);

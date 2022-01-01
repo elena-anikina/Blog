@@ -2,7 +2,7 @@ import initialState from './state';
 import {v4 as uuid} from 'uuid';
 
 const reducer = (state = initialState, action) => {
-    const {articles, errors} = state;
+    const {articles, errors, signUp} = state;
     switch (action.type) {
 
         case 'FETCH_ARTICLES_SUCCESS':
@@ -36,6 +36,15 @@ const reducer = (state = initialState, action) => {
                 arrowEnd: Number(action.page) < numberOfPages
             }
 
+        case 'INPUT_CHANGE_SIGNUP':
+            const newSignUp = [...signUp].map(el => {
+                if (el.label === action.name) {return {...el, value: action.value}}
+                return el;
+            });
+            return {
+                ...state,
+                signUp: newSignUp
+            }
         default:
             return state;
     }

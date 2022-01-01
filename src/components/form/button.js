@@ -3,7 +3,7 @@ import classes from './form.module.scss';
 
 const Button = ({value}) => {
     return (
-        <input type="button" className={classes.btn} value={value} />
+        <input type="submit" className={classes.btn} value={value} />
     );
 };
 
