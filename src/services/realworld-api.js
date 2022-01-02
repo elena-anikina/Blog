@@ -24,7 +24,6 @@ export default class RealworldApi {
             })
         })
             .then(response => {
-                console.log(response);
                 return response.json();
             })
     }

@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
                 arrowEnd: Number(action.page) < numberOfPages
             }
 
-        case 'INPUT_CHANGE_SIGNUP':
+        case 'INPUT_CHANGE_SIGNUP': {
             const newSignUp = [...signUp].map(el => {
                 if (el.label === action.name) {return {...el, value: action.value}}
                 return el;
@@ -44,6 +44,28 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 signUp: newSignUp
+            }
+        }
+
+        case 'SIGNUP_SUCCESS': {
+            const newSignUp = [...signUp].map(el => {
+                return {...el, value: ''}
+            });
+            return {
+                ...state,
+                signUp: newSignUp,
+                errorMessages: null,
+                user: action.user
+            }
+        }
+        case 'SIGNUP_ERROR':
+            const newSignUp = [...signUp].map(el => {
+                return {...el, value: ''}
+            });
+            return {
+                ...state,
+                signUp: newSignUp,
+                errorMessages: action.error
             }
         default:
             return state;

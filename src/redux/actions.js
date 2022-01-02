@@ -6,7 +6,6 @@ export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCES
 export const fetchArticlesError = () => ({type: 'FETCH_ARTICLES_ERROR'});
 
 export const fetchArticles = () => (dispatch) => {
-    console.log('inside fetchArticles');
     realWorldApi.getArticles().then(
         (result) => {
             dispatch(fetchArticlesSuccess(result.articles))
@@ -29,8 +28,26 @@ export const inputChangeSignUp = (e) => {
     return {type: 'INPUT_CHANGE_SIGNUP', value, name};
 };
 
-export const signUpSubmit = (e) => {
+export const signUpSuccess = (user) => ({type: 'SIGNUP_SUCCESS', user});
+
+export const signUpError = (error) => ({type: 'SIGNUP_ERROR', error});
+
+export const signUpSubmit = (e, data) => {
     e.preventDefault();
-    console.log(e);
-    return {type: 'SIGNUP_SUBMIT'}
+    const {value: username} = data[0];
+    const {value: email} = data[1];
+    const {value: password} = data[2];
+    return (dispatch) => {
+        realWorldApi.registerUser(username, email, password)
+            .then(
+                (result) => {
+                    if (result.errors) { dispatch(signUpError(result.errors)) }
+                    if (result.user) { dispatch(signUpSuccess(result.user)) }
+
+            },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    }
 };

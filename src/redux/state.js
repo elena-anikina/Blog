@@ -8,7 +8,9 @@ const state = {
         {label: "Repeat Password", placeholder: "Password", value: ""}
     ],
     pagination: {page: 1, trimStart: 0, trimEnd: 5, arrowStart: false, arrowEnd: true},
-    errors: 0
+    user: null,
+    errorMessages: null,
+    errors: null
 };
 
 export default state;
