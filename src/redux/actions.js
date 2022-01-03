@@ -32,22 +32,21 @@ export const signUpSuccess = (user) => ({type: 'SIGNUP_SUCCESS', user});
 
 export const signUpError = (error) => ({type: 'SIGNUP_ERROR', error});
 
-export const signUpSubmit = (e, data) => {
-    e.preventDefault();
-    const {value: username} = data[0];
-    const {value: email} = data[1];
-    const {value: password} = data[2];
+export const signUpSubmit = (data) => {
+    console.log(data);
+    const {Username: username, 'Email address': email, Password: password} = data;
+    console.log(username, email, password)
     return (dispatch) => {
-        realWorldApi.registerUser(username, email, password)
-            .then(
-                (result) => {
-                    if (result.errors) { dispatch(signUpError(result.errors)) }
-                    if (result.user) { dispatch(signUpSuccess(result.user)) }
-
-            },
-                (error) => {
-                    console.log(error);
-                }
-            )
+        // realWorldApi.registerUser(username, email, password)
+        //     .then(
+        //         (result) => {
+        //             if (result.errors) { dispatch(signUpError(result.errors)) }
+        //             if (result.user) { dispatch(signUpSuccess(result.user)) }
+        //
+        //     },
+        //         (error) => {
+        //             console.log(error);
+        //         }
+        //     )
     }
 };
