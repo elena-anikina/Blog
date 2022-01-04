@@ -67,6 +67,20 @@ const reducer = (state = initialState, action) => {
                 signUp: newSignUp,
                 errorMessages: action.error
             }
+        case 'SIGN_IN_SUCCESSFUL':
+            localStorage.setItem('token', action.user.token);
+            const token = localStorage.getItem('user');
+            console.log(token);
+            return {
+                ...state,
+                user: action.user,
+                errorMessages: null
+            }
+        case 'SIGN_IN_ERROR':
+            return {
+                ...state,
+                errorMessages: action.errors
+            }
         default:
             return state;
     }

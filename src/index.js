@@ -4,25 +4,12 @@ import {Provider} from "react-redux";
 import store from './redux/store';
 import {BrowserRouter} from "react-router-dom";
 import App from './components/app/app';
+import RealworldApi from "./services/realworld-api";
 
-fetch('https://api.realworld.io/api/users/login', {
-    method: "POST",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        "user":{
-            "email": "elenaanikina1988@amazon.com",
-            "password": "thebestpassword22"
-        }
-    })
-}).then(response => {
-    console.log(response);
-    return response.json()
-}).then(result => {
-    console.log(result)
-})
+const realWorldApi = new RealworldApi();
+
+
+realWorldApi.getCurrentUser().then(response => console.log(response))
 
 
 ReactDOM.render(

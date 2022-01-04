@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import classes from './header.module.scss';
 import Title from "./components/title";
@@ -6,13 +6,15 @@ import LogBtn from "./components/log-btn";
 import User from "../user/user";
 import HeaderNotAuthorized from "./header-not-authorized";
 import HeaderAuthorized from "./header-authorized";
+import * as actions from '../../redux/actions';
 
-const Header = ({authorized}) => {
-    return authorized ? <HeaderAuthorized /> : <HeaderNotAuthorized />;
+const Header = ({authorized, user, checkingAuthentication}) => {
+    useEffect(() => { checkingAuthentication() }, [])
+    return user ? <HeaderAuthorized {...user} /> : <HeaderNotAuthorized />;
 };
 
 
 
-const mapStateToProps = ({authorized}) => ({authorized});
+const mapStateToProps = ({authorized, user}) => ({authorized, user});
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);

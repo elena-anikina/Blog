@@ -15,7 +15,7 @@ const User = ({author: {username, image}, createdAt, style}) => {
                     <div className={classes.date}>{date}</div>
                 </div>
             </div>
-            <img className={classes.avatar} src={imageDefault} alt="" />
+            <img className={classes.avatar} src={userImage} alt="" />
         </div>
     );
 };

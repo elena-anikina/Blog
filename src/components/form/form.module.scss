@@ -1,6 +1,7 @@
 @import "src/components/app/global-variables";
 
 .formProfile {
+  transition: 1s ease-in-out;
   justify-content: flex-start;
   width: 360px;
   background-color: $white;
@@ -8,6 +9,30 @@
   font-family: $fontFamily;
   padding: 48px 36.5px;
   box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+}
+
+.visibility {
+  background-color: $white;
+  transition: width 1s ease-in-out;
+}
+
+.formProfile.message {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  transition: width 1s ease-in-out;
+}
+
+.formProfile.message .heading {
+  margin-bottom: 20px;
+}
+
+.formProfile.message .form {
+  display: block;
+  width: 100%;
+  color: #262626;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .heading {
@@ -131,4 +156,8 @@ input[type='checkbox']:checked + span {
   text-decoration: none;
   color: $infoColor;
   cursor: pointer;
+}
+
+.message {
+
 }

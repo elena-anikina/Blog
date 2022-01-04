@@ -1,16 +1,17 @@
 import React from "react";
+import {connect} from "react-redux";
+import * as actions from '../../redux/actions';
 import classes from '../form/form.module.scss';
 import Button from "../form/button";
 import AdditionalText from "../form/additional-text";
 import {useForm} from "react-hook-form";
 import {re} from "../../helpers/regex-email";
 
-const SignInPage = () => {
+const SignInPage = ({signInSubmit}) => {
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
         mode: 'onBlur'
     });
     const inputs = ['Email address', 'Password'].map((el, i) => {
-        console.log(errors);
         let style = {
             border: errors.hasOwnProperty(el) ? '1px solid #F5222D' : '1px solid #D9D9D9'
         };
@@ -35,16 +36,29 @@ const SignInPage = () => {
             </div>
         );
     });
+
+    const resultMessage = (
+        <div className={`${classes.formProfile} ${classes.message}`}>
+            <h1 className={classes.heading}>Congratulations!</h1>
+            <span className={classes.form}>You logged in successfully.</span>
+            <Button value="Go to Home Page" />
+        </div>
+    );
+
     return (
-        <div className={classes.formProfile }>
+        <>
+        <div className={`${classes.formProfile} ${classes.visibility}`}>
             <h1 className={classes.heading}>Sign In</h1>
-            <form className={classes.form} onSubmit={handleSubmit(() => (console.log('отправка формы')))}>
+            <form className={classes.form} onSubmit={handleSubmit(signInSubmit)}>
                 {inputs}
                 <Button value="Login" />
                 <AdditionalText {...{text: "Don’t have an account? Sign Up.", linkWord: "Sign Up", linkTo: "/"}} />
             </form>
         </div>
+        </>
     );
 };
 
-export default SignInPage;
+const mapStateToProps = (state) => (state);
+
+export default connect(mapStateToProps, actions)(SignInPage);

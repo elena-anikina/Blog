@@ -50,3 +50,24 @@ export const signUpSubmit = (data) => {
         //     )
     }
 };
+
+export const signInSuccessful = (user) => ({type: 'SIGN_IN_SUCCESSFUL', user});
+
+export const signInError = (errors) => ({type: 'SIGN_IN_ERROR', errors});
+
+export const signInSubmit = (data) => {
+    const {'Email address': email, Password: password} = data;
+    console.log(email, password);
+    return (dispatch) => {
+        realWorldApi.loginUser(email, password)
+            .then(response => response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors)))
+            .catch(err => console.log(err))
+    }
+};
+
+export const checkingAuthentication = () => {
+    return (dispatch) => {
+        return realWorldApi.getCurrentUser()
+            .then(response => response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors)))
+    }
+};
