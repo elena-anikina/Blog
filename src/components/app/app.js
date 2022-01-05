@@ -7,6 +7,7 @@ import Layout from "../layout/layout";
 import ArticlePage from "../pages/article-page";
 import SignInPage from "../pages/sign-in-page";
 import SignUpPage from "../pages/sign-up-page";
+import EditProfile from "../pages/edit-profile";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path="/articles/:slug" element={<ArticlePage />} />
                     <Route path="/sign-in" element={<SignInPage />} />
                     <Route path="/sign-up" element={<SignUpPage />} />
+                    <Route path="/edit-profile" element={<EditProfile />} />
                     <Route path="*" element={<div>No page found</div>} />
                 </Route>
             </Routes>

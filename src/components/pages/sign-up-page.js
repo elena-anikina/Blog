@@ -13,6 +13,9 @@ const SignUpPage = ({signUp, signUpSubmit}) => {
 
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({mode: 'onBlur'});
 
+    const watchPassword = watch('Password');
+    console.log(watchPassword);
+
     const inputs = signUp.map((el) => {
         let style = { border: errors.hasOwnProperty(el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
         const errorMessage = errors[el.label]?.message && <span className={classes.errorText}>{errors[el.label].message}</span>;
@@ -23,7 +26,7 @@ const SignUpPage = ({signUp, signUpSubmit}) => {
                     className={classes.input}
                     placeholder={el.placeholder || el.label}
                     style={style}
-                    {...register(el.label, {...getSignUpValidationOptions(el)})}
+                    {...register(el.label, {...getSignUpValidationOptions(el.label, watchPassword)})}
                 />
                 <div className={classes.errorText}>{errorMessage}</div>
             </label>

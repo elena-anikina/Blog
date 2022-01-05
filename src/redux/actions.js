@@ -1,4 +1,5 @@
 import RealworldApi from "../services/realworld-api";
+import {re} from "../helpers/regex-email";
 const realWorldApi = new RealworldApi();
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
@@ -37,17 +38,13 @@ export const signUpSubmit = (data) => {
     const {Username: username, 'Email address': email, Password: password} = data;
     console.log(username, email, password)
     return (dispatch) => {
-        // realWorldApi.registerUser(username, email, password)
-        //     .then(
-        //         (result) => {
-        //             if (result.errors) { dispatch(signUpError(result.errors)) }
-        //             if (result.user) { dispatch(signUpSuccess(result.user)) }
-        //
-        //     },
-        //         (error) => {
-        //             console.log(error);
-        //         }
-        //     )
+        realWorldApi.registerUser(username, email, password)
+            .then(
+                (result) => {
+                    if (result.user) { dispatch(signUpSuccess(result.user)) }
+                    if (result.errors) { dispatch(signUpError(result.errors)) }
+            }
+            ).catch(err => console.log(err))
     }
 };
 
@@ -60,7 +57,10 @@ export const signInSubmit = (data) => {
     console.log(email, password);
     return (dispatch) => {
         realWorldApi.loginUser(email, password)
-            .then(response => response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors)))
+            .then(response => {
+                console.log(response);
+                return response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors))
+            })
             .catch(err => console.log(err))
     }
 };
@@ -69,5 +69,11 @@ export const checkingAuthentication = () => {
     return (dispatch) => {
         return realWorldApi.getCurrentUser()
             .then(response => response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors)))
+            .catch(err => console.log(err))
     }
+};
+
+export const logOut = () => {
+    localStorage.removeItem('token');
+    return ({type: 'LOG_OUT'})
 };

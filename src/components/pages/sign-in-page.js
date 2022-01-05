@@ -6,6 +6,7 @@ import Button from "../form/button";
 import AdditionalText from "../form/additional-text";
 import {useForm} from "react-hook-form";
 import {re} from "../../helpers/regex-email";
+import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
 
 const SignInPage = ({signInSubmit}) => {
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
@@ -23,13 +24,7 @@ const SignInPage = ({signInSubmit}) => {
                         className={classes.input}
                         placeholder={el}
                         style={style}
-                        {...register(el, {
-                            required: 'Поле обязательно для заполнения',
-                            pattern: {
-                                value: el === 'Email address' ? re : null,
-                                message: 'Неверный мейл'
-                            }
-                        })}
+                        {...register(el, {...getSignUpValidationOptions(el)})}
                     />
                     <div className={classes.errorText}>{errorMessage}</div>
                 </label>

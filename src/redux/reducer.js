@@ -71,6 +71,7 @@ const reducer = (state = initialState, action) => {
             localStorage.setItem('token', action.user.token);
             const token = localStorage.getItem('user');
             console.log(token);
+            console.log(action.user);
             return {
                 ...state,
                 user: action.user,
@@ -80,6 +81,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 errorMessages: action.errors
+            }
+
+        case 'LOG_OUT':
+            return {
+                ...state,
+                user: null
             }
         default:
             return state;

@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 
 
 const User = ({author: {username, image}, createdAt, style}) => {
-    const userImage = image ? image : imageDefault;
+    const userImage = image ? image : 'https://api.realworld.io/images/smiley-cyrus.jpeg';
     const date = createdAt ? format(new Date(createdAt), 'LLLL d, yyyy') : null;
     return (
         <div className={classes.userContainer}>

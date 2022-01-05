@@ -28,6 +28,7 @@ export default class RealworldApi {
             .then(response => {
                 return response.json();
             })
+            .catch(err => console.log(err))
     }
 
     async loginUser(email, password) {
@@ -55,7 +56,12 @@ export default class RealworldApi {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
-        }).then(response => response.json())
+        })
+            .then(response => {
+                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
+                return response.json();
+            })
+            .catch(err => console.log(err))
     };
 
 }

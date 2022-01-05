@@ -2,7 +2,7 @@ import React from "react";
 import classes from '../header.module.scss';
 import {Link} from "react-router-dom";
 
-const LogBtn = ({text, link, style}) => {
+const LogBtn = ({text, link, style, func}) => {
     let classNames = [classes.btn];
     if (style) { classNames.push(classes[style]) }
 
