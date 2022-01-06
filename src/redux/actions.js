@@ -1,5 +1,6 @@
 import RealworldApi from "../services/realworld-api";
 import {re} from "../helpers/regex-email";
+import {useForm} from "react-hook-form";
 const realWorldApi = new RealworldApi();
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
@@ -52,16 +53,21 @@ export const signInSuccessful = (user) => ({type: 'SIGN_IN_SUCCESSFUL', user});
 
 export const signInError = (errors) => ({type: 'SIGN_IN_ERROR', errors});
 
-export const signInSubmit = (data) => {
+export const signInSubmit = (data, reset) => {
     const {'Email address': email, Password: password} = data;
     console.log(email, password);
+
     return (dispatch) => {
-        realWorldApi.loginUser(email, password)
+        return realWorldApi.loginUser(email, password)
             .then(response => {
                 console.log(response);
+                reset();
                 return response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors))
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err);
+                reset();
+            })
     }
 };
 
@@ -76,4 +82,20 @@ export const checkingAuthentication = () => {
 export const logOut = () => {
     localStorage.removeItem('token');
     return ({type: 'LOG_OUT'})
+};
+
+export const editProfileSuccess = (user) => ({type: 'EDIT_PROFILE_SUCCESS', user});
+
+export const editProfileError = (error) => ({type: 'EDIT_PROFILE_ERROR', error});
+
+export const editProfile = (data) => {
+    console.log(data);
+    const {"Avatar image (url)": image, "Email address": email, "New password": password, "Username": username} = data;
+
+    console.log(image, email, password, username);
+    return (dispatch) => {
+        realWorldApi.updateUser(email, username, password, image)
+            .then(response => response.user? dispatch(editProfileSuccess(response.user)) : dispatch(editProfileError(response.errors)))
+            .catch(err => console.log(err))
+    }
 };

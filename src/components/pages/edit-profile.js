@@ -9,25 +9,29 @@ import {connect} from "react-redux";
 import * as actions from '../../redux/actions';
 
 
-const EditProfile = ({user, checkingAuthentication}) => {
-    const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({mode: 'onBlur'});
+const EditProfile = ({user, checkingAuthentication, editProfile}) => {
+    const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
+        mode: 'onBlur',
+        defaultValues: {
+            'Username': user?.username,
+            'Email address': user?.email,
+            'New password': '',
+            'Avatar image (url)': user?.image
+        }
+    });
 
-    const inputs = [
-        ['Username', user?.username || ''],
-        ['Email address', user?.email || ''],
-        ['New password', ''],
-        ['Avatar image (url)', user?.image || '']].map((el) => {
-        let style = { border: errors.hasOwnProperty(el[0]) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
-        const errorMessage = errors[el[0]]?.message && <span className={classes.errorText}>{errors[el[0]].message}</span>;
+    const inputs = ['Username', 'Email address', 'New password', 'Avatar image (url)'].map((el) => {
+        let style = { border: errors.hasOwnProperty(el) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
+        const errorMessage = errors[el]?.message && <span className={classes.errorText}>{errors[el].message}</span>;
         return (
-            <div key={el[0]} className={classes.form}>
-                <label>{el[0]}
+            <div key={el} className={classes.form}>
+                <label>{el}
                     <input
                         className={classes.input}
-                        placeholder={el[0]}
+                        placeholder={el}
                         style={style}
-                        defaultValue={el[1]}
-                        {...register(el[0], {...getSignUpValidationOptions(el[0])})}
+                        ref={register}
+                        {...register(el, {...getSignUpValidationOptions(el)})}
                     />
                     <div className={classes.errorText}>{errorMessage}</div>
                 </label>
@@ -37,7 +41,7 @@ const EditProfile = ({user, checkingAuthentication}) => {
     return (
         <div className={classes.formProfile }>
             <h1 className={classes.heading}>Edit Profile</h1>
-            <form className={classes.form} onSubmit={handleSubmit(() => {console.log('edit profile save')})}>
+            <form className={classes.form} onSubmit={handleSubmit(editProfile)}>
                 {inputs}
                 <Button value="Save" />
             </form>

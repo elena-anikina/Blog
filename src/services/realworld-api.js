@@ -42,13 +42,16 @@ export default class RealworldApi {
                 user: {email, password}
             })
         })
-            .then(response => {
+            .then(
+                response => {
+                console.log(response);
                 return response.json()
-            })
+            },
+                error => console.log(error)
+            )
     }
 
     async getCurrentUser() {
-        console.log(`Token ${localStorage.getItem('token')}`);
         return fetch(`${this.baseUrl2}/user`, {
             method: "GET",
             headers: {
@@ -61,7 +64,24 @@ export default class RealworldApi {
                 if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
                 return response.json();
             })
-            .catch(err => console.log(err))
     };
+
+    async updateUser(email, username, password, image) {
+        return fetch(`${this.baseUrl2}/user`, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                user: {email, username, password, image}
+            })
+        })
+            .then(response => {
+                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
+                return response.json();
+            })
+    }
 
 }

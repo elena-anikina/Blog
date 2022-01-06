@@ -82,6 +82,8 @@
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
   width: 100%;
   background-color: $infoColor;
   color: $white;
@@ -93,9 +95,22 @@
   border-radius: 4px;
   margin-bottom: 8px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.btnTextSuccess {
+  background-color: inherit;
+  border: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: inherit;
+  text-decoration: none;
 }
 
 .additionalText {
+  display: flex;
+  justify-content: center;
   width: 100%;
   text-align: center;
   font-size: 12px;

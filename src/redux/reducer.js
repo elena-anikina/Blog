@@ -88,6 +88,19 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: null
             }
+
+        case 'EDIT_PROFILE_SUCCESS':
+            return {
+                ...state,
+                user: action.user,
+                errorMessages: null
+            }
+
+        case 'EDIT_PROFILE_ERROR':
+            return {
+                ...state,
+                errorMessages: action.error
+            }
         default:
             return state;
     }
