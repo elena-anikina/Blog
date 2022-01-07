@@ -8,15 +8,16 @@ import * as actions from '../../redux/actions';
 import {re} from "../../helpers/regex-email";
 import Checkbox from "../form/checkbox";
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
+import {signUpLabels} from "./labels";
 
-const SignUpPage = ({signUp, signUpSubmit}) => {
+const SignUpPage = ({signUpSubmit}) => {
 
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({mode: 'onBlur'});
 
     const watchPassword = watch('Password');
     console.log(watchPassword);
 
-    const inputs = signUp.map((el) => {
+    const inputs = signUpLabels.map((el) => {
         let style = { border: errors.hasOwnProperty(el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
         const errorMessage = errors[el.label]?.message && <span className={classes.errorText}>{errors[el.label].message}</span>;
         return (

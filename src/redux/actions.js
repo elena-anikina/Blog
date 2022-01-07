@@ -95,7 +95,16 @@ export const editProfile = (data) => {
     console.log(image, email, password, username);
     return (dispatch) => {
         realWorldApi.updateUser(email, username, password, image)
-            .then(response => response.user? dispatch(editProfileSuccess(response.user)) : dispatch(editProfileError(response.errors)))
+            .then(response => {
+                if(response.user) {
+                    console.log(response.user);
+                    localStorage.setItem('token', response.user.token);
+                    dispatch(editProfileSuccess(response.user))
+                } else {
+                    console.log(response);
+                    dispatch(editProfileError(response.errors))
+                }
+            })
             .catch(err => console.log(err))
     }
 };

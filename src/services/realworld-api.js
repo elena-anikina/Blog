@@ -67,6 +67,7 @@ export default class RealworldApi {
     };
 
     async updateUser(email, username, password, image) {
+        console.log('token', localStorage.getItem('token'));
         return fetch(`${this.baseUrl2}/user`, {
             method: "PUT",
             headers: {

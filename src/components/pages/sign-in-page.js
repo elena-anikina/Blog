@@ -9,12 +9,21 @@ import {re} from "../../helpers/regex-email";
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
 import BaseLayout from "../form/base-layout";
 import ResultMessage from "../form/result-message";
+import {useLocation, useNavigate} from 'react-router-dom';
+import {signInLabels} from "./labels";
 
 const SignInPage = ({signInSubmit, user}) => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const fromPage = location.state?.from?.pathname || '/';
+
+    console.log(location);
+
+
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({mode: 'onBlur'});
 
-    const inputs = ['Email address', 'Password'].map((el, i) => {
+    const inputs = signInLabels.map((el, i) => {
         let style = { border: errors.hasOwnProperty(el) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
         const errorMessage = (errors[el]?.message) && (<span className={classes.errorText}>{errors[el].message}</span>);
         return (
@@ -34,10 +43,15 @@ const SignInPage = ({signInSubmit, user}) => {
     });
 
 
-    const onSubmit = (data) => { signInSubmit(data, reset) };
+    const onSubmit = (data) => {
+        signInSubmit(data, reset).then(() => {
+            setTimeout(() => navigate(fromPage), 2000)
+        })
+
+    };
 
     const signInForm = (
-        <BaseLayout heading="Sign In">
+        <BaseLayout heading={`Sign IN, ${fromPage}`}>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 {inputs}
                 <Button value="Login" />

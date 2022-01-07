@@ -42,18 +42,14 @@ const reducer = (state = initialState, action) => {
                 return el;
             });
             return {
-                ...state,
-                signUp: newSignUp
+                ...state
             }
         }
 
         case 'SIGNUP_SUCCESS': {
-            const newSignUp = [...signUp].map(el => {
-                return {...el, value: ''}
-            });
+            localStorage.setItem('token', action.user.token);
             return {
                 ...state,
-                signUp: newSignUp,
                 errorMessages: null,
                 user: action.user
             }
@@ -64,12 +60,13 @@ const reducer = (state = initialState, action) => {
             });
             return {
                 ...state,
-                signUp: newSignUp,
                 errorMessages: action.error
             }
         case 'SIGN_IN_SUCCESSFUL':
             localStorage.setItem('token', action.user.token);
-            const token = localStorage.getItem('user');
+            console.log(localStorage.getItem('token'))
+
+            const token = localStorage.getItem('token');
             console.log(token);
             console.log(action.user);
             return {

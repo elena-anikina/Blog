@@ -8,6 +8,8 @@ import ArticlePage from "../pages/article-page";
 import SignInPage from "../pages/sign-in-page";
 import SignUpPage from "../pages/sign-up-page";
 import EditProfile from "../pages/edit-profile";
+import ArticleNew from "../pages/article-new";
+import RequireAuthentication from "../../hoc/require-authentication";
 
 const App = () => {
     return (
@@ -20,6 +22,11 @@ const App = () => {
                     <Route path="/sign-in" element={<SignInPage />} />
                     <Route path="/sign-up" element={<SignUpPage />} />
                     <Route path="/edit-profile" element={<EditProfile />} />
+                    <Route path="/article-new" element={
+                        <RequireAuthentication>
+                            <ArticleNew />
+                        </RequireAuthentication>
+                    } />
                     <Route path="*" element={<div>No page found</div>} />
                 </Route>
             </Routes>

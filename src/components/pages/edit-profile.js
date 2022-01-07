@@ -7,6 +7,7 @@ import Button from "../form/button";
 import AdditionalText from "../form/additional-text";
 import {connect} from "react-redux";
 import * as actions from '../../redux/actions';
+import {editProfileLabels} from "./labels";
 
 
 const EditProfile = ({user, checkingAuthentication, editProfile}) => {
@@ -20,7 +21,7 @@ const EditProfile = ({user, checkingAuthentication, editProfile}) => {
         }
     });
 
-    const inputs = ['Username', 'Email address', 'New password', 'Avatar image (url)'].map((el) => {
+    const inputs = editProfileLabels.map((el) => {
         let style = { border: errors.hasOwnProperty(el) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
         const errorMessage = errors[el]?.message && <span className={classes.errorText}>{errors[el].message}</span>;
         return (

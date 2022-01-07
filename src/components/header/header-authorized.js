@@ -13,7 +13,7 @@ const HeaderAuthorized = ({username, image, logOut}) => {
             <Title />
 
             <div className={`${classes.headerButtons} ${classes.authorized}`}>
-                <LogBtn text="Create article" link="/" />
+                <LogBtn text="Create article" link="/article-new" />
 
                 <div className={classes.userContainer}>
                     <div className={classes.userNameContainer}>
