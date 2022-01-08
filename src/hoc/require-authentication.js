@@ -1,10 +1,17 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import {connect} from "react-redux";
 
-const RequireAuthentication = ({children, user}) => {
-    const location = useLocation();
+const RequireAuthentication = ({children, user, loadingUser, errorMessages}) => {
+    console.log(loadingUser);
 
-    if (!user) {return <Navigate to="/sign-in" state={{from: location}} />}
+    const location = useLocation();
+    console.log(location);
+
+    console.log(localStorage.getItem('token'));
+
+
+
+    if (!user && !localStorage.getItem('token')) {return <Navigate to="/sign-in" state={{from: location}} />}
 
     return children;
 };

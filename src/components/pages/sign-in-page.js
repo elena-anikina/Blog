@@ -10,7 +10,7 @@ import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions
 import BaseLayout from "../form/base-layout";
 import ResultMessage from "../form/result-message";
 import {useLocation, useNavigate} from 'react-router-dom';
-import {signInLabels} from "./labels";
+import {signInLabels} from "../form/labels";
 
 const SignInPage = ({signInSubmit, user}) => {
 
@@ -42,12 +42,14 @@ const SignInPage = ({signInSubmit, user}) => {
         );
     });
 
+    const navFunc = () => {
+        console.log('inside navFunc')
+        navigate(fromPage);
+    };
 
     const onSubmit = (data) => {
-        signInSubmit(data, reset).then(() => {
-            setTimeout(() => navigate(fromPage), 2000)
-        })
-
+        console.log('inside onSubmit')
+        signInSubmit(data, reset, navigate, fromPage);
     };
 
     const signInForm = (
@@ -60,7 +62,7 @@ const SignInPage = ({signInSubmit, user}) => {
         </BaseLayout>
     );
 
-    const resultSuccess = <ResultMessage heading="You're lucky!" text="You logged in successfully!" />
+    const resultSuccess = <ResultMessage navFunc={navFunc} heading="You're lucky!" text="You logged in successfully!" />
 
     return user ? resultSuccess : signInForm;
 };

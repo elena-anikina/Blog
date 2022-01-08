@@ -51,16 +51,15 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 errorMessages: null,
-                user: action.user
+                user: action.user,
+                loadingUser: false
             }
         }
         case 'SIGNUP_ERROR':
-            const newSignUp = [...signUp].map(el => {
-                return {...el, value: ''}
-            });
             return {
                 ...state,
-                errorMessages: action.error
+                errorMessages: action.error,
+                loadingUser: false
             }
         case 'SIGN_IN_SUCCESSFUL':
             localStorage.setItem('token', action.user.token);
@@ -72,31 +71,36 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.user,
-                errorMessages: null
+                errorMessages: null,
+                loadingUser: false
             }
         case 'SIGN_IN_ERROR':
             return {
                 ...state,
-                errorMessages: action.errors
+                errorMessages: action.errors,
+                loadingUser: false
             }
 
         case 'LOG_OUT':
             return {
                 ...state,
-                user: null
+                user: null,
+                loadingUser: false
             }
 
         case 'EDIT_PROFILE_SUCCESS':
             return {
                 ...state,
                 user: action.user,
-                errorMessages: null
+                errorMessages: null,
+                loadingUser: false
             }
 
         case 'EDIT_PROFILE_ERROR':
             return {
                 ...state,
-                errorMessages: action.error
+                errorMessages: action.error,
+                loadingUser: false
             }
         default:
             return state;

@@ -7,7 +7,7 @@ import Button from "../form/button";
 import AdditionalText from "../form/additional-text";
 import {connect} from "react-redux";
 import * as actions from '../../redux/actions';
-import {editProfileLabels} from "./labels";
+import {editProfileLabels} from "../form/labels";
 
 
 const EditProfile = ({user, checkingAuthentication, editProfile}) => {

@@ -10,6 +10,7 @@ import SignUpPage from "../pages/sign-up-page";
 import EditProfile from "../pages/edit-profile";
 import ArticleNew from "../pages/article-new";
 import RequireAuthentication from "../../hoc/require-authentication";
+import ArticleEdit from "../pages/article-edit";
 
 const App = () => {
     return (
@@ -22,11 +23,8 @@ const App = () => {
                     <Route path="/sign-in" element={<SignInPage />} />
                     <Route path="/sign-up" element={<SignUpPage />} />
                     <Route path="/edit-profile" element={<EditProfile />} />
-                    <Route path="/article-new" element={
-                        <RequireAuthentication>
-                            <ArticleNew />
-                        </RequireAuthentication>
-                    } />
+                    <Route path="/article-new" element={<RequireAuthentication><ArticleNew /></RequireAuthentication>} />
+                    <Route path="/articles/:slug/edit" element={<RequireAuthentication><ArticleEdit /></RequireAuthentication>} />
                     <Route path="*" element={<div>No page found</div>} />
                 </Route>
             </Routes>

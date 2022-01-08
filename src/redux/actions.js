@@ -1,6 +1,7 @@
 import RealworldApi from "../services/realworld-api";
 import {re} from "../helpers/regex-email";
 import {useForm} from "react-hook-form";
+import {useLocation} from "react-router-dom";
 const realWorldApi = new RealworldApi();
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
@@ -34,7 +35,7 @@ export const signUpSuccess = (user) => ({type: 'SIGNUP_SUCCESS', user});
 
 export const signUpError = (error) => ({type: 'SIGNUP_ERROR', error});
 
-export const signUpSubmit = (data) => {
+export const signUpSubmit = (data, reset) => {
     console.log(data);
     const {Username: username, 'Email address': email, Password: password} = data;
     console.log(username, email, password)
@@ -42,10 +43,14 @@ export const signUpSubmit = (data) => {
         realWorldApi.registerUser(username, email, password)
             .then(
                 (result) => {
+                    reset();
                     if (result.user) { dispatch(signUpSuccess(result.user)) }
                     if (result.errors) { dispatch(signUpError(result.errors)) }
             }
-            ).catch(err => console.log(err))
+            ).catch(err => {
+                reset();
+                console.log(err)
+        })
     }
 };
 
@@ -53,10 +58,9 @@ export const signInSuccessful = (user) => ({type: 'SIGN_IN_SUCCESSFUL', user});
 
 export const signInError = (errors) => ({type: 'SIGN_IN_ERROR', errors});
 
-export const signInSubmit = (data, reset) => {
+export const signInSubmit = (data, reset, navigate, fromPage) => {
     const {'Email address': email, Password: password} = data;
     console.log(email, password);
-
     return (dispatch) => {
         return realWorldApi.loginUser(email, password)
             .then(response => {
@@ -72,6 +76,13 @@ export const signInSubmit = (data, reset) => {
 };
 
 export const checkingAuthentication = () => {
+    console.log('inside checkingAuthentication');
+    // const location = useLocation();
+    // const fromPage = location.state?.from?.pathname || '/';
+    //
+    // console.log(location);
+    // console.log(fromPage);
+
     return (dispatch) => {
         return realWorldApi.getCurrentUser()
             .then(response => response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors)))

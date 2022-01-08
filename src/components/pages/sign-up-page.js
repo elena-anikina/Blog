@@ -8,7 +8,7 @@ import * as actions from '../../redux/actions';
 import {re} from "../../helpers/regex-email";
 import Checkbox from "../form/checkbox";
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
-import {signUpLabels} from "./labels";
+import {signUpLabels} from "../form/labels";
 
 const SignUpPage = ({signUpSubmit}) => {
 
@@ -34,10 +34,15 @@ const SignUpPage = ({signUpSubmit}) => {
             </div>
         );
     });
+
+    const onSubmit = (data) => {
+        signUpSubmit(data, reset);
+    };
+
     return (
         <div className={classes.formProfile }>
             <h1 className={classes.heading}>Create new account</h1>
-            <form className={classes.form} onSubmit={handleSubmit(signUpSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 {inputs}
                 <Checkbox />
                 <Button value="Create" />
