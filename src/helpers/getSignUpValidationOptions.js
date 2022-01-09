@@ -64,6 +64,13 @@ const getSignUpValidationOptions = (label, watchPassword) => {
             return {
                 pattern: {value: reUrl, message: 'Avatar image должен быть корректным url'}
             }
+
+        case 'Title':
+        case 'Short description':
+        case 'Text':
+            return {
+                required: 'Поле обязательно для заполнения'
+            }
     }
 };
 
