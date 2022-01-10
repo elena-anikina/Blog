@@ -7,12 +7,9 @@ const reducer = (state = initialState, action) => {
 
         case 'FETCH_ARTICLES_SUCCESS':
             const articlesWithId1 = action.articles.map(el => ({id: uuid(), ...el}));
-            const articlesWithId2 = action.articles.map(el => ({id: uuid(), ...el}));
-            const articlesWithId3 = action.articles.map(el => ({id: uuid(), ...el}));
-            const articlesWithId4 = action.articles.map(el => ({id: uuid(), ...el}));
             return {
                 ...state,
-                articles: [...articlesWithId1, ...articlesWithId2, ...articlesWithId3, ...articlesWithId4]
+                articles: [...articlesWithId1]
             }
 
         case 'FETCH_ARTICLES_ERROR':

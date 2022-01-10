@@ -10,4 +10,24 @@ export const articleDefaultValues = {
     ...tagsDefaultValues
 };
 
+export const getArticleDefaultValues = (type) => {
+    switch (type) {
+        case 'new':
+            return {
+                "Title": '',
+                "Short description": '',
+                "Text": '',
+                ...tagsDefaultValues
+            }
+
+        case 'edit':
+            return {
+                "Title": '',
+                "Short description": '',
+                "Text": '',
+                ...tagsDefaultValues
+            }
+    }
+};
+
 

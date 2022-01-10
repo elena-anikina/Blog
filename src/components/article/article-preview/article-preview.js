@@ -4,6 +4,7 @@ import TextPreview from "./text-preview/text-preview";
 import User from "../../user/user";
 
 const ArticlePreview = ({preview, ...article}) => {
+    console.log(article);
     return (
         <div className={classes.articlePreview}>
             <TextPreview {...article} preview={preview} />

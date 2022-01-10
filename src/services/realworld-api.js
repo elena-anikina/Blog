@@ -3,10 +3,11 @@ import {re} from "../helpers/regex-email";
 export default class RealworldApi {
 
     baseUrl = 'http://kata.academy:8022';
-    baseUrl2 = 'https://api.realworld.io/api'
+    baseUrl2 = 'https://api.realworld.io/api';
+    baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
 
     async getArticles() {
-        return fetch(`${this.baseUrl2}/articles`)
+        return fetch(`${this.baseUrl3}/articles`)
             .then((response) => {
                 if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
 
@@ -15,7 +16,7 @@ export default class RealworldApi {
     }
 
     async registerUser(username, email, password) {
-        return fetch(`${this.baseUrl2}/users`, {
+        return fetch(`${this.baseUrl3}/users`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -32,7 +33,7 @@ export default class RealworldApi {
     }
 
     async loginUser(email, password) {
-        return fetch(`${this.baseUrl2}/users/login`, {
+        return fetch(`${this.baseUrl3}/users/login`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -52,7 +53,7 @@ export default class RealworldApi {
     }
 
     async getCurrentUser() {
-        return fetch(`${this.baseUrl2}/user`, {
+        return fetch(`${this.baseUrl3}/user`, {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
@@ -67,8 +68,7 @@ export default class RealworldApi {
     };
 
     async updateUser(email, username, password, image) {
-        console.log('token', localStorage.getItem('token'));
-        return fetch(`${this.baseUrl2}/user`, {
+        return fetch(`${this.baseUrl3}/user`, {
             method: "PUT",
             headers: {
                 'Accept': 'application/json',
@@ -83,6 +83,24 @@ export default class RealworldApi {
                 if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
                 return response.json();
             })
+    }
+
+    async createArticle(title, description, body, tagList) {
+        console.log(localStorage.getItem('token'));
+        return fetch(`${this.baseUrl3}/articles`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                "article": {title, description, body, tagList}
+            })
+        }).then(response => {
+            console.log(response);
+            return response.json();
+        })
     }
 
 }
