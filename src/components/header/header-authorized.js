@@ -17,7 +17,7 @@ const HeaderAuthorized = ({username, image, logOut}) => {
 
                 <div className={classes.userContainer}>
                     <div className={classes.userNameContainer}>
-                        <Link to="/edit-profile" className={classes.userNameHeader}>
+                        <Link to="/edit-profile" onClick={() => console.log('username click')} className={classes.userNameHeader}>
                             {username}
                         </Link>
                     </div>

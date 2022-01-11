@@ -1,21 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
 import classes from '../form/form.module.scss';
 import {useForm} from "react-hook-form";
-import {articleDefaultValues} from "../../helpers/articleDefaultValues";
+import {articleDefaultValues, tagsDefaultValues} from "../../helpers/articleDefaultValues";
 import {articleNew} from "../form/labels";
 import {getErrorMessage, getValidationStyleForInput} from "../form/getRedValidationStyleForInput";
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
 import {getArticleDefaultValues} from "../../helpers/articleDefaultValues";
 import {getStandardInput} from "../form/getRedValidationStyleForInput";
+import {useParams} from "react-router-dom";
+import * as actions from '../../redux/actions';
 
-const ArticleForm = ({title, tagsNum, type, func}) => {
+
+const getUpdatedArticleDefaultValues = (type, article) => {
+    return getArticleDefaultValues(type, article);
+};
+
+const ArticleForm = ({title, tagsNum, type, func, article, getArticleForEditing}) => {
+
+
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
-        mode: "onBlur", defaultValues: {...getArticleDefaultValues(type)}
+        mode: "onBlur", defaultValues: {
+            "Title": type === 'edit' ? article?.title : '',
+            "Short description": type === 'edit' ? article?.description : '',
+            "Text": type === 'edit' ? article?.body : '',
+            ...tagsDefaultValues(article?.tagList)
+        }
     });
 
     const inputs = articleNew.map(el => getStandardInput(el.label, el.placeholder, errors, register));
 
-    const tags = Array.from({length: tagsNum}).map((el, i) => (
+    const tags = Array.from({length: type === 'edit' ? (article?.tagList.length || 2) : 2}).map((el, i) => (
         <div key={i} className={classes.tagInputWrapper}>
             <input
                 className={classes.tagsInput}
@@ -24,11 +39,10 @@ const ArticleForm = ({title, tagsNum, type, func}) => {
             />
             <div className={classes.tagDelete} onClick={() => console.log('delete')}>Delete</div>
             {
-                i === Array.from({length: tagsNum}).length - 1 && <div className={classes.tagAdd} onClick={() => console.log('add tag')}>Add tag</div>
+                (i === article?.tagList.length - 1 || i === 1)  && <div className={classes.tagAdd} onClick={() => console.log('add tag')}>Add tag</div>
             }
         </div>
     ))
-
     return (
         <div className={classes.articleForm}>
             <h1 className={classes.heading}>{title}</h1>
@@ -38,6 +52,7 @@ const ArticleForm = ({title, tagsNum, type, func}) => {
                     <label>
                         Text
                         <textarea
+                            defaultValue={article?.body}
                             style={getValidationStyleForInput(errors, 'Text')}
                             className={classes.inputTextarea}
                             placeholder="Text"
@@ -56,4 +71,6 @@ const ArticleForm = ({title, tagsNum, type, func}) => {
     );
 };
 
-export default ArticleForm;
+const mapStateToProps = (state) => (state);
+
+export default connect(mapStateToProps, actions)(ArticleForm);

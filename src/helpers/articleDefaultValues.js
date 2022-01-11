@@ -1,7 +1,11 @@
-export const tagsDefaultValues = Array.from({length: 2}).reduce((acc, curr, i) => {
-    acc[`tag${i+1}`] = 'meow';
-    return acc;
-}, {});
+export const tagsDefaultValues = (tagList = ['tag']) => {
+    return tagList.reduce((acc, curr, i) => {
+        acc[`tag${i+1}`] = curr;
+        return acc;
+    }, {});
+};
+
+console.log(tagsDefaultValues);
 
 export const articleDefaultValues = {
     "Title": '',
@@ -10,7 +14,7 @@ export const articleDefaultValues = {
     ...tagsDefaultValues
 };
 
-export const getArticleDefaultValues = (type) => {
+export const getArticleDefaultValues = (type, article) => {
     switch (type) {
         case 'new':
             return {
@@ -22,7 +26,7 @@ export const getArticleDefaultValues = (type) => {
 
         case 'edit':
             return {
-                "Title": '',
+                "Title": article?.title,
                 "Short description": '',
                 "Text": '',
                 ...tagsDefaultValues

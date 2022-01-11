@@ -12,7 +12,7 @@ import ResultMessage from "../form/result-message";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {signInLabels} from "../form/labels";
 
-const SignInPage = ({signInSubmit, user}) => {
+const SignInPage = ({signInSubmit, user, errorMessages}) => {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -48,8 +48,8 @@ const SignInPage = ({signInSubmit, user}) => {
     };
 
     const onSubmit = (data) => {
-        console.log('inside onSubmit')
-        signInSubmit(data, reset, navigate, fromPage);
+        console.log(errorMessages)
+        signInSubmit(data, reset, navigate, fromPage)
     };
 
     const signInForm = (

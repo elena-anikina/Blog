@@ -99,6 +99,10 @@ export const editProfileSuccess = (user) => ({type: 'EDIT_PROFILE_SUCCESS', user
 
 export const editProfileError = (error) => ({type: 'EDIT_PROFILE_ERROR', error});
 
+// export const showResultMessage = () => ({type: 'SHOW_RESULT_MESSAGE'});
+
+export const hideResultMessage = () => ({type: 'HIDE_RESULT_MESSAGE'});
+
 export const editProfile = (data) => {
     console.log(data);
     const {"Avatar image (url)": image, "Email address": email, "New password": password, "Username": username} = data;
@@ -110,12 +114,27 @@ export const editProfile = (data) => {
                 if(response.user) {
                     console.log(response.user);
                     localStorage.setItem('token', response.user.token);
+                    dispatch(hideResultMessage());
                     dispatch(editProfileSuccess(response.user))
                 } else {
                     console.log(response);
                     dispatch(editProfileError(response.errors))
                 }
             })
+            .catch(err => console.log(err))
+    }
+};
+
+export const getArticleForEditingSuccess = (article) => ({type: 'GET_ARTICLE_SUCCESS', article});
+
+export const getArticleForEditingError = (error) => ({type: 'GET_ARTICLE_ERROR', error});
+
+export const getArticleForEditing = (slug) => {
+    return (dispatch) => {
+        return realWorldApi.getArticle(slug)
+            .then((response) => {
+            return response.article ? dispatch(getArticleForEditingSuccess(response.article)) : dispatch(getArticleForEditingError(response.errors))
+        })
             .catch(err => console.log(err))
     }
 };

@@ -80,7 +80,8 @@ export default class RealworldApi {
             })
         })
             .then(response => {
-                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
+                console.log(response);
+               // if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
                 return response.json();
             })
     }
@@ -103,4 +104,11 @@ export default class RealworldApi {
         })
     }
 
+    async getArticle(slug) {
+        return fetch(`${this.baseUrl3}/articles/${slug}`)
+            .then(response => {
+                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
+                return response.json()
+            });
+    }
 }

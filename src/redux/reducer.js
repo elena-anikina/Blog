@@ -90,14 +90,35 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: action.user,
                 errorMessages: null,
-                loadingUser: false
+                loadingUser: false,
+                resultMessage: true
             }
 
         case 'EDIT_PROFILE_ERROR':
             return {
                 ...state,
                 errorMessages: action.error,
-                loadingUser: false
+                loadingUser: false,
+                resultMessage: true
+            }
+
+        case 'HIDE_RESULT_MESSAGE':
+            return {
+                ...state,
+                resultMessage: false
+            }
+
+        case 'GET_ARTICLE_SUCCESS':
+            return {
+                ...state,
+                article: action.article
+            }
+
+        case 'GET_ARTICLE_ERROR':
+            return {
+                ...state,
+                article: null,
+                errorMessages: action.error
             }
         default:
             return state;

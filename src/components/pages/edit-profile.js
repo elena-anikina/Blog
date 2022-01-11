@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import classes from '../form/form.module.scss';
 import {useForm} from "react-hook-form";
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
@@ -8,9 +8,26 @@ import AdditionalText from "../form/additional-text";
 import {connect} from "react-redux";
 import * as actions from '../../redux/actions';
 import {editProfileLabels} from "../form/labels";
+import { notification, Space } from 'antd';
 
 
-const EditProfile = ({user, checkingAuthentication, editProfile}) => {
+const openNotificationWithIcon = type => {
+    notification[type]({
+        message: 'Notification Title',
+        description:
+            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+};
+
+
+const EditProfile = ({user, errorMessages, checkingAuthentication, editProfile}) => {
+
+    // useState(false);
+    //
+    // useEffect(() => {
+    //     openNotificationWithIcon('success')
+    // }, [user])
+
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
         mode: 'onBlur',
         defaultValues: {
@@ -39,6 +56,9 @@ const EditProfile = ({user, checkingAuthentication, editProfile}) => {
             </div>
         );
     });
+
+
+
     return (
         <div className={classes.formProfile }>
             <h1 className={classes.heading}>Edit Profile</h1>
