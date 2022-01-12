@@ -111,4 +111,27 @@ export default class RealworldApi {
                 return response.json()
             });
     }
+
+    async editArticle(slug) {
+        return fetch(`${this.baseUrl3}/articles/${slug}`, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+               //'Content-Type': 'application/json',
+              //  'Content-Type': 'application/json charset=utf-8',
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                'article': {
+                    title: 'new title',
+                    body: 'new body',
+                    description: 'new description'
+                }
+            })
+        })
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
+    }
 }

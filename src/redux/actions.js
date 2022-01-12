@@ -3,6 +3,14 @@ import {re} from "../helpers/regex-email";
 import {useForm} from "react-hook-form";
 import {useLocation} from "react-router-dom";
 const realWorldApi = new RealworldApi();
+import { Modal, Space } from 'antd';
+
+function success() {
+    Modal.success({
+        content: 'some messages...some messages...',
+    });
+}
+
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
 
@@ -99,10 +107,6 @@ export const editProfileSuccess = (user) => ({type: 'EDIT_PROFILE_SUCCESS', user
 
 export const editProfileError = (error) => ({type: 'EDIT_PROFILE_ERROR', error});
 
-// export const showResultMessage = () => ({type: 'SHOW_RESULT_MESSAGE'});
-
-export const hideResultMessage = () => ({type: 'HIDE_RESULT_MESSAGE'});
-
 export const editProfile = (data) => {
     console.log(data);
     const {"Avatar image (url)": image, "Email address": email, "New password": password, "Username": username} = data;
@@ -112,9 +116,9 @@ export const editProfile = (data) => {
         realWorldApi.updateUser(email, username, password, image)
             .then(response => {
                 if(response.user) {
+                    success();
                     console.log(response.user);
                     localStorage.setItem('token', response.user.token);
-                    dispatch(hideResultMessage());
                     dispatch(editProfileSuccess(response.user))
                 } else {
                     console.log(response);
@@ -135,6 +139,20 @@ export const getArticleForEditing = (slug) => {
             .then((response) => {
             return response.article ? dispatch(getArticleForEditingSuccess(response.article)) : dispatch(getArticleForEditingError(response.errors))
         })
+            .catch(err => console.log(err))
+    }
+};
+
+export const editArticleSuccess = (article) => ({type: 'EDIT_ARTICLE_SUCCESS', article});
+
+export const editArticleError = (error) => ({type: 'EDIT_ARTICLE_ERROR', error});
+
+export const editArticle = (slug, title, description, body) => {
+    return (dispatch) => {
+        return realWorldApi.editArticle(slug, title, description, body)
+            .then(response => {
+               console.log(response);
+            })
             .catch(err => console.log(err))
     }
 };

@@ -9,16 +9,11 @@ import RealworldApi from "./services/realworld-api";
 const realWorldApi = new RealworldApi();
 
 
-// realWorldApi.createArticle(
-//     'Article Title',
-//     'Article Description',
-//     'Article Body',
-//     ['tag1', 'tag2', 'tag3']
-// ).then(response => console.log(response)) // получаю объект Article
 
-// fetch('https://cirosantilli-realworld-next.herokuapp.com/api/articles?author=monaco40')
-//     .then(response => response.json())
-//     .then(result => console.log(result))
+        realWorldApi.editArticle('new-sidebar-un6azq')
+            .then(response => console.log(response))
+
+
 
 ReactDOM.render(
     <Provider store={store}>

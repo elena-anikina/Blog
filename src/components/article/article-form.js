@@ -30,19 +30,25 @@ const ArticleForm = ({title, tagsNum, type, func, article, getArticleForEditing}
 
     const inputs = articleNew.map(el => getStandardInput(el.label, el.placeholder, errors, register));
 
-    const tags = Array.from({length: type === 'edit' ? (article?.tagList.length || 2) : 2}).map((el, i) => (
-        <div key={i} className={classes.tagInputWrapper}>
-            <input
-                className={classes.tagsInput}
-                placeholder="Tag"
-                {...register(`tag${i+1}`, {...getSignUpValidationOptions(`tag${i}`)})}
-            />
-            <div className={classes.tagDelete} onClick={() => console.log('delete')}>Delete</div>
-            {
-                (i === article?.tagList.length - 1 || i === 1)  && <div className={classes.tagAdd} onClick={() => console.log('add tag')}>Add tag</div>
-            }
-        </div>
-    ))
+
+    const tagsLength = article?.tagList.length ? article?.tagList.length : 2;
+    console.log(tagsLength);
+    const tags = Array.from({length: tagsLength}).map((el, i) => {
+
+        return (
+            <div key={i} className={classes.tagInputWrapper}>
+                <input
+                    className={classes.tagsInput}
+                    placeholder="Tag"
+                    {...register(`tag${i+1}`, {...getSignUpValidationOptions(`tag${i}`)})}
+                />
+                <div className={classes.tagDelete} onClick={() => console.log('delete')}>Delete</div>
+                {
+                    (i === tagsLength - 1)  && <div className={classes.tagAdd} onClick={() => console.log('add tag')}>Add tag</div>
+                }
+            </div>
+        )
+    })
     return (
         <div className={classes.articleForm}>
             <h1 className={classes.heading}>{title}</h1>

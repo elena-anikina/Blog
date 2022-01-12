@@ -120,6 +120,19 @@ const reducer = (state = initialState, action) => {
                 article: null,
                 errorMessages: action.error
             }
+
+        case 'EDIT_ARTICLE_SUCCESS':
+            return {
+                ...state,
+                article: action.article,
+                errorMessages: null
+            }
+
+        case 'EDIT_ARTICLE_ERROR':
+            return {
+                ...state,
+                errorMessages: action.error
+            }
         default:
             return state;
     }

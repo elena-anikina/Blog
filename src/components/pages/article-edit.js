@@ -5,17 +5,18 @@ import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import * as actions from '../../redux/actions';
 import RealworldApi from "../../services/realworld-api";
-import {getArticleForEditing} from "../../redux/actions";
 const realWorldApi = new RealworldApi();
 
 const ArticleEdit = ({getArticleForEditing, article}) => {
+
+    const {slug, title, description, body} = article;
 
     return <ArticleForm
                         title="Edit article"
                         tagsNum={3}
                         type="edit"
                         articleData={article}
-                        func={(data) => console.log(data)} />
+                        func={() => console.log('hello')} />
 };
 
 const mapStateToProps = (state) => (state);
