@@ -7,10 +7,16 @@ import { Modal, Space } from 'antd';
 
 function success() {
     Modal.success({
-        content: 'some messages...some messages...',
+        content: 'Your profile has been updated successfully!',
     });
 }
 
+function error() {
+    Modal.error({
+        title: 'This is an error message',
+        content: 'Error occurred while updating the profile. Check your input data and try again.',
+    });
+}
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
 
@@ -19,6 +25,7 @@ export const fetchArticlesError = () => ({type: 'FETCH_ARTICLES_ERROR'});
 export const fetchArticles = () => (dispatch) => {
     realWorldApi.getArticles().then(
         (result) => {
+            console.log(result);
             dispatch(fetchArticlesSuccess(result.articles))
         },
         () => {
@@ -121,6 +128,7 @@ export const editProfile = (data) => {
                     localStorage.setItem('token', response.user.token);
                     dispatch(editProfileSuccess(response.user))
                 } else {
+                    error();
                     console.log(response);
                     dispatch(editProfileError(response.errors))
                 }
@@ -147,12 +155,23 @@ export const editArticleSuccess = (article) => ({type: 'EDIT_ARTICLE_SUCCESS', a
 
 export const editArticleError = (error) => ({type: 'EDIT_ARTICLE_ERROR', error});
 
-export const editArticle = (slug, title, description, body) => {
+export const editArticle = (slug, data) => {
+    console.log(slug);
+    const {'Title': title, 'Short description': description, 'Text': body, ...tagList} = data;
     return (dispatch) => {
-        return realWorldApi.editArticle(slug, title, description, body)
+        return realWorldApi.editArticle(slug, title, description, body, Object.keys(tagList))
             .then(response => {
-               console.log(response);
+               return response.article ? dispatch(editArticleSuccess(response.article)) : dispatch(editArticleError(response.errors))
             })
             .catch(err => console.log(err))
+}
+};
+
+export const deleteArticle = (slug) => {
+    return (dispatch) => {
+        return realWorldApi.deleteArticle(slug)
+            .then(response => {
+                console.log(response);
+            })
     }
 };

@@ -12,7 +12,7 @@ const TextPreview = ({title, favoritesCount, tagList = [], description, slug, id
             <div className={classes.titleContainer}>
                 <Link className={classes.title} to={`/articles/${slug}`}>{title}</Link>
                 <div className={classes.likes}>
-                    <img src={likeFalse} alt="" />
+                    <img onClick={() => console.log('Клик на лайк!')} src={likeFalse} alt="" className={classes.like} />
                     <span className={classes.likesNumber}>{favoritesCount}</span>
                 </div>
             </div>

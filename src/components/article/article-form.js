@@ -8,7 +8,7 @@ import {getErrorMessage, getValidationStyleForInput} from "../form/getRedValidat
 import getSignUpValidationOptions from "../../helpers/getSignUpValidationOptions";
 import {getArticleDefaultValues} from "../../helpers/articleDefaultValues";
 import {getStandardInput} from "../form/getRedValidationStyleForInput";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import * as actions from '../../redux/actions';
 
 
@@ -17,6 +17,9 @@ const getUpdatedArticleDefaultValues = (type, article) => {
 };
 
 const ArticleForm = ({title, tagsNum, type, func, article, getArticleForEditing}) => {
+
+    const {slug} = useLocation();
+    console.log(slug);
 
 
     const {register, formState: {errors}, handleSubmit, reset, watch} = useForm({
@@ -32,7 +35,6 @@ const ArticleForm = ({title, tagsNum, type, func, article, getArticleForEditing}
 
 
     const tagsLength = article?.tagList.length ? article?.tagList.length : 2;
-    console.log(tagsLength);
     const tags = Array.from({length: tagsLength}).map((el, i) => {
 
         return (
@@ -49,6 +51,8 @@ const ArticleForm = ({title, tagsNum, type, func, article, getArticleForEditing}
             </div>
         )
     })
+
+
     return (
         <div className={classes.articleForm}>
             <h1 className={classes.heading}>{title}</h1>
