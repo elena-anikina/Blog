@@ -53,7 +53,7 @@ const SignInPage = ({signInSubmit, user, errorMessages}) => {
     };
 
     const signInForm = (
-        <BaseLayout heading={`Sign IN, ${fromPage}`}>
+        <BaseLayout heading="Sign IN">
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 {inputs}
                 <Button value="Login" />

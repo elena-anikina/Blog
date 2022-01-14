@@ -4,19 +4,7 @@ import {useForm} from "react-hook-form";
 import {useLocation} from "react-router-dom";
 const realWorldApi = new RealworldApi();
 import { Modal, Space } from 'antd';
-
-function success() {
-    Modal.success({
-        content: 'Your profile has been updated successfully!',
-    });
-}
-
-function error() {
-    Modal.error({
-        title: 'This is an error message',
-        content: 'Error occurred while updating the profile. Check your input data and try again.',
-    });
-}
+import {success, error} from "../helpers/resultPopus";
 
 export const fetchArticlesSuccess = (articles) => ({type: 'FETCH_ARTICLES_SUCCESS', articles});
 
@@ -81,7 +69,13 @@ export const signInSubmit = (data, reset, navigate, fromPage) => {
             .then(response => {
                 console.log(response);
                 reset();
-                return response.user ? dispatch(signInSuccessful(response.user)) : dispatch(signInError(response.errors))
+                if (response.user) {
+                    success('signInSuccess');
+                    dispatch(signInSuccessful(response.user))
+                } else {
+                    error('signInError');
+                    dispatch(signInError(response.errors))
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -123,12 +117,12 @@ export const editProfile = (data) => {
         realWorldApi.updateUser(email, username, password, image)
             .then(response => {
                 if(response.user) {
-                    success();
+                    success('editProfileSuccess');
                     console.log(response.user);
                     localStorage.setItem('token', response.user.token);
                     dispatch(editProfileSuccess(response.user))
                 } else {
-                    error();
+                    error('editProfileError');
                     console.log(response);
                     dispatch(editProfileError(response.errors))
                 }
@@ -173,5 +167,27 @@ export const deleteArticle = (slug) => {
             .then(response => {
                 console.log(response);
             })
+    }
+};
+
+export const handleLikeSuccess = (article) => ({type: 'HANDLE_LIKE_SUCCESS', article});
+
+export const handleLikeError = (error) => ({type: 'HANDLE_LIKE_ERROR', error});
+
+export const handleLike = (slug, favorite) => {
+    return (dispatch) => {
+        if (favorite) {
+            realWorldApi.unFavoriteArticle(slug).then(response => {
+                    console.log(response);
+                    return response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error))
+                })
+                .catch(err => console.log(err))
+        } else {
+            realWorldApi.favoriteArticle(slug).then(response => {
+                console.log(response);
+                return response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error))
+            })
+                .catch(err => console.log(err))
+        }
     }
 };

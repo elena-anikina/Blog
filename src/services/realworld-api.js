@@ -5,14 +5,21 @@ export default class RealworldApi {
     baseUrl = 'http://kata.academy:8022';
     baseUrl2 = 'https://api.realworld.io/api';
     baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
+    token = localStorage.getItem('token');
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    };
+
+    getHeaders = () => {
+        console.log('inside getHeaders')
+        console.log(this.token);
+        return this.token ? {...this.headers, 'Authorization': `Token ${this.token}`} : this.headers;
+    };
 
     async getArticles() {
         return fetch(`${this.baseUrl2}/articles`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
+            headers: {...this.getHeaders()}
         })
             .then((response) => {
                 console.log(response);
@@ -20,7 +27,6 @@ export default class RealworldApi {
                 return response.json();
             })
     }
-
 
     async registerUser(username, email, password) {
         return fetch(`${this.baseUrl2}/users`, {
@@ -148,6 +154,26 @@ export default class RealworldApi {
         })
             .then(response => {
                 console.log(response);
+            })
+    }
+
+    async favoriteArticle(slug) {
+        return fetch(`${this.baseUrl2}/articles/${slug}/favorite`, {
+            method: "POST",
+            headers: {...this.getHeaders()}
+        })
+            .then(response => {
+                return response.json();
+            })
+    }
+
+    async unFavoriteArticle(slug) {
+        return fetch(`${this.baseUrl2}/articles/${slug}/favorite`, {
+            method: "DELETE",
+            headers: {...this.getHeaders()}
+        })
+            .then(response => {
+                return response.json()
             })
     }
 }
