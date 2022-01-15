@@ -10,10 +10,6 @@ const realWorldApi = new RealworldApi();
 
 
 
-        realWorldApi.editArticle('new-sidebar-un6azq')
-            .then(response => console.log(response))
-
-
 
 ReactDOM.render(
     <Provider store={store}>

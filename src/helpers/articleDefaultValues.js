@@ -5,7 +5,6 @@ export const tagsDefaultValues = (tagList = ['tag']) => {
     }, {});
 };
 
-console.log(tagsDefaultValues);
 
 export const articleDefaultValues = {
     "Title": '',

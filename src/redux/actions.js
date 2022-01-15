@@ -1,7 +1,7 @@
 import RealworldApi from "../services/realworld-api";
 import {re} from "../helpers/regex-email";
 import {useForm} from "react-hook-form";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 const realWorldApi = new RealworldApi();
 import { Modal, Space } from 'antd';
 import {success, error} from "../helpers/resultPopus";
@@ -104,6 +104,26 @@ export const logOut = () => {
     return ({type: 'LOG_OUT'})
 };
 
+export const newArticleSuccess = (article) => ({type: 'NEW_ARTICLE_SUCCESS', article});
+
+export const newArticleError = (error) => ({type: 'NEW_ARTICLE_ERROR', error});
+
+export const newArticle = (data) => {
+    console.log(data);
+    const {'Title': title, 'Short description': description, 'Text': body, ...tagList} = data;
+    return (dispatch) => {
+        return realWorldApi.createArticle(title, description, body, Object.values(tagList))
+            .then(result => {
+                if (result.article) {success('newArticleSuccess')}
+                if (!result.article) {error('newArticleError')}
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
 export const editProfileSuccess = (user) => ({type: 'EDIT_PROFILE_SUCCESS', user});
 
 export const editProfileError = (error) => ({type: 'EDIT_PROFILE_ERROR', error});
@@ -139,6 +159,7 @@ export const getArticleForEditing = (slug) => {
     return (dispatch) => {
         return realWorldApi.getArticle(slug)
             .then((response) => {
+                console.log(response);
             return response.article ? dispatch(getArticleForEditingSuccess(response.article)) : dispatch(getArticleForEditingError(response.errors))
         })
             .catch(err => console.log(err))
@@ -191,3 +212,5 @@ export const handleLike = (slug, favorite) => {
         }
     }
 };
+
+export const addTag = () => ({type: 'ADD_TAG'});

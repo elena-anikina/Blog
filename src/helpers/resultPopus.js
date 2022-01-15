@@ -24,6 +24,18 @@ const getPopupMessage = (value) => {
                 title: 'This is an error message',
                 content: 'Check your input data and try again.'
             }
+
+        case 'newArticleSuccess':
+            return {
+                title: 'You are lucky!',
+                content: 'New article added successfully!',
+            }
+
+        case'newArticleError':
+            return {
+                title: 'This is an error message',
+                content: 'Check your input data and try again.'
+            }
     }
 }
 

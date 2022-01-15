@@ -2,14 +2,15 @@ import initialState from './state';
 import {v4 as uuid} from 'uuid';
 
 const reducer = (state = initialState, action) => {
-    const {articles, errors, signUp} = state;
+    const {articles, errors, signUp, tagsNew} = state;
     switch (action.type) {
 
         case 'FETCH_ARTICLES_SUCCESS':
             const articlesWithId1 = action.articles.map(el => ({id: uuid(), ...el}));
             return {
                 ...state,
-                articles: [...articlesWithId1]
+                articles: [...articlesWithId1],
+                tagsNew: ['tag', null]
             }
 
         case 'FETCH_ARTICLES_ERROR':
@@ -147,6 +148,12 @@ const reducer = (state = initialState, action) => {
                 ...state
             }
 
+        case 'ADD_TAG':
+            return {
+                ...state,
+                tagsNew: [...tagsNew].concat('tag')
+
+            }
         default:
             return state;
     }

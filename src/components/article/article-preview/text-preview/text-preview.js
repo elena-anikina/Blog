@@ -19,7 +19,7 @@ const TextPreview = ({title, favoritesCount, tagList = [], description, slug, id
 
 
 
-    const tags = tagList.map((tag, i) => tag ? (<span key={i} className={classes.tag}>{tag}</span>) : null);
+    const tags = tagList.map((tag, i) => tag.trim() ? (<span key={i} className={classes.tag}>{tag}</span>) : null);
 
     return (
         <div className={classes.container}>

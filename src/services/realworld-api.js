@@ -18,7 +18,7 @@ export default class RealworldApi {
     };
 
     async getArticles() {
-        return fetch(`${this.baseUrl2}/articles`, {
+        return fetch(`${this.baseUrl2}/articles?limit=50`, {
             headers: {...this.getHeaders()}
         })
             .then((response) => {
@@ -120,6 +120,7 @@ export default class RealworldApi {
     async getArticle(slug) {
         return fetch(`${this.baseUrl2}/articles/${slug}`)
             .then(response => {
+                console.log(response);
                 if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
                 return response.json()
             });

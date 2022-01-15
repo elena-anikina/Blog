@@ -1,4 +1,7 @@
 import React from "react";
+import {connect} from 'react-redux';
+import * as actions from '../../redux/actions';
+import {useState} from "react";
 import classes from '../form/form.module.scss';
 import {articleNew} from "../form/labels";
 import {useForm} from "react-hook-form";
@@ -8,25 +11,28 @@ import {getValidationStyleForInput} from "../form/getRedValidationStyleForInput"
 import {getErrorMessage} from "../form/getRedValidationStyleForInput";
 import ArticleForm from "../article/article-form";
 import RealworldApi from "../../services/realworld-api";
+import {addTag} from "../../redux/actions";
 const realWorldApi = new RealworldApi();
 
 
-const ArticleNew = () => {
+
+
+const ArticleNew = ({newArticle, tagsNew, addTag}) => {
+
+    const handleTagsFunc = (i, action) => {
+        console.log('действие с тегами', i, action);
+    };
     return <ArticleForm
                         title="Create new article"
-                        tagsNum={2}
                         type="new"
-                        func={(data) => {
-                            console.log(data);
-                            const {'Title': title, 'Short description': description, 'Text': body, ...tagList} = data;
-                            console.log('title', title);
-                            console.log('description', description);
-                            console.log('body', body);
-                            console.log('tagList', Object.values(tagList));
-                            realWorldApi.createArticle(title, description, body, Object.values(tagList))
-                                .then(result => console.log(result))
-                        }}
+                        tags={tagsNew}
+                        handleTagsFunc={handleTagsFunc}
+                        addTagFunc={addTag}
+                        func={newArticle}
     />
 };
 
-export default ArticleNew;
+const mapStateToProps = (state) => (state);
+
+
+export default connect(mapStateToProps, actions)(ArticleNew);
