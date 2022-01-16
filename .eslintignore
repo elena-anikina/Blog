@@ -2,5 +2,6 @@ build
 node_modules
 src/components
 src/helpers
+src/hoc
 src/redux
 src/services

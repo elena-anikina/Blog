@@ -5,6 +5,9 @@
     "es2021": true
   },
   "extends": [
+    "plugin:react/jsx-runtime",
+    "plugin:testing-library/react",
+    "plugin:jest/all",
     "airbnb",
     "airbnb/hooks",
     "eslint-config-prettier",
@@ -12,13 +15,18 @@
     "plugin:react/recommended",
     "prettier"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "sourceType": "module"
     },
     "ecmaVersion": 11,
-    "sourceType": "module"
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   },
   "plugins": ["react"],
   "rules": {

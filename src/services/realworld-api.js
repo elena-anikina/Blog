@@ -1,180 +1,167 @@
-import {re} from "../helpers/regex-email";
+import { checkingAuthentication } from '../redux/actions';
 
 export default class RealworldApi {
+  baseUrl = 'http://kata.academy:8022/api';
+  baseUrl2 = 'https://api.realworld.io/api';
+  baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
+  token = localStorage.getItem('token');
+  headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
-    baseUrl = 'http://kata.academy:8022';
-    baseUrl2 = 'https://api.realworld.io/api';
-    baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
-    token = localStorage.getItem('token');
-    headers = {
-        'Accept': 'application/json',
+  getHeaders = () => {
+    console.log('inside getHeaders');
+    return this.token ? { ...this.headers, Authorization: `Token ${this.token}` } : this.headers;
+  };
+
+  async getArticles() {
+    return fetch(`${this.baseUrl}/articles?limit=50`, {
+      headers: { ...this.getHeaders() },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка, статус ошибки ${response.status}`);
+      }
+      return response.json();
+    });
+  }
+
+  async registerUser(username, email, password) {
+    return fetch(`${this.baseUrl}/users`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-    };
+      },
+      body: JSON.stringify({
+        user: { username, email, password },
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => err);
+  }
 
-    getHeaders = () => {
-        console.log('inside getHeaders')
-        console.log(this.token);
-        return this.token ? {...this.headers, 'Authorization': `Token ${this.token}`} : this.headers;
-    };
+  async loginUser(email, password) {
+    return fetch(`${this.baseUrl}/users/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: { email, password },
+      }),
+    }).then(
+      (response) => {
+        console.log(response);
+        return response.json();
+      },
+      (error) => error
+    );
+  }
 
-    async getArticles() {
-        return fetch(`${this.baseUrl2}/articles?limit=50`, {
-            headers: {...this.getHeaders()}
-        })
-            .then((response) => {
-                console.log(response);
-                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
-                return response.json();
-            })
-    }
+  async getCurrentUser() {
+    return fetch(`${this.baseUrl}/user`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка, статус ошибки ${response.status}`);
+      }
+      return response.json();
+    });
+  }
 
-    async registerUser(username, email, password) {
-        return fetch(`${this.baseUrl2}/users`, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: {username, email, password}
-            })
-        })
-            .then(response => {
-                return response.json();
-            })
-            .catch(err => console.log(err))
-    }
+  async updateUser(email, username, password, image) {
+    return fetch(`${this.baseUrl}/user`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        user: { email, username, password, image },
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка, статус ошибки ${response.status}`);
+      }
+      return response.json();
+    });
+  }
 
-    async loginUser(email, password) {
-        return fetch(`${this.baseUrl2}/users/login`, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: {email, password}
-            })
-        })
-            .then(
-                response => {
-                console.log(response);
-                return response.json()
-            },
-                error => console.log(error)
-            )
-    }
+  async createArticle(title, description, body, tagList) {
+    return fetch(`${this.baseUrl}/articles`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        article: { title, description, body, tagList },
+      }),
+    }).then((response) => response.json());
+  }
 
-    async getCurrentUser() {
-        return fetch(`${this.baseUrl2}/user`, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-            .then(response => {
-                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
-                return response.json();
-            })
-    };
+  async getArticle(slug) {
+    return fetch(`${this.baseUrl}/articles/${slug}`).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка, статус ошибки ${response.status}`);
+      }
+      return response.json();
+    });
+  }
 
-    async updateUser(email, username, password, image) {
-        return fetch(`${this.baseUrl2}/user`, {
-            method: "PUT",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                user: {email, username, password, image}
-            })
-        })
-            .then(response => {
-                console.log(response);
-               // if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
-                return response.json();
-            })
-    }
+  async editArticle(slug, title, description, body, tagList) {
+    return fetch(`${this.baseUrl}/articles/${slug}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        article: { title, description, body, tagList },
+      }),
+    }).then((response) => response.json());
+  }
 
-    async createArticle(title, description, body, tagList) {
-        console.log(localStorage.getItem('token'));
-        return fetch(`${this.baseUrl2}/articles`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                "article": {title, description, body, tagList}
-            })
-        }).then(response => {
-            console.log(response);
-            return response.json();
-        })
-    }
+  async deleteArticle(slug) {
+    return fetch(`${this.baseUrl}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => response);
+  }
 
-    async getArticle(slug) {
-        return fetch(`${this.baseUrl2}/articles/${slug}`)
-            .then(response => {
-                console.log(response);
-                if (!response.ok) {throw new Error(`Ошибка, статус ошибки ${response.status}`)}
-                return response.json()
-            });
-    }
+  async favoriteArticle(slug) {
+    return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => response.json());
+  }
 
-    async editArticle(slug, title, description, body, tagList) {
-        return fetch(`${this.baseUrl2}/articles/${slug}`, {
-            method: "PUT",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                'article': {title, description, body, tagList}
-            })
-        })
-            .then(response => {
-                console.log(response);
-                return response.json();
-            })
-    }
-
-    async deleteArticle(slug) {
-        return fetch(`${this.baseUrl2}/articles/${slug}`, {
-            method: "DELETE",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })
-            .then(response => {
-                console.log(response);
-            })
-    }
-
-    async favoriteArticle(slug) {
-        return fetch(`${this.baseUrl2}/articles/${slug}/favorite`, {
-            method: "POST",
-            headers: {...this.getHeaders()}
-        })
-            .then(response => {
-                return response.json();
-            })
-    }
-
-    async unFavoriteArticle(slug) {
-        return fetch(`${this.baseUrl2}/articles/${slug}/favorite`, {
-            method: "DELETE",
-            headers: {...this.getHeaders()}
-        })
-            .then(response => {
-                return response.json()
-            })
-    }
+  async unFavoriteArticle(slug) {
+    return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    }).then((response) => response.json());
+  }
 }

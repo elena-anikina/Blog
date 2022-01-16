@@ -1,21 +1,17 @@
+/*eslint-disable */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 import store from './redux/store';
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 import App from './components/app/app';
-import RealworldApi from "./services/realworld-api";
-
-const realWorldApi = new RealworldApi();
-
-
-
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 );
