@@ -12,21 +12,18 @@ const ArticleEdit = ({ getArticleForEditing, article, editArticle, tagsNew, addT
   const { slug } = useParams();
   console.log(slug);
 
-  // useEffect(() => {
-  //     getArticleForEditing(slug).then(response => {
-  //         console.log('внутри функции getArticle');
-  //         console.log(response);
-  //     })
-  // }, [])
+  useEffect(() => {
+    getArticleForEditing(slug);
+  }, []);
 
-  return (
+  return article ? (
     <ArticleForm
       title="Edit article"
       type={article ? 'edit' : 'new'}
       //    articleData={article}
       func={editArticle}
     />
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state) => state;

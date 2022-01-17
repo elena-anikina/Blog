@@ -5,10 +5,15 @@ import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import Pagination from '../pagination/pagination';
 
-const List = ({ fetchArticles, articles: data, calcPagination, pagination: { trimStart, trimEnd, ...details } }) => {
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+const List = ({
+  fetchArticles,
+  articles: data,
+  calcPagination,
+  user,
+  checkingAuthentication,
+  pagination: { trimStart, trimEnd, ...details },
+}) => {
+  useEffect(() => {}, [user]);
 
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
   const articles5 = articles.slice(trimStart, trimEnd);

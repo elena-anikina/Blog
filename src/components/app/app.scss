@@ -1,6 +1,7 @@
-@import "src/components/app/global-variables";
+@import 'src/components/app/global-variables';
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: $backgroundColor;

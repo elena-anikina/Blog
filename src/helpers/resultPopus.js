@@ -49,6 +49,18 @@ const getPopupMessage = (value) => {
         title: 'This is an error message',
         content: 'Check your input data and try again.',
       };
+
+    case 'articleDeleteSuccess':
+      return {
+        title: 'Success!',
+        content: 'Your article is deleted!',
+      };
+
+    case 'articleDeleteError':
+      return {
+        title: 'Error!',
+        content: 'Something went wrong. Try to reload page.',
+      };
   }
 };
 

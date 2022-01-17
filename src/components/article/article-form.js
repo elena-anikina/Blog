@@ -34,7 +34,7 @@ const ArticleForm = ({
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      Title: article?.title,
+      Title: slug ? article?.title : '',
       'Short description': type === 'edit' ? article?.description : '',
       Text: type === 'edit' ? article?.body : '',
       //...tagsDefaultValues(article?.tagList)

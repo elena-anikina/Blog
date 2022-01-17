@@ -1,17 +1,16 @@
-import React from "react";
+import React from 'react';
 import classes from './article-preview.module.scss';
-import TextPreview from "./text-preview/text-preview";
-import User from "../../user/user";
+import TextPreview from './text-preview/text-preview';
+import User from '../../user/user';
 
-
-const ArticlePreview = ({preview, ...article}) => {
-    console.log(article);
-    return (
-        <div className={classes.articlePreview}>
-            <TextPreview {...article} preview={preview} />
-            <User {...article} />
-        </div>
-    );
+const ArticlePreview = ({ preview, ...article }) => {
+  console.log(article);
+  return (
+    <div className={classes.articlePreview}>
+      <TextPreview {...article} preview={preview} />
+      <User {...article} />
+    </div>
+  );
 };
 
 export default ArticlePreview;

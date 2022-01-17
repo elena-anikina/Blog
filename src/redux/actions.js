@@ -11,7 +11,8 @@ export const fetchArticlesSuccess = (articles) => ({ type: 'FETCH_ARTICLES_SUCCE
 export const fetchArticlesError = () => ({ type: 'FETCH_ARTICLES_ERROR' });
 
 export const fetchArticles = () => (dispatch) => {
-  realWorldApi.getArticles().then(
+  const token = localStorage.getItem('token');
+  realWorldApi.getArticles(token).then(
     (result) => {
       console.log(result);
       dispatch(fetchArticlesSuccess(result.articles));
@@ -207,10 +208,16 @@ export const editArticle = (slug, data, tagsArr, navigateToHomePage) => {
   };
 };
 
-export const deleteArticle = (slug) => {
+export const deleteArticle = (slug, navigateToHomePage) => {
   return (dispatch) => {
     return realWorldApi.deleteArticle(slug).then((response) => {
       console.log(response);
+      if (response.ok) {
+        success('articleDeleteSuccess', navigateToHomePage);
+      }
+      if (!response.ok) {
+        error('articleDeleteError');
+      }
     });
   };
 };

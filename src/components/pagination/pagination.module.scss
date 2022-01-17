@@ -1,4 +1,4 @@
-@import "src/components/app/global-variables";
+@import 'src/components/app/global-variables';
 
 .pagination {
   width: 100%;
@@ -20,14 +20,14 @@
   margin-left: 12px;
   width: 7.12px;
   height: 10.49px;
-  background: no-repeat url("./arrow1.svg");
+  background: no-repeat url('./arrow1.svg');
 }
 
 .arrow1.activeArrow {
   width: 7.12px;
   height: 10.49px;
   cursor: pointer;
-  background: no-repeat url("./arrow2.svg");
+  background: no-repeat url('./arrow2.svg');
   transform: scale(-1, 1);
 }
 
@@ -45,7 +45,7 @@
   transform: none;
   width: 7.12px;
   height: 10.49px;
-  background: no-repeat url("./arrow2.svg");
+  background: no-repeat url('./arrow2.svg');
 }
 
 .arrow2 {
@@ -60,7 +60,7 @@
   margin-left: 12px;
   width: 7.12px;
   height: 10.49px;
-  background: no-repeat url("./arrow1.svg");
+  background: no-repeat url('./arrow1.svg');
   transform: scale(-1, 1);
 }
 

@@ -1,4 +1,4 @@
-@import "src/components/app/global-variables";
+@import 'src/components/app/global-variables';
 
 .article {
   max-height: 3000px;
@@ -15,7 +15,6 @@
 .userContainer {
   display: flex;
 }
-
 
 .userNameContainer {
   margin-right: 12px;
@@ -38,4 +37,3 @@
   width: 46px;
   height: 46px;
 }
-

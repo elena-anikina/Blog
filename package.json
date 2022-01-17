@@ -57,6 +57,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.8",
     "lint-staged": "^11.2.4",
+    "mini-css-extract-plugin": "2.4.5",
     "prettier": "2.4.1"
   },
   "husky": {
@@ -69,5 +70,8 @@
       "npm run lint:fix",
       "npm run format"
     ]
+  },
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.5"
   }
 }

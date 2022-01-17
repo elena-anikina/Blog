@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import classes from '../header.module.scss';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Title = () => {
-    return (
-        <Link className={classes.title} to="/" style={{ textDecoration: 'none' }}>
-            Realworld Blog
-        </Link>
-    );
+  return (
+    <Link className={classes.title} to="/" style={{ textDecoration: 'none' }}>
+      Realworld Blog
+    </Link>
+  );
 };
 
 export default Title;
