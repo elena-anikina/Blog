@@ -1,19 +1,18 @@
-import { checkingAuthentication } from '../redux/actions';
-
 export default class RealworldApi {
   baseUrl100 = 'http://kata.academy:8022/api';
+
   baseUrl = 'https://api.realworld.io/api';
+
   baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
+
   token = localStorage.getItem('token');
+
   headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
 
-  getHeaders = () => {
-    console.log('inside getHeaders');
-    return this.token ? { ...this.headers, Authorization: `Token ${this.token}` } : this.headers;
-  };
+  getHeaders = () => (this.token ? { ...this.headers, Authorization: `Token ${this.token}` } : this.headers);
 
   async getArticles(token) {
     return fetch(`${this.baseUrl}/articles?limit=50`, {
@@ -56,10 +55,7 @@ export default class RealworldApi {
         user: { email, password },
       }),
     }).then(
-      (response) => {
-        console.log(response);
-        return response.json();
-      },
+      (response) => response.json(),
       (error) => error
     );
   }

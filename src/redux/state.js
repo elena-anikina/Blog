@@ -1,7 +1,3 @@
-import { re } from '../helpers/regex-email';
-
-console.log(re);
-
 const state = {
   authorized: false,
   tagsNew: ['tag', null],

@@ -118,13 +118,14 @@ export const newArticleSuccess = (article) => ({ type: 'NEW_ARTICLE_SUCCESS', ar
 
 export const newArticleError = (error) => ({ type: 'NEW_ARTICLE_ERROR', error });
 
-export const newArticle = (slug, data, tagsArr, navigateToHomePage) => {
+export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => {
   console.log(data);
   const { Title: title, 'Short description': description, Text: body, ...tagList } = data;
   return (dispatch) => {
     return realWorldApi
       .createArticle(title, description, body, tagsArr)
       .then((result) => {
+        reset();
         if (result.article) {
           success('newArticleSuccess', navigateToHomePage);
         }

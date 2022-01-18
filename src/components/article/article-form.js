@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import classes from '../form/form.module.scss';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { articleNew } from '../form/labels';
 import { getErrorMessage, getValidationStyleForInput } from '../form/getRedValidationStyleForInput';
 import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
@@ -26,11 +26,13 @@ const ArticleForm = ({
   console.log(slug);
 
   const {
+    getValues,
     register,
     formState: { errors },
     handleSubmit,
     reset,
     watch,
+    control,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -46,7 +48,11 @@ const ArticleForm = ({
   );
   const [tagsValue, setTagsValue] = useState();
 
-  const inputs = articleNew.map((el) => getStandardInput(el.label, el.placeholder, errors, register));
+  const inputs = articleNew.map((el) => getStandardInput(el.label, el.placeholder, errors, register, Controller));
+
+  // 1. записывать в localeStorage здесь
+  // 2. Когда задаю инпутам дефортные значения,то проверять, есть ли что-то в localeStorage
+  // 3. При клике на 'new article' делать очистку localeStorage и при отправке формы делать очистку localStorage
 
   let tagsLength = 5; //article?.tagList.length ? article?.tagList.length : 2;
 
@@ -115,7 +121,7 @@ const ArticleForm = ({
   };
 
   const onSubmitForm = (data) => {
-    func(slug, data, tagsArr, navigateToHomePage);
+    func(slug, data, tagsArr, navigateToHomePage, reset);
   };
 
   return (

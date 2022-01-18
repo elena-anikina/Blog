@@ -142,13 +142,14 @@ const reducer = (state = initialState, action) => {
         errorMessages: action.error,
       };
 
-    case 'HANDLE_LIKE_SUCCESS':
+    case 'HANDLE_LIKE_SUCCESS': {
       const idx = [...articles].findIndex((el) => el.slug === action.article.slug);
       const newArticles = [...articles.slice(0, idx), action.article, ...articles.slice(idx + 1)];
       return {
         ...state,
         articles: newArticles,
       };
+    }
 
     case 'HANDLE_LIKE_ERROR':
       return {
