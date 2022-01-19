@@ -210,43 +210,38 @@ export const editArticle = (slug, data, tagsArr, navigateToHomePage) => {
 };
 
 export const deleteArticle = (slug, navigateToHomePage) => {
-  return (dispatch) => {
-    return realWorldApi.deleteArticle(slug).then((response) => {
-      console.log(response);
-      if (response.ok) {
-        success('articleDeleteSuccess', navigateToHomePage);
-      }
-      if (!response.ok) {
-        error('articleDeleteError');
-      }
-    });
-  };
+  realWorldApi.deleteArticle(slug).then((response) => {
+    if (response.ok) {
+      success('articleDeleteSuccess', navigateToHomePage);
+    }
+    if (!response.ok) {
+      error('articleDeleteError');
+    }
+  });
 };
 
 export const handleLikeSuccess = (article) => ({ type: 'HANDLE_LIKE_SUCCESS', article });
 
-export const handleLikeError = (error) => ({ type: 'HANDLE_LIKE_ERROR', error });
+export const handleLikeError = (err) => ({ type: 'HANDLE_LIKE_ERROR', err });
 
-export const handleLike = (slug, favorite) => {
+export function handleLike(slug, favorite) {
   return (dispatch) => {
     if (favorite) {
       realWorldApi
         .unFavoriteArticle(slug)
-        .then((response) => {
-          console.log(response);
-          return response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error));
-        })
-        .catch((err) => console.log(err));
+        .then((response) =>
+          response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error))
+        )
+        .catch((err) => err);
     } else {
       realWorldApi
         .favoriteArticle(slug)
-        .then((response) => {
-          console.log(response);
-          return response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error));
-        })
-        .catch((err) => console.log(err));
+        .then((response) =>
+          response.article ? dispatch(handleLikeSuccess(response.article)) : dispatch(handleLikeError(error))
+        )
+        .catch((err) => err);
     }
   };
-};
+}
 
 export const addTag = () => ({ type: 'ADD_TAG' });

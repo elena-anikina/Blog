@@ -1,23 +1,24 @@
-import initialState from './state';
 import { v4 as uuid } from 'uuid';
+import initialState from './state';
 
 const reducer = (state = initialState, action) => {
-  const { articles, errors, signUp, tagsNew } = state;
+  const { articles, errors, tagsNew } = state;
   switch (action.type) {
-    case 'FETCH_ARTICLES_SUCCESS':
+    case 'FETCH_ARTICLES_SUCCESS': {
       const articlesWithId1 = action.articles.map((el) => ({ id: uuid(), ...el }));
       return {
         ...state,
         articles: [...articlesWithId1],
         tagsNew: ['tag', null],
       };
+    }
 
     case 'FETCH_ARTICLES_ERROR':
       return {
         ...state,
         errors: errors + 1,
       };
-    case 'CALC_PAGINATION':
+    case 'CALC_PAGINATION': {
       const numberOfArticlesPerPage = 5;
       const trimStart = (action.page - 1) * numberOfArticlesPerPage;
       const trimEnd = trimStart + numberOfArticlesPerPage;
@@ -38,14 +39,9 @@ const reducer = (state = initialState, action) => {
         arrowStart: !(Number(action.page) === 1),
         arrowEnd: Number(action.page) < numberOfPages,
       };
+    }
 
     case 'INPUT_CHANGE_SIGNUP': {
-      const newSignUp = [...signUp].map((el) => {
-        if (el.label === action.name) {
-          return { ...el, value: action.value };
-        }
-        return el;
-      });
       return {
         ...state,
       };
@@ -68,11 +64,6 @@ const reducer = (state = initialState, action) => {
       };
     case 'SIGN_IN_SUCCESSFUL':
       localStorage.setItem('token', action.user.token);
-      console.log(localStorage.getItem('token'));
-
-      const token = localStorage.getItem('token');
-      console.log(token);
-      console.log(action.user);
       return {
         ...state,
         user: action.user,

@@ -1,9 +1,11 @@
 export default class RealworldApi {
-  baseUrl100 = 'http://kata.academy:8022/api';
+  baseUrl000 = '//kata.academy:8022/api';
 
-  baseUrl = 'https://api.realworld.io/api';
+  baseUrl100 = 'https://api.realworld.io/api';
 
-  baseUrl3 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
+  baseUrl200 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
+
+  baseUrl = 'https://kata.academy:8021/api';
 
   token = localStorage.getItem('token');
 
@@ -17,8 +19,7 @@ export default class RealworldApi {
   async getArticles(token) {
     return fetch(`${this.baseUrl}/articles?limit=50`, {
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: token ? `Token ${token}` : null,
       },
     }).then((response) => {
@@ -33,8 +34,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/users`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
       },
       body: JSON.stringify({
         user: { username, email, password },
@@ -48,8 +48,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/users/login`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
       },
       body: JSON.stringify({
         user: { email, password },
@@ -64,8 +63,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/user`, {
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
     }).then((response) => {
@@ -80,8 +78,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/user`, {
       method: 'PUT',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
@@ -99,8 +96,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/articles`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
@@ -122,8 +118,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/articles/${slug}`, {
       method: 'PUT',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
@@ -136,8 +131,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/articles/${slug}`, {
       method: 'DELETE',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
     }).then((response) => response);
@@ -147,8 +141,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
     }).then((response) => response.json());
@@ -158,8 +151,7 @@ export default class RealworldApi {
     return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
       method: 'DELETE',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        ...this.headers,
         Authorization: `Token ${localStorage.getItem('token')}`,
       },
     }).then((response) => response.json());
