@@ -2,9 +2,11 @@ import React from 'react';
 import classes from './pagination.module.scss';
 import arrow1 from './arrow1.svg';
 import arrow2 from './arrow2.svg';
+import { fetchArticles } from '../../redux/actions';
 
-const Pagination = ({ data, func, details: { page, arrowStart, arrowEnd } }) => {
-  const numberOfArticles = data.length;
+const Pagination = ({ data, func, details: { page, arrowStart, arrowEnd }, articlesCount, fetchArticles }) => {
+  console.log(articlesCount);
+  const numberOfArticles = articlesCount;
   const numberOfArticlesPerPage = 5;
   const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
 
@@ -15,8 +17,15 @@ const Pagination = ({ data, func, details: { page, arrowStart, arrowEnd } }) => 
     if (el === page) {
       paginationClasses.push(classes.active);
     }
+
+    const onPaginationClick = (event) => {
+      const { textContent: page } = event.target;
+      func(event);
+      fetchArticles(5, (page - 1) * numberOfArticlesPerPage);
+    };
+
     return (
-      <button key={i} className={paginationClasses.join(' ')} onClick={func}>
+      <button key={i} className={paginationClasses.join(' ')} onClick={onPaginationClick}>
         {el}
       </button>
     );

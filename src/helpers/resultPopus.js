@@ -61,6 +61,18 @@ const getPopupMessage = (value) => {
         title: 'Error!',
         content: 'Something went wrong. Try to reload page.',
       };
+
+    case 'signUpSuccess':
+      return {
+        title: 'You are lucky!',
+        content: 'You sign up successfully!',
+      };
+
+    case 'signUpError':
+      return {
+        title: 'This is an error message',
+        content: 'Check your input data and try again.',
+      };
   }
 };
 

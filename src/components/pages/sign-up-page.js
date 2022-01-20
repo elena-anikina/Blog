@@ -9,6 +9,7 @@ import { re } from '../../helpers/regex-email';
 import Checkbox from '../form/checkbox';
 import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import { signUpLabels } from '../form/labels';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignUpPage = ({ signUpSubmit }) => {
   const {
@@ -18,6 +19,10 @@ const SignUpPage = ({ signUpSubmit }) => {
     reset,
     watch,
   } = useForm({ mode: 'onBlur' });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || '/';
 
   const watchPassword = watch('Password');
   console.log(watchPassword);
@@ -43,8 +48,13 @@ const SignUpPage = ({ signUpSubmit }) => {
     );
   });
 
+  const navFunc = () => {
+    console.log('inside navFunc');
+    navigate(fromPage);
+  };
+
   const onSubmit = (data) => {
-    signUpSubmit(data, reset);
+    signUpSubmit(data, reset, navFunc);
   };
 
   return (

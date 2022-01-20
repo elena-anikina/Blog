@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import classes from './text-preview.module.scss';
-import likeFalse from '../like-false.svg';
-import likeTrue from '../like-true.svg';
+// import likeFalse from './like-false.svg';
+// import likeTrue from './like-true.svg';
+import { ReactComponent as LikeFalse } from './like-false.svg';
+import { ReactComponent as LikeTrue } from './like-true.svg';
+
 import { Link } from 'react-router-dom';
 import { success, error, info } from '../../../../helpers/resultPopus';
 import RealworldApi from '../../../../services/realworld-api';
@@ -11,7 +14,7 @@ import * as actions from '../../../../redux/actions';
 import { fetchArticles } from '../../../../redux/actions';
 
 const TextPreview = ({ title, favoritesCount, tagList = [], description, slug, id, user, favorited, handleLike }) => {
-  let likeImg = favorited ? likeTrue : likeFalse;
+  let like = favorited ? <LikeTrue /> : <LikeFalse />;
 
   const tags = tagList.map((tag, i) =>
     tag.trim() ? (
@@ -28,14 +31,22 @@ const TextPreview = ({ title, favoritesCount, tagList = [], description, slug, i
           {title}
         </Link>
         <div className={classes.likes}>
-          <img
+          {/*<img*/}
+          {/*  onClick={() => {*/}
+          {/*    user ? handleLike(slug, favorited) : info();*/}
+          {/*  }}*/}
+          {/*  src={likeImg}*/}
+          {/*  alt=""*/}
+          {/*  className={classes.like}*/}
+          {/*/>*/}
+          <div
+            className={classes.like}
             onClick={() => {
               user ? handleLike(slug, favorited) : info();
             }}
-            src={likeImg}
-            alt=""
-            className={classes.like}
-          />
+          >
+            {like}
+          </div>
           <span className={classes.likesNumber}>{favoritesCount}</span>
         </div>
       </div>

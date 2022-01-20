@@ -2,13 +2,14 @@ import { v4 as uuid } from 'uuid';
 import initialState from './state';
 
 const reducer = (state = initialState, action) => {
-  const { articles, errors, tagsNew } = state;
+  const { articles, errors, tagsNew, articlesCount } = state;
   switch (action.type) {
     case 'FETCH_ARTICLES_SUCCESS': {
       const articlesWithId1 = action.articles.map((el) => ({ id: uuid(), ...el }));
       return {
         ...state,
         articles: [...articlesWithId1],
+        articlesCount: action.articlesCount,
         tagsNew: ['tag', null],
       };
     }
@@ -22,8 +23,7 @@ const reducer = (state = initialState, action) => {
       const numberOfArticlesPerPage = 5;
       const trimStart = (action.page - 1) * numberOfArticlesPerPage;
       const trimEnd = trimStart + numberOfArticlesPerPage;
-      const numberOfArticles = articles.length;
-      const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
+      const numberOfPages = Math.ceil(articlesCount / numberOfArticlesPerPage);
       return {
         ...state,
         pagination: {
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
     case 'SIGNUP_ERROR':
       return {
         ...state,
-        errorMessages: action.error,
+        errorMessages: action.err,
         loadingUser: false,
       };
     case 'SIGN_IN_SUCCESSFUL':
@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
     case 'EDIT_PROFILE_ERROR':
       return {
         ...state,
-        errorMessages: action.error,
+        errorMessages: action.err,
         loadingUser: false,
         resultMessage: true,
       };
@@ -117,7 +117,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         article: null,
-        errorMessages: action.error,
+        errorMessages: action.err,
       };
 
     case 'EDIT_ARTICLE_SUCCESS':

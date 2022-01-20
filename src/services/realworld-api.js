@@ -16,8 +16,8 @@ export default class RealworldApi {
 
   getHeaders = () => (this.token ? { ...this.headers, Authorization: `Token ${this.token}` } : this.headers);
 
-  async getArticles(token) {
-    return fetch(`${this.baseUrl}/articles?limit=50`, {
+  async getArticles(token, limit, offset) {
+    return fetch(`${this.baseUrl}/articles?limit=${limit}&offset=${offset}`, {
       headers: {
         ...this.headers,
         Authorization: token ? `Token ${token}` : null,
