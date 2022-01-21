@@ -50,10 +50,6 @@ const ArticleForm = ({
 
   const inputs = articleNew.map((el) => getStandardInput(el.label, el.placeholder, errors, register, Controller));
 
-  // 1. записывать в localeStorage здесь
-  // 2. Когда задаю инпутам дефортные значения,то проверять, есть ли что-то в localeStorage
-  // 3. При клике на 'new article' делать очистку localeStorage и при отправке формы делать очистку localStorage
-
   let tagsLength = 5; //article?.tagList.length ? article?.tagList.length : 2;
 
   let tags = tagsArr.map((el, i, arr) => {

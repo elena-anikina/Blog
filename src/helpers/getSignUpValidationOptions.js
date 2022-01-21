@@ -1,35 +1,6 @@
-import React from 'react';
 import { re, reUrl } from './regex-email';
-import { useForm } from 'react-hook-form';
 
 const getSignUpValidationOptions = (label, watchPassword) => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-    watch,
-  } = useForm({ mode: 'onBlur' });
-
-  // return (
-  //     {
-  //         required: 'Поле обязательно для заполнения',
-  //         pattern: {
-  //             value: el === "Email address" ? re : null,
-  //             message: 'Неверный мейл'
-  //         },
-  //         minLength: {
-  //             value: el === "Username" ? 3 : null,
-  //             message: 'Username должен быть от 3 до 20 символов.'
-  //         },
-  //         maxLength: {
-  //             value: el === "Username" ? 20 : null,
-  //             message: 'Username должен быть от 3 до 20 символов.'
-  //         },
-  //         validate: (el === "Repeat Password") ? (value) => (value === watch("Password") || 'Email confirmation error!') : null
-  //     }
-  // );
-
   switch (label) {
     case 'Email address':
       return {
@@ -52,10 +23,7 @@ const getSignUpValidationOptions = (label, watchPassword) => {
     case 'Repeat Password':
       return {
         required: 'Поле обязательно для заполнения',
-        validate: (value) => {
-          console.log(value);
-          return value === watchPassword || 'Password и Repeat Password должны совпадать';
-        },
+        validate: (value) => value === watchPassword || 'Password и Repeat Password должны совпадать',
       };
 
     case 'New password':
@@ -72,6 +40,14 @@ const getSignUpValidationOptions = (label, watchPassword) => {
     case 'Title':
     case 'Short description':
     case 'Text':
+      return {
+        required: 'Поле обязательно для заполнения',
+        onChange: (event) => {
+          localStorage.setItem(label, event.target.value);
+        },
+      };
+
+    default:
       return {
         required: 'Поле обязательно для заполнения',
       };

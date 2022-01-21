@@ -1,9 +1,8 @@
-export const tagsDefaultValues = (tagList = ['tag']) => {
-  return tagList.reduce((acc, curr, i) => {
+export const tagsDefaultValues = (tagList = ['tag']) =>
+  tagList.reduce((acc, curr, i) => {
     acc[`tag${i + 1}`] = curr;
     return acc;
   }, {});
-};
 
 export const articleDefaultValues = {
   Title: '',
@@ -26,6 +25,13 @@ export const getArticleDefaultValues = (type, article) => {
       return {
         Title: article?.title,
         'Short description': '',
+        Text: '',
+        ...tagsDefaultValues,
+      };
+
+    default:
+      return {
+        Title: '',
         Text: '',
         ...tagsDefaultValues,
       };

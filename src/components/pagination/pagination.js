@@ -1,18 +1,26 @@
 import React from 'react';
 import classes from './pagination.module.scss';
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
 import arrow1 from './arrow1.svg';
 import arrow2 from './arrow2.svg';
 import { fetchArticles } from '../../redux/actions';
 
-const Pagination = ({ data, func, details: { page, arrowStart, arrowEnd }, articlesCount, fetchArticles }) => {
+const Pagination = ({
+  data,
+  func,
+  details: { page, arrowStart, arrowEnd },
+  articlesCount,
+  fetchArticles,
+  pagination: { trimStart, trimEnd },
+}) => {
   console.log(articlesCount);
-  const numberOfArticles = articlesCount;
   const numberOfArticlesPerPage = 5;
-  const numberOfPages = Math.ceil(numberOfArticles / numberOfArticlesPerPage);
+  const numberOfPages = Math.ceil(articlesCount / numberOfArticlesPerPage);
 
   const pagination = Array.from({ length: numberOfPages }, (v, k) => k + 1);
 
-  const paginationRender = pagination.map((el, i) => {
+  const paginationRender = pagination.slice(0, 5).map((el, i) => {
     let paginationClasses = [classes.paginationBtn];
     if (el === page) {
       paginationClasses.push(classes.active);
@@ -43,4 +51,6 @@ const Pagination = ({ data, func, details: { page, arrowStart, arrowEnd }, artic
   );
 };
 
-export default Pagination;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps)(Pagination);

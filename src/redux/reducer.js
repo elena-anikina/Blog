@@ -2,7 +2,8 @@ import { v4 as uuid } from 'uuid';
 import initialState from './state';
 
 const reducer = (state = initialState, action) => {
-  const { articles, errors, tagsNew, articlesCount } = state;
+  const { articles, errors, articlesCount } = state;
+
   switch (action.type) {
     case 'FETCH_ARTICLES_SUCCESS': {
       const articlesWithId1 = action.articles.map((el) => ({ id: uuid(), ...el }));
@@ -19,31 +20,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         errors: errors + 1,
       };
+
     case 'CALC_PAGINATION': {
       const numberOfArticlesPerPage = 5;
-      const trimStart = (action.page - 1) * numberOfArticlesPerPage;
-      const trimEnd = trimStart + numberOfArticlesPerPage;
+      // const trimStart = (action.page - 1) * numberOfArticlesPerPage;
+      // const trimEnd = trimStart + numberOfArticlesPerPage;
       const numberOfPages = Math.ceil(articlesCount / numberOfArticlesPerPage);
       return {
         ...state,
         pagination: {
           page: Number(action.page),
-          trimStart,
-          trimEnd,
           arrowStart: !(Number(action.page) === 1),
           arrowEnd: Number(action.page) < numberOfPages,
         },
         page: Number(action.page),
-        trimStart,
-        trimEnd,
+        // trimStart,
+        // trimEnd,
         arrowStart: !(Number(action.page) === 1),
         arrowEnd: Number(action.page) < numberOfPages,
-      };
-    }
-
-    case 'INPUT_CHANGE_SIGNUP': {
-      return {
-        ...state,
       };
     }
 
@@ -56,12 +50,14 @@ const reducer = (state = initialState, action) => {
         loadingUser: false,
       };
     }
+
     case 'SIGNUP_ERROR':
       return {
         ...state,
         errorMessages: action.err,
         loadingUser: false,
       };
+
     case 'SIGN_IN_SUCCESSFUL':
       localStorage.setItem('token', action.user.token);
       return {
@@ -70,6 +66,7 @@ const reducer = (state = initialState, action) => {
         errorMessages: null,
         loadingUser: false,
       };
+
     case 'SIGN_IN_ERROR':
       return {
         ...state,
@@ -99,12 +96,6 @@ const reducer = (state = initialState, action) => {
         errorMessages: action.err,
         loadingUser: false,
         resultMessage: true,
-      };
-
-    case 'HIDE_RESULT_MESSAGE':
-      return {
-        ...state,
-        resultMessage: false,
       };
 
     case 'GET_ARTICLE_SUCCESS':
@@ -147,11 +138,6 @@ const reducer = (state = initialState, action) => {
         ...state,
       };
 
-    case 'ADD_TAG':
-      return {
-        ...state,
-        tagsNew: [...tagsNew].concat('tag'),
-      };
     default:
       return state;
   }

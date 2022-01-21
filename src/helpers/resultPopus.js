@@ -1,5 +1,5 @@
+import React from 'react';
 import { Modal } from 'antd';
-import { useNavigate } from 'react-router-dom';
 
 const getPopupMessage = (value) => {
   switch (value) {
@@ -72,6 +72,12 @@ const getPopupMessage = (value) => {
       return {
         title: 'This is an error message',
         content: 'Check your input data and try again.',
+      };
+
+    default:
+      return {
+        title: 'Hello',
+        content: 'Have a good day!',
       };
   }
 };

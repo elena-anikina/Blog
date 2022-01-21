@@ -22,7 +22,14 @@ const App = () => {
           <Route path="/articles/:slug" element={<ArticlePage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route
+            path="/edit-profile"
+            element={
+              <RequireAuthentication>
+                <EditProfile />
+              </RequireAuthentication>
+            }
+          />
           <Route
             path="/article-new"
             element={
