@@ -21,6 +21,7 @@
   width: 7.12px;
   height: 10.49px;
   background: no-repeat url('./arrow1.svg');
+  cursor: auto;
 }
 
 .arrow1.activeArrow {
@@ -62,6 +63,7 @@
   height: 10.49px;
   background: no-repeat url('./arrow1.svg');
   transform: scale(-1, 1);
+  cursor: auto;
 }
 
 .paginationBtn {

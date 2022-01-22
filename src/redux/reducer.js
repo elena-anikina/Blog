@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import initialState from './state';
 
 const reducer = (state = initialState, action) => {
-  const { articles, errors, articlesCount } = state;
+  const { articles, errors, articlesCount, pagination } = state;
 
   switch (action.type) {
     case 'FETCH_ARTICLES_SUCCESS': {
@@ -29,15 +29,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pagination: {
+          ...pagination,
           page: Number(action.page),
           arrowStart: !(Number(action.page) === 1),
           arrowEnd: Number(action.page) < numberOfPages,
         },
-        page: Number(action.page),
-        // trimStart,
-        // trimEnd,
-        arrowStart: !(Number(action.page) === 1),
-        arrowEnd: Number(action.page) < numberOfPages,
       };
     }
 
@@ -137,6 +133,36 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
+    case 'PAGINATION_ARROW_RIGHT': {
+      const { trimStart, trimEnd, page } = pagination;
+      const numberOfPages = Math.ceil(articlesCount / 5);
+      const calcPageNumber = (num) => (page + num <= numberOfPages ? page + num : calcPageNumber(num - 1));
+      return {
+        ...state,
+        pagination: {
+          ...pagination,
+          page: calcPageNumber(5),
+          trimStart: trimStart + 5,
+          trimEnd: trimEnd + 5,
+          arrowStart: !(Number(page) === 1),
+          arrowEnd: page < numberOfPages,
+        },
+      };
+    }
+
+    case 'PAGINATION_ARROW_LEFT': {
+      const { trimStart, trimEnd, page } = pagination;
+      return {
+        ...state,
+        pagination: {
+          ...pagination,
+          page: page - 5,
+          trimStart: trimStart - 5,
+          trimEnd: trimEnd - 5,
+        },
+      };
+    }
 
     default:
       return state;

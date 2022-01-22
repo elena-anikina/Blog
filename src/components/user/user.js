@@ -1,39 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../redux/actions';
 import PropTypes from 'prop-types';
-import classes from './user.module.scss';
-import imageDefault from './avatar.png';
 import { format } from 'date-fns';
-import { useLocation, useParams, useNavigate, Link } from 'react-router-dom';
-import { Modal, Button, Popconfirm } from 'antd';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import * as actions from '../../redux/actions';
+import classes from './user.module.scss';
+import EditButtons from './edit-buttons';
 
 const User = ({ author: { username, image }, createdAt, deleteArticle, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const navFunc = () => navigate('/');
   const { slug } = useParams();
   const userImage = image || 'https://api.realworld.io/images/smiley-cyrus.jpeg';
   const date = createdAt ? format(new Date(createdAt), 'LLLL d, yyyy') : null;
+  const isAuthor = () => location.pathname.includes(slug) && user?.username === username;
 
-  const navFunc = () => {
-    navigate('/');
-  };
-
-  const editButtons =
-    location.pathname.includes(slug) && user?.username === username ? (
-      <div className={classes.editButtons}>
-        <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={() => deleteArticle(slug, navFunc)}>
-          <button className={classes.deleteBtn} type="button">
-            Delete
-          </button>
-        </Popconfirm>
-        <Link to={`/articles/${slug}/edit`} className={classes.userLink}>
-          <button className={classes.editBtn} type="button">
-            Edit
-          </button>
-        </Link>
-      </div>
-    ) : null;
+  const editButtons = isAuthor() ? <EditButtons slug={slug} deleteArticle={deleteArticle} navFunc={navFunc} /> : null;
 
   return username ? (
     <div className={classes.userContainer}>
@@ -53,12 +36,17 @@ const mapStateToProps = (state) => state;
 
 User.propTypes = {
   deleteArticle: PropTypes.func.isRequired,
-  user: PropTypes.instanceOf(Object).isRequired,
+  user: PropTypes.instanceOf(Object),
   createdAt: PropTypes.string.isRequired,
   author: PropTypes.shape({
     image: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
   }),
+};
+
+User.defaultProps = {
+  user: {},
+  author: {},
 };
 
 export default connect(mapStateToProps, actions)(User);

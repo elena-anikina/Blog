@@ -215,3 +215,7 @@ export function handleLike(slug, favorite) {
 }
 
 export const addTag = () => ({ type: 'ADD_TAG' });
+
+export const paginationArrowRight = () => ({ type: 'PAGINATION_ARROW_RIGHT' });
+
+export const paginationArrowLeft = () => ({ type: 'PAGINATION_ARROW_LEFT' });

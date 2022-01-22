@@ -16,7 +16,7 @@ const RequireAuthentication = ({ children, user }) => {
 const mapStateToProps = (state) => state;
 
 RequireAuthentication.propTypes = {
-  children: PropTypes.elementType.isRequired,
+  children: PropTypes.instanceOf(Object).isRequired,
   user: PropTypes.instanceOf(Object).isRequired,
 };
 
