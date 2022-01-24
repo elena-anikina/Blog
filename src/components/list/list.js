@@ -21,16 +21,7 @@ const List = ({
 
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
   // const articles5 = articles.slice(trimStart, trimEnd);
-  const pagination =
-    articlesCount > 5 ? (
-      <Pagination
-        data={data}
-        func={calcPagination}
-        fetchArticles={fetchArticles}
-        details={details}
-        articlesCount={articlesCount}
-      />
-    ) : null;
+  const pagination = articlesCount > 5 ? <Pagination /> : null;
   const loader = !data.length && !errorMessages ? <Loader /> : null;
 
   return (

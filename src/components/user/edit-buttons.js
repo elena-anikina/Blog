@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import classes from './user.module.scss';
+import deleteLocalStorageArticleValues from '../../helpers/deleteLocalStorageArticleValues';
 
 const EditButtons = ({ slug, deleteArticle, navFunc }) => (
   <div className={classes.editButtons}>
@@ -12,7 +13,7 @@ const EditButtons = ({ slug, deleteArticle, navFunc }) => (
       </button>
     </Popconfirm>
     <Link to={`/articles/${slug}/edit`} className={classes.userLink}>
-      <button className={classes.editBtn} type="button">
+      <button className={classes.editBtn} type="button" onClick={deleteLocalStorageArticleValues}>
         Edit
       </button>
     </Link>

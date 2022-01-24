@@ -1,48 +1,21 @@
 import React from 'react';
-import classes from './pagination.module.scss';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classes from './pagination.module.scss';
 import * as actions from '../../redux/actions';
-import arrow1 from './arrow1.svg';
-import arrow2 from './arrow2.svg';
-import { paginationArrowLeft } from '../../redux/actions';
+import PaginationArrRender from './paginationArrRender';
 
 const Pagination = ({
-  data,
-  func,
-  details: { page, arrowStart, arrowEnd },
+  pagination: { page },
   articlesCount,
   fetchArticles,
-  pagination: { trimStart, trimEnd },
   paginationArrowRight,
   paginationArrowLeft,
 }) => {
-  console.log(articlesCount);
-  const numberOfArticlesPerPage = 5;
-  const numberOfPages = Math.ceil(articlesCount / numberOfArticlesPerPage);
-
-  const pagination = Array.from({ length: numberOfPages }, (v, k) => k + 1);
-
-  const paginationRender = pagination.slice(trimStart, trimEnd).map((el, i) => {
-    let paginationClasses = [classes.paginationBtn];
-    if (el === page) {
-      paginationClasses.push(classes.active);
-    }
-
-    const onPaginationClick = (event) => {
-      const { textContent: page } = event.target;
-      func(event);
-      fetchArticles(5, (page - 1) * numberOfArticlesPerPage);
-    };
-
-    return (
-      <button key={i} className={paginationClasses.join(' ')} onClick={onPaginationClick}>
-        {el}
-      </button>
-    );
-  });
+  const numberOfPages = Math.ceil(articlesCount / 5);
+  const paginationArrRender = <PaginationArrRender />;
 
   const isEndArrowTrue = numberOfPages % 5 ? page <= numberOfPages - (numberOfPages % 5) : page <= numberOfPages - 5;
-  // page + 5 < numerOfPages
   const isStartArrowTrue = page > 5;
 
   const classNamesStart = isStartArrowTrue ? `${classes.arrow1} ${classes.activeArrow}` : classes.arrow1;
@@ -56,11 +29,12 @@ const Pagination = ({
         aria-label="button left"
         onClick={() => {
           if (isStartArrowTrue) {
+            fetchArticles(5, (page - 1 - 5) * 5);
             paginationArrowLeft();
           }
         }}
       />
-      {paginationRender}
+      {paginationArrRender}
       <button
         className={classNamesEnd}
         type="button"
@@ -68,11 +42,22 @@ const Pagination = ({
         onClick={() => {
           if (isEndArrowTrue) {
             paginationArrowRight();
+            fetchArticles(5, (page - 1 + 5) * 5);
           }
         }}
       />
     </div>
   );
+};
+
+Pagination.propTypes = {
+  paginationArrowLeft: PropTypes.func.isRequired,
+  paginationArrowRight: PropTypes.func.isRequired,
+  articlesCount: PropTypes.number.isRequired,
+  fetchArticles: PropTypes.func.isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+  }),
 };
 
 const mapStateToProps = (state) => state;

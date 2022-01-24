@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from '../header.module.scss';
 import { Link } from 'react-router-dom';
+import deleteLocalStorageArticleValues from '../../../helpers/deleteLocalStorageArticleValues';
 
 const LogBtn = ({ text, link, style, func }) => {
   let classNames = [classes.btn];
@@ -11,7 +12,7 @@ const LogBtn = ({ text, link, style, func }) => {
   return (
     <>
       <Link to={link} className={classNames.join(' ')}>
-        <button>{text}</button>
+        <button onClick={deleteLocalStorageArticleValues}>{text}</button>
       </Link>
     </>
   );

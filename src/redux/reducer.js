@@ -59,6 +59,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.user,
+        pagination: {
+          ...pagination,
+          page: 1,
+        },
         errorMessages: null,
         loadingUser: false,
       };
@@ -73,6 +77,10 @@ const reducer = (state = initialState, action) => {
     case 'LOG_OUT':
       return {
         ...state,
+        pagination: {
+          ...pagination,
+          page: 1,
+        },
         user: null,
         loadingUser: false,
       };

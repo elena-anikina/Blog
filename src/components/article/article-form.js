@@ -36,10 +36,11 @@ const ArticleForm = ({
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      Title: slug ? article?.title : '',
-      'Short description': type === 'edit' ? article?.description : '',
-      Text: type === 'edit' ? article?.body : '',
-      //...tagsDefaultValues(article?.tagList)
+      Title: slug ? localStorage.getItem('Title') || article?.title : localStorage.getItem('Title') || '',
+      'Short description': slug
+        ? localStorage.getItem('Short description') || article?.description
+        : localStorage.getItem('Short description') || '',
+      Text: slug ? localStorage.getItem('Text') || article?.body : localStorage.getItem('Text') || '',
     },
   });
 

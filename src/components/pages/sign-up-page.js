@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import AdditionalText from '../form/additional-text';
 import * as actions from '../../redux/actions';
-import { re } from '../../helpers/regex-email';
 import Checkbox from '../form/checkbox';
 import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import { signUpLabels } from '../form/labels';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignUpPage = ({ signUpSubmit }) => {
   const {
@@ -25,10 +25,11 @@ const SignUpPage = ({ signUpSubmit }) => {
   const fromPage = location.state?.from?.pathname || '/';
 
   const watchPassword = watch('Password');
-  console.log(watchPassword);
 
   const inputs = signUpLabels.map((el) => {
-    let style = { border: errors.hasOwnProperty(el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
+    const style = {
+      border: Object.prototype.hasOwnProperty.call(errors, el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9',
+    };
     const errorMessage = errors[el.label]?.message && (
       <span className={classes.errorText}>{errors[el.label].message}</span>
     );
@@ -48,10 +49,7 @@ const SignUpPage = ({ signUpSubmit }) => {
     );
   });
 
-  const navFunc = () => {
-    console.log('inside navFunc');
-    navigate(fromPage);
-  };
+  const navFunc = () => navigate(fromPage);
 
   const onSubmit = (data) => {
     signUpSubmit(data, reset, navFunc);
@@ -68,6 +66,10 @@ const SignUpPage = ({ signUpSubmit }) => {
       </form>
     </div>
   );
+};
+
+SignUpPage.propTypes = {
+  signUpSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ signUp }) => ({ signUp });
