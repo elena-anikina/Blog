@@ -18,7 +18,6 @@ const ArticleForm = ({
   article,
   getArticleForEditing,
   tags: tagsData,
-  handleTagsFunc,
   addTagFunc,
 }) => {
   const navigate = useNavigate();

@@ -17,7 +17,7 @@ const mapStateToProps = (state) => state;
 
 RequireAuthentication.propTypes = {
   children: PropTypes.instanceOf(Object).isRequired,
-  user: PropTypes.instanceOf(Object).isRequired,
+  user: PropTypes.instanceOf(Object),
 };
 
 export default connect(mapStateToProps)(RequireAuthentication);
