@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classes from './list.module.scss';
 import Article from '../article/article';
-import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import Pagination from '../pagination/pagination';
 import Loader from '../loader/loader';
-import { fetchArticles } from '../../redux/actions';
 
-const List = ({
-  fetchArticles,
-  articles: data,
-  calcPagination,
-  user,
-  checkingAuthentication,
-  errorMessages,
-  pagination: { trimStart, trimEnd, ...details },
-  articlesCount,
-}) => {
-  console.log(articlesCount);
-
+const List = ({ articles: data, errorMessages, articlesCount }) => {
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
-  // const articles5 = articles.slice(trimStart, trimEnd);
   const pagination = articlesCount > 5 ? <Pagination /> : null;
   const loader = !data.length && !errorMessages ? <Loader /> : null;
 
@@ -31,6 +19,17 @@ const List = ({
       {pagination}
     </section>
   );
+};
+
+List.propTypes = {
+  articles: PropTypes.instanceOf(Array),
+  errorMessages: PropTypes.instanceOf(Object),
+  articlesCount: PropTypes.number.isRequired,
+};
+
+List.defaultProps = {
+  articles: [],
+  errorMessages: {},
 };
 
 const mapStateToProps = (state) => state;
