@@ -1,36 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import classes from '../form/form.module.scss';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
-import Checkbox from '../form/checkbox';
-import Button from '../form/button';
-import AdditionalText from '../form/additional-text';
 import { connect } from 'react-redux';
+import classes from '../form/form.module.scss';
+import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
+import Button from '../form/button';
 import * as actions from '../../redux/actions';
 import { editProfileLabels } from '../form/labels';
-import { notification, Space } from 'antd';
 
-const openNotificationWithIcon = (type) => {
-  notification[type]({
-    message: 'Notification Title',
-    description:
-      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-  });
-};
-
-const EditProfile = ({ user, errorMessages, checkingAuthentication, editProfile }) => {
-  // useState(false);
-  //
-  // useEffect(() => {
-  //     openNotificationWithIcon('success')
-  // }, [user])
-
+const EditProfile = ({ user, editProfile }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
-    watch,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -42,8 +24,11 @@ const EditProfile = ({ user, errorMessages, checkingAuthentication, editProfile 
   });
 
   const inputs = editProfileLabels.map((el) => {
-    let style = { border: errors.hasOwnProperty(el) ? '1px solid #F5222D' : '1px solid #D9D9D9' };
+    const style = {
+      border: Object.prototype.hasOwnProperty.call(errors, el) ? '1px solid #F5222D' : '1px solid #D9D9D9',
+    };
     const errorMessage = errors[el]?.message && <span className={classes.errorText}>{errors[el].message}</span>;
+
     return (
       <div key={el} className={classes.form}>
         <label>
@@ -70,6 +55,15 @@ const EditProfile = ({ user, errorMessages, checkingAuthentication, editProfile 
       </form>
     </div>
   );
+};
+
+EditProfile.propTypes = {
+  user: PropTypes.instanceOf(Object),
+  editProfile: PropTypes.func.isRequired,
+};
+
+EditProfile.defaultProps = {
+  user: {},
 };
 
 const mapStateToProps = ({ user }) => ({ user });
