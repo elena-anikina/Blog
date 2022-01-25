@@ -1,17 +1,15 @@
-import { v4 as uuid } from 'uuid';
 import initialState from './state';
+import handleLikes from '../helpers/handleLikes';
 
 const reducer = (state = initialState, action) => {
   const { articles, errors, articlesCount, pagination } = state;
 
   switch (action.type) {
     case 'FETCH_ARTICLES_SUCCESS': {
-      const articlesWithId1 = action.articles.map((el) => ({ id: uuid(), ...el }));
       return {
         ...state,
-        articles: [...articlesWithId1],
+        articles: action.articles,
         articlesCount: action.articlesCount,
-        tagsNew: ['tag', null],
       };
     }
 
@@ -21,21 +19,14 @@ const reducer = (state = initialState, action) => {
         errors: errors + 1,
       };
 
-    case 'CALC_PAGINATION': {
-      const numberOfArticlesPerPage = 5;
-      // const trimStart = (action.page - 1) * numberOfArticlesPerPage;
-      // const trimEnd = trimStart + numberOfArticlesPerPage;
-      const numberOfPages = Math.ceil(articlesCount / numberOfArticlesPerPage);
+    case 'CALC_PAGINATION':
       return {
         ...state,
         pagination: {
           ...pagination,
           page: Number(action.page),
-          arrowStart: !(Number(action.page) === 1),
-          arrowEnd: Number(action.page) < numberOfPages,
         },
       };
-    }
 
     case 'SIGNUP_SUCCESS': {
       localStorage.setItem('token', action.user.token);
@@ -128,14 +119,11 @@ const reducer = (state = initialState, action) => {
         errorMessages: action.error,
       };
 
-    case 'HANDLE_LIKE_SUCCESS': {
-      const idx = [...articles].findIndex((el) => el.slug === action.article.slug);
-      const newArticles = [...articles.slice(0, idx), action.article, ...articles.slice(idx + 1)];
+    case 'HANDLE_LIKE_SUCCESS':
       return {
         ...state,
-        articles: newArticles,
+        articles: handleLikes([...articles], action.article),
       };
-    }
 
     case 'HANDLE_LIKE_ERROR':
       return {
