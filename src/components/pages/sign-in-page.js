@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import * as actions from '../../redux/actions';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import AdditionalText from '../form/additional-text';
-import { useForm } from 'react-hook-form';
-import { re } from '../../helpers/regex-email';
 import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import BaseLayout from '../form/base-layout';
-import ResultMessage from '../form/result-message';
 import { signInLabels } from '../form/labels';
 
-const SignInPage = ({ signInSubmit, user }) => {
+const SignInPage = ({ signInSubmit }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
@@ -54,7 +52,7 @@ const SignInPage = ({ signInSubmit, user }) => {
   };
 
   const signInForm = (
-    <BaseLayout heading="Sign IN">
+    <BaseLayout heading="Sign in">
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         {inputs}
         <Button value="Login" />
@@ -63,9 +61,7 @@ const SignInPage = ({ signInSubmit, user }) => {
     </BaseLayout>
   );
 
-  const resultSuccess = <ResultMessage navFunc={navFunc} heading="You're lucky!" text="You logged in successfully!" />;
-
-  return user ? resultSuccess : signInForm;
+  return signInForm;
 };
 
 const mapStateToProps = (state) => state;
