@@ -102,7 +102,7 @@ export const newArticleSuccess = (article) => ({ type: 'NEW_ARTICLE_SUCCESS', ar
 
 export const newArticleError = (err) => ({ type: 'NEW_ARTICLE_ERROR', err });
 
-export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => {
+export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => (dispatch) => {
   const { Title: title, 'Short description': description, Text: body } = data;
   realWorldApi
     .createArticle(title, description, body, tagsArr)
