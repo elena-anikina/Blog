@@ -1,11 +1,12 @@
 import initialState from './state';
 import handleLikes from '../helpers/handleLikes';
+import * as c from './actionTypes';
 
 const reducer = (state = initialState, action) => {
   const { articles, errors, articlesCount, pagination } = state;
 
   switch (action.type) {
-    case 'FETCH_ARTICLES_SUCCESS': {
+    case c.FETCH_ARTICLES_SUCCESS: {
       return {
         ...state,
         articles: action.articles,
@@ -13,13 +14,13 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case 'FETCH_ARTICLES_ERROR':
+    case c.FETCH_ARTICLES_ERROR:
       return {
         ...state,
         errors: errors + 1,
       };
 
-    case 'CALC_PAGINATION':
+    case c.CALC_PAGINATION:
       return {
         ...state,
         pagination: {
@@ -28,8 +29,9 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    case 'SIGNUP_SUCCESS': {
+    case c.SIGNUP_SUCCESS: {
       localStorage.setItem('token', action.user.token);
+      console.log(action.user.token);
       return {
         ...state,
         errorMessages: null,
@@ -38,14 +40,14 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case 'SIGNUP_ERROR':
+    case c.SIGNUP_ERROR:
       return {
         ...state,
         errorMessages: action.err,
         loadingUser: false,
       };
 
-    case 'SIGN_IN_SUCCESSFUL':
+    case c.SIGN_IN_SUCCESSFUL:
       localStorage.setItem('token', action.user.token);
       return {
         ...state,
@@ -58,14 +60,15 @@ const reducer = (state = initialState, action) => {
         loadingUser: false,
       };
 
-    case 'SIGN_IN_ERROR':
+    case c.SIGN_IN_ERROR:
       return {
         ...state,
         errorMessages: action.errors,
         loadingUser: false,
       };
 
-    case 'LOG_OUT':
+    case c.LOG_OUT:
+      localStorage.removeItem('token');
       return {
         ...state,
         pagination: {
@@ -76,7 +79,7 @@ const reducer = (state = initialState, action) => {
         loadingUser: false,
       };
 
-    case 'EDIT_PROFILE_SUCCESS':
+    case c.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         user: action.user,
@@ -85,7 +88,7 @@ const reducer = (state = initialState, action) => {
         resultMessage: true,
       };
 
-    case 'EDIT_PROFILE_ERROR':
+    case c.EDIT_PROFILE_ERROR:
       return {
         ...state,
         errorMessages: action.err,
@@ -93,44 +96,44 @@ const reducer = (state = initialState, action) => {
         resultMessage: true,
       };
 
-    case 'GET_ARTICLE_SUCCESS':
+    case c.GET_ARTICLE_SUCCESS:
       return {
         ...state,
         article: action.article,
       };
 
-    case 'GET_ARTICLE_ERROR':
+    case c.GET_ARTICLE_ERROR:
       return {
         ...state,
         article: null,
         errorMessages: action.err,
       };
 
-    case 'EDIT_ARTICLE_SUCCESS':
+    case c.EDIT_ARTICLE_SUCCESS:
       return {
         ...state,
         article: action.article,
         errorMessages: null,
       };
 
-    case 'EDIT_ARTICLE_ERROR':
+    case c.EDIT_ARTICLE_ERROR:
       return {
         ...state,
         errorMessages: action.error,
       };
 
-    case 'HANDLE_LIKE_SUCCESS':
+    case c.HANDLE_LIKE_SUCCESS:
       return {
         ...state,
         articles: handleLikes([...articles], action.article),
       };
 
-    case 'HANDLE_LIKE_ERROR':
+    case c.HANDLE_LIKE_ERROR:
       return {
         ...state,
       };
 
-    case 'PAGINATION_ARROW_RIGHT': {
+    case c.PAGINATION_ARROW_RIGHT: {
       const { trimStart, trimEnd, page } = pagination;
       const numberOfPages = Math.ceil(articlesCount / 5);
       const calcPageNumber = (num) => (page + num <= numberOfPages ? page + num : calcPageNumber(num - 1));
@@ -147,7 +150,7 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case 'PAGINATION_ARROW_LEFT': {
+    case c.PAGINATION_ARROW_LEFT: {
       const { trimStart, trimEnd, page } = pagination;
       return {
         ...state,

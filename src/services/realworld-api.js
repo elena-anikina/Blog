@@ -94,12 +94,14 @@ class RealworldApi {
       method: httpMethods.POST,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
         article: { title, description, body, tagList },
       }),
-    }).then((response) => response.json());
+    }).then((response) => {
+      return response.json();
+    });
   }
 
   async getArticle(slug) {

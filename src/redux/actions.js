@@ -1,3 +1,4 @@
+import * as c from './actionTypes';
 import { success, error } from '../helpers/resultPopus';
 import { realWorldApi } from '../services/realworld-api';
 
@@ -7,7 +8,7 @@ export const fetchArticlesSuccess = (articles, articlesCount) => ({
   articlesCount,
 });
 
-export const fetchArticlesError = () => ({ type: 'FETCH_ARTICLES_ERROR' });
+export const fetchArticlesError = () => ({ type: c.FETCH_ARTICLES_ERROR });
 
 export const fetchArticles = (limit, offset) => (dispatch) => {
   const token = localStorage.getItem('token');
@@ -23,17 +24,12 @@ export const fetchArticles = (limit, offset) => (dispatch) => {
 
 export const calcPagination = (event) => {
   const { textContent: page } = event.target;
-  return { type: 'CALC_PAGINATION', page };
+  return { type: c.CALC_PAGINATION, page };
 };
 
-export const inputChangeSignUp = (event) => {
-  const { value, name } = event.target;
-  return { type: 'INPUT_CHANGE_SIGNUP', value, name };
-};
+export const signUpSuccess = (user) => ({ type: c.SIGNUP_SUCCESS, user });
 
-export const signUpSuccess = (user) => ({ type: 'SIGNUP_SUCCESS', user });
-
-export const signUpError = (err) => ({ type: 'SIGNUP_ERROR', err });
+export const signUpError = (err) => ({ type: c.SIGNUP_ERROR, err });
 
 export const signUpSubmit = (data, reset, navFunc) => {
   const { Username: username, 'Email address': email, Password: password } = data;
@@ -57,9 +53,9 @@ export const signUpSubmit = (data, reset, navFunc) => {
   };
 };
 
-export const signInSuccessful = (user) => ({ type: 'SIGN_IN_SUCCESSFUL', user });
+export const signInSuccessful = (user) => ({ type: c.SIGN_IN_SUCCESSFUL, user });
 
-export const signInError = (errors) => ({ type: 'SIGN_IN_ERROR', errors });
+export const signInError = (errors) => ({ type: c.SIGN_IN_ERROR, errors });
 
 export const signInSubmit = (data, reset, navigate, fromPage, navFunc) => {
   const { 'Email address': email, Password: password } = data;
@@ -93,18 +89,19 @@ export const checkingAuthentication = () => (dispatch) => {
 
 export const logOut = () => {
   localStorage.removeItem('token');
-  return { type: 'LOG_OUT' };
+  return { type: c.LOG_OUT };
 };
 
-export const newArticleSuccess = (article) => ({ type: 'NEW_ARTICLE_SUCCESS', article });
+export const newArticleSuccess = (article) => ({ type: c.NEW_ARTICLE_SUCCESS, article });
 
-export const newArticleError = (err) => ({ type: 'NEW_ARTICLE_ERROR', err });
+export const newArticleError = (err) => ({ type: c.NEW_ARTICLE_ERROR, err });
 
 export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => (dispatch) => {
   const { Title: title, 'Short description': description, Text: body } = data;
   realWorldApi
     .createArticle(title, description, body, tagsArr)
     .then((result) => {
+      console.log(result);
       reset();
       if (result.article) {
         success('newArticleSuccess', navigateToHomePage);
@@ -116,9 +113,9 @@ export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => (d
     .catch((err) => err);
 };
 
-export const editProfileSuccess = (user) => ({ type: 'EDIT_PROFILE_SUCCESS', user });
+export const editProfileSuccess = (user) => ({ type: c.EDIT_PROFILE_SUCCESS, user });
 
-export const editProfileError = (err) => ({ type: 'EDIT_PROFILE_ERROR', err });
+export const editProfileError = (err) => ({ type: c.EDIT_ARTICLE_ERROR, err });
 
 export const editProfile = (data) => {
   const { 'Avatar image (url)': image, 'Email address': email, 'New password': password, Username: username } = data;
@@ -139,9 +136,9 @@ export const editProfile = (data) => {
   };
 };
 
-export const getArticleForEditingSuccess = (article) => ({ type: 'GET_ARTICLE_SUCCESS', article });
+export const getArticleForEditingSuccess = (article) => ({ type: c.GET_ARTICLE_SUCCESS, article });
 
-export const getArticleForEditingError = (err) => ({ type: 'GET_ARTICLE_ERROR', err });
+export const getArticleForEditingError = (err) => ({ type: c.GET_ARTICLE_ERROR, err });
 
 export const getArticleForEditing = (slug) => (dispatch) => {
   realWorldApi
@@ -154,9 +151,9 @@ export const getArticleForEditing = (slug) => (dispatch) => {
     .catch((err) => err);
 };
 
-export const editArticleSuccess = (article) => ({ type: 'EDIT_ARTICLE_SUCCESS', article });
+export const editArticleSuccess = (article) => ({ type: c.EDIT_ARTICLE_SUCCESS, article });
 
-export const editArticleError = (err) => ({ type: 'EDIT_ARTICLE_ERROR', err });
+export const editArticleError = (err) => ({ type: c.EDIT_ARTICLE_ERROR, err });
 
 export const editArticle = (slug, data, tagsArr, navigateToHomePage) => {
   const { Title: title, 'Short description': description, Text: body } = data;
@@ -188,9 +185,9 @@ export const deleteArticle = (slug, navigateToHomePage) => {
   });
 };
 
-export const handleLikeSuccess = (article) => ({ type: 'HANDLE_LIKE_SUCCESS', article });
+export const handleLikeSuccess = (article) => ({ type: c.HANDLE_LIKE_SUCCESS, article });
 
-export const handleLikeError = (err) => ({ type: 'HANDLE_LIKE_ERROR', err });
+export const handleLikeError = (err) => ({ type: c.HANDLE_LIKE_ERROR, err });
 
 export function handleLike(slug, favorite) {
   return (dispatch) => {
@@ -212,8 +209,8 @@ export function handleLike(slug, favorite) {
   };
 }
 
-export const addTag = () => ({ type: 'ADD_TAG' });
+export const addTag = () => ({ type: c.ADD_TAG });
 
-export const paginationArrowRight = () => ({ type: 'PAGINATION_ARROW_RIGHT' });
+export const paginationArrowRight = () => ({ type: c.PAGINATION_ARROW_RIGHT });
 
-export const paginationArrowLeft = () => ({ type: 'PAGINATION_ARROW_LEFT' });
+export const paginationArrowLeft = () => ({ type: c.PAGINATION_ARROW_LEFT });
