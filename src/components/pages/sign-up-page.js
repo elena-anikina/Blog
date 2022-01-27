@@ -60,7 +60,7 @@ const SignUpPage = ({ signUpSubmit }) => {
       <h1 className={classes.heading}>Create new account</h1>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         {inputs}
-        <Checkbox />
+        <Checkbox register={register} errors={errors} />
         <Button value="Create" />
         <AdditionalText {...{ text: 'Already have an account? Sign In.', linkWord: 'Sign In', linkTo: '/sign-in' }} />
       </form>

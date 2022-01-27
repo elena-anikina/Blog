@@ -1,4 +1,4 @@
-export default class RealworldApi {
+class RealworldApi {
   baseUrl000 = '//kata.academy:8022/api';
 
   baseUrl100 = 'https://api.realworld.io/api';
@@ -157,3 +157,5 @@ export default class RealworldApi {
     }).then((response) => response.json());
   }
 }
+
+export const realWorldApi = new RealworldApi();

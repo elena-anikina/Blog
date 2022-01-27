@@ -1,7 +1,5 @@
 import { success, error } from '../helpers/resultPopus';
-import RealworldApi from '../services/realworld-api';
-
-const realWorldApi = new RealworldApi();
+import { realWorldApi } from '../services/realworld-api';
 
 export const fetchArticlesSuccess = (articles, articlesCount) => ({
   type: 'FETCH_ARTICLES_SUCCESS',

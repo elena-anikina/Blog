@@ -97,8 +97,6 @@
   font-family: $fontFamily;
 }
 
-.input {
-}
 
 .btn {
   display: flex;
@@ -150,12 +148,14 @@
 
 .checkbox {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .form .checkboxText {
   font-size: 14px;
   line-height: 22px;
   color: #595959;
+  margin-bottom: 4px;
 }
 
 input[type='checkbox'] {
@@ -190,9 +190,6 @@ input[type='checkbox']:checked + span {
   text-decoration: none;
   color: $infoColor;
   cursor: pointer;
-}
-
-.message {
 }
 
 .articleForm {

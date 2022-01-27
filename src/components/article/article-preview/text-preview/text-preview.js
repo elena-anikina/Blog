@@ -8,8 +8,7 @@ import { ReactComponent as LikeTrue } from './like-true.svg';
 
 import { Link } from 'react-router-dom';
 import { success, error, info } from '../../../../helpers/resultPopus';
-import RealworldApi from '../../../../services/realworld-api';
-const realWorldApi = new RealworldApi();
+import { realWorldApi } from '../../../../services/realworld-api';
 import * as actions from '../../../../redux/actions';
 import { fetchArticles } from '../../../../redux/actions';
 
