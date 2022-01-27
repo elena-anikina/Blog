@@ -11,13 +11,13 @@ class RealworldApi {
 
   baseUrl = 'https://kata.academy:8021/api';
 
-  getHeaders = () => (token ? { ...headers, Authorization: `Token ${token}` } : headers);
+  getHeaders = () => (token.get() ? { ...headers, Authorization: `Token ${token.get()}` } : headers);
 
-  async getArticles(token, limit, offset) {
+  async getArticles(t, limit, offset) {
     return fetch(`${this.baseUrl}/articles?limit=${limit}&offset=${offset}`, {
       headers: {
         ...headers,
-        Authorization: token ? `Token ${token}` : null,
+        Authorization: token.get() ? `Token ${token.get()}` : null,
       },
     }).then((response) => {
       if (!response.ok) {
@@ -61,7 +61,7 @@ class RealworldApi {
       method: httpMethods.GET,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
     }).then((response) => {
       if (!response.ok) {
@@ -76,7 +76,7 @@ class RealworldApi {
       method: httpMethods.PUT,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
       body: JSON.stringify({
         user: { email, username, password, image },
@@ -94,7 +94,7 @@ class RealworldApi {
       method: httpMethods.POST,
       headers: {
         ...headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: `Token ${token.get()}`,
       },
       body: JSON.stringify({
         article: { title, description, body, tagList },
@@ -118,7 +118,7 @@ class RealworldApi {
       method: httpMethods.PUT,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
       body: JSON.stringify({
         article: { title, description, body, tagList },
@@ -131,7 +131,7 @@ class RealworldApi {
       method: httpMethods.DELETE,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
     }).then((response) => response);
   }
@@ -141,7 +141,7 @@ class RealworldApi {
       method: httpMethods.POST,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
     }).then((response) => response.json());
   }
@@ -151,7 +151,7 @@ class RealworldApi {
       method: httpMethods.DELETE,
       headers: {
         ...headers,
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${token.get()}`,
       },
     }).then((response) => response.json());
   }
