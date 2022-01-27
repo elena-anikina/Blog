@@ -1,3 +1,7 @@
+import { httpMethods } from './httpMethods';
+import { headers } from './headers';
+import { token } from './token';
+
 class RealworldApi {
   baseUrl000 = '//kata.academy:8022/api';
 
@@ -7,19 +11,12 @@ class RealworldApi {
 
   baseUrl = 'https://kata.academy:8021/api';
 
-  token = localStorage.getItem('token');
-
-  headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-
-  getHeaders = () => (this.token ? { ...this.headers, Authorization: `Token ${this.token}` } : this.headers);
+  getHeaders = () => (token ? { ...headers, Authorization: `Token ${token}` } : headers);
 
   async getArticles(token, limit, offset) {
     return fetch(`${this.baseUrl}/articles?limit=${limit}&offset=${offset}`, {
       headers: {
-        ...this.headers,
+        ...headers,
         Authorization: token ? `Token ${token}` : null,
       },
     }).then((response) => {
@@ -32,9 +29,9 @@ class RealworldApi {
 
   async registerUser(username, email, password) {
     return fetch(`${this.baseUrl}/users`, {
-      method: 'POST',
+      method: httpMethods.POST,
       headers: {
-        ...this.headers,
+        ...headers,
       },
       body: JSON.stringify({
         user: { username, email, password },
@@ -46,9 +43,9 @@ class RealworldApi {
 
   async loginUser(email, password) {
     return fetch(`${this.baseUrl}/users/login`, {
-      method: 'POST',
+      method: httpMethods.POST,
       headers: {
-        ...this.headers,
+        ...headers,
       },
       body: JSON.stringify({
         user: { email, password },
@@ -61,10 +58,10 @@ class RealworldApi {
 
   async getCurrentUser() {
     return fetch(`${this.baseUrl}/user`, {
-      method: 'GET',
+      method: httpMethods.GET,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
     }).then((response) => {
       if (!response.ok) {
@@ -76,10 +73,10 @@ class RealworldApi {
 
   async updateUser(email, username, password, image) {
     return fetch(`${this.baseUrl}/user`, {
-      method: 'PUT',
+      method: httpMethods.PUT,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
       body: JSON.stringify({
         user: { email, username, password, image },
@@ -94,10 +91,10 @@ class RealworldApi {
 
   async createArticle(title, description, body, tagList) {
     return fetch(`${this.baseUrl}/articles`, {
-      method: 'POST',
+      method: httpMethods.POST,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
       body: JSON.stringify({
         article: { title, description, body, tagList },
@@ -116,10 +113,10 @@ class RealworldApi {
 
   async editArticle(slug, title, description, body, tagList) {
     return fetch(`${this.baseUrl}/articles/${slug}`, {
-      method: 'PUT',
+      method: httpMethods.PUT,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
       body: JSON.stringify({
         article: { title, description, body, tagList },
@@ -129,30 +126,30 @@ class RealworldApi {
 
   async deleteArticle(slug) {
     return fetch(`${this.baseUrl}/articles/${slug}`, {
-      method: 'DELETE',
+      method: httpMethods.DELETE,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
     }).then((response) => response);
   }
 
   async favoriteArticle(slug) {
     return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
-      method: 'POST',
+      method: httpMethods.POST,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
   }
 
   async unFavoriteArticle(slug) {
     return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
-      method: 'DELETE',
+      method: httpMethods.DELETE,
       headers: {
-        ...this.headers,
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        ...headers,
+        Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
   }
