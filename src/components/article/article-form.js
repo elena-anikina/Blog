@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import classes from '../form/form.module.scss';
 import { articleNew } from '../form/labels';
 import { getStandardInput, getErrorMessage, getValidationStyleForInput } from '../form/getRedValidationStyleForInput';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import * as actions from '../../redux/actions';
 import ArticleTags from './article-tags/article-tags';
+import { articleNewEditSchema } from '../../helpers/schemaFormValidation';
 
 const ArticleForm = ({ title, type, func, article }) => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const ArticleForm = ({ title, type, func, article }) => {
     reset,
   } = useForm({
     mode: 'onBlur',
+    resolver: yupResolver(articleNewEditSchema),
     defaultValues: {
       Title: slug ? localStorage.getItem('Title') || article?.title : localStorage.getItem('Title') || '',
       'Short description': slug
@@ -59,7 +61,11 @@ const ArticleForm = ({ title, type, func, article }) => {
               className={classes.inputTextarea}
               placeholder="Text"
               rows="10"
-              {...register('Text', { ...getSignUpValidationOptions('Text') })}
+              {...register('Text', {
+                onChange: (event) => {
+                  localStorage.setItem('Text', event.target.value);
+                },
+              })}
             />
             {getErrorMessage(errors, 'Text')}
           </label>

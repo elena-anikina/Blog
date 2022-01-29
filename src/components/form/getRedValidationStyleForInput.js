@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './form.module.scss';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 
 export const getValidationStyleForInput = (errors, label) => {
   return {
@@ -25,7 +24,11 @@ export const getStandardInput = (label, placeholder, errors, register) => {
           style={getValidationStyleForInput(errors, label)}
           className={classes.input}
           placeholder={placeholder || label}
-          {...register(label, { ...getSignUpValidationOptions(label) })}
+          {...register(label, {
+            onChange: (event) => {
+              localStorage.setItem(label, event.target.value);
+            },
+          })}
         />
         {getErrorMessage(errors, label)}
       </label>

@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as actions from '../../redux/actions';
+import { signInSchema } from '../../helpers/schemaFormValidation';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import AdditionalText from '../form/additional-text';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import BaseLayout from '../form/base-layout';
 import { signInLabels } from '../form/labels';
 
@@ -20,7 +21,10 @@ const SignInPage = ({ signInSubmit }) => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(signInSchema),
+  });
 
   const inputs = signInLabels.map((el) => {
     const style = {
@@ -31,12 +35,7 @@ const SignInPage = ({ signInSubmit }) => {
       <div key={el} className={classes.form}>
         <label>
           {el}
-          <input
-            className={classes.input}
-            placeholder={el}
-            style={style}
-            {...register(el, { ...getSignUpValidationOptions(el) })}
-          />
+          <input className={classes.input} placeholder={el} style={style} {...register(el)} />
           <div className={classes.errorText}>{errorMessage}</div>
         </label>
       </div>

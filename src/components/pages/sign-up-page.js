@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signUpSchema } from '../../helpers/schemaFormValidation';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import AdditionalText from '../form/additional-text';
 import * as actions from '../../redux/actions';
 import Checkbox from '../form/checkbox';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import { signUpLabels } from '../form/labels';
 
 const SignUpPage = ({ signUpSubmit }) => {
@@ -18,13 +19,14 @@ const SignUpPage = ({ signUpSubmit }) => {
     handleSubmit,
     reset,
     watch,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(signUpSchema),
+  });
 
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
-
-  const watchPassword = watch('Password');
 
   const inputs = signUpLabels.map((el) => {
     const style = {
@@ -41,7 +43,7 @@ const SignUpPage = ({ signUpSubmit }) => {
             className={classes.input}
             placeholder={el.placeholder || el.label}
             style={style}
-            {...register(el.label, { ...getSignUpValidationOptions(el.label, watchPassword) })}
+            {...register(el.label)}
           />
           <div className={classes.errorText}>{errorMessage}</div>
         </label>

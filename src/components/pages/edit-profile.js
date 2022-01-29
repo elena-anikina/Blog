@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { editProfileSchema } from '../../helpers/schemaFormValidation';
 import { connect } from 'react-redux';
 import classes from '../form/form.module.scss';
-import getSignUpValidationOptions from '../../helpers/getSignUpValidationOptions';
 import Button from '../form/button';
 import * as actions from '../../redux/actions';
 import { editProfileLabels } from '../form/labels';
@@ -15,6 +16,7 @@ const EditProfile = ({ user, editProfile }) => {
     handleSubmit,
   } = useForm({
     mode: 'onBlur',
+    resolver: yupResolver(editProfileSchema),
     defaultValues: {
       Username: user?.username,
       'Email address': user?.email,
@@ -33,13 +35,7 @@ const EditProfile = ({ user, editProfile }) => {
       <div key={el} className={classes.form}>
         <label>
           {el}
-          <input
-            className={classes.input}
-            placeholder={el}
-            style={style}
-            ref={register}
-            {...register(el, { ...getSignUpValidationOptions(el) })}
-          />
+          <input className={classes.input} placeholder={el} style={style} ref={register} {...register(el)} />
           <div className={classes.errorText}>{errorMessage}</div>
         </label>
       </div>
