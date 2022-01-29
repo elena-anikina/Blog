@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as actions from '../../redux/actions';
 import { signInSchema } from '../../helpers/schemaFormValidation';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
-import AdditionalText from '../form/additional-text';
 import BaseLayout from '../form/base-layout';
 import { signInLabels } from '../form/labels';
 
@@ -56,7 +55,9 @@ const SignInPage = ({ signInSubmit }) => {
         {inputs}
         <Button value="Login" />
       </form>
-      <AdditionalText {...{ text: 'Don’t have an account? Sign Up.', linkWord: ' Sign Up', linkTo: '/' }} />
+      <span className={classes.additionalText}>
+        Don’t have an account?&nbsp;<Link to="/">Sign Up</Link>.
+      </span>
     </BaseLayout>
   );
 

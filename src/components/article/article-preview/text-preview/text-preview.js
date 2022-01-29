@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import classes from './text-preview.module.scss';
-// import likeFalse from './like-false.svg';
 // import likeTrue from './like-true.svg';
 import { ReactComponent as LikeFalse } from './like-false.svg';
 import { ReactComponent as LikeTrue } from './like-true.svg';
@@ -30,14 +29,6 @@ const TextPreview = ({ title, favoritesCount, tagList = [], description, slug, i
           {title}
         </Link>
         <div className={classes.likes}>
-          {/*<img*/}
-          {/*  onClick={() => {*/}
-          {/*    user ? handleLike(slug, favorited) : info();*/}
-          {/*  }}*/}
-          {/*  src={likeImg}*/}
-          {/*  alt=""*/}
-          {/*  className={classes.like}*/}
-          {/*/>*/}
           <div
             className={classes.like}
             onClick={() => {

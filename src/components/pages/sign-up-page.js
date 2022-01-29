@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '../../helpers/schemaFormValidation';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
-import AdditionalText from '../form/additional-text';
 import * as actions from '../../redux/actions';
 import Checkbox from '../form/checkbox';
 import { signUpLabels } from '../form/labels';
@@ -64,7 +63,9 @@ const SignUpPage = ({ signUpSubmit }) => {
         {inputs}
         <Checkbox register={register} errors={errors} />
         <Button value="Create" />
-        <AdditionalText {...{ text: 'Already have an account? Sign In.', linkWord: 'Sign In', linkTo: '/sign-in' }} />
+        <span className={classes.additionalText}>
+          Already have an account?&nbsp;<Link to="/sign-in">Sign In</Link>.
+        </span>
       </form>
     </div>
   );
