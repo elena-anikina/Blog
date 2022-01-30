@@ -21,6 +21,9 @@ const Pagination = ({
   const classNamesStart = isStartArrowTrue ? `${classes.arrow1} ${classes.activeArrow}` : classes.arrow1;
   const classNamesEnd = isEndArrowTrue ? `${classes.arrow2} ${classes.activeArrow}` : classes.arrow2;
 
+  const articlesPerPage = 5;
+  const howManyArticlesToFetch = 5;
+
   return (
     <div className={classes.pagination}>
       <button
@@ -29,7 +32,8 @@ const Pagination = ({
         aria-label="button left"
         onClick={() => {
           if (isStartArrowTrue) {
-            fetchArticles(5, (page - 1 - 5) * 5);
+            const howManyArticlesToSkip = (page - 1 - 5) * articlesPerPage;
+            fetchArticles(howManyArticlesToFetch, howManyArticlesToSkip);
             paginationArrowLeft();
           }
         }}
@@ -42,7 +46,8 @@ const Pagination = ({
         onClick={() => {
           if (isEndArrowTrue) {
             paginationArrowRight();
-            fetchArticles(5, (page - 1 + 5) * 5);
+            const howManyArticlesToSkip = (page - 1 + 5) * articlesPerPage;
+            fetchArticles(howManyArticlesToFetch, howManyArticlesToSkip);
           }
         }}
       />
