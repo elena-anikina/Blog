@@ -18,7 +18,7 @@ const ArticlePage = ({ articles, fetchArticles, getArticleForEditing }) => {
 
   const [article] = [...articles].filter((el) => el.slug === slug);
 
-  return articles.length ? <Article {...article} preview={false} /> : null;
+  return !!article && <Article {...article} preview={false} />;
 };
 
 ArticlePage.propTypes = {

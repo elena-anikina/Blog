@@ -31,12 +31,10 @@ const reducer = (state = initialState, action) => {
 
     case c.SIGNUP_SUCCESS: {
       localStorage.setItem('token', action.user.token);
-      console.log(action.user.token);
       return {
         ...state,
         errorMessages: null,
         user: action.user,
-        loadingUser: false,
       };
     }
 
@@ -44,7 +42,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         errorMessages: action.err,
-        loadingUser: false,
       };
 
     case c.SIGN_IN_SUCCESSFUL:
@@ -57,14 +54,12 @@ const reducer = (state = initialState, action) => {
           page: 1,
         },
         errorMessages: null,
-        loadingUser: false,
       };
 
     case c.SIGN_IN_ERROR:
       return {
         ...state,
         errorMessages: action.errors,
-        loadingUser: false,
       };
 
     case c.LOG_OUT:
@@ -76,7 +71,6 @@ const reducer = (state = initialState, action) => {
           page: 1,
         },
         user: null,
-        loadingUser: false,
       };
 
     case c.EDIT_PROFILE_SUCCESS:
@@ -84,16 +78,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.user,
         errorMessages: null,
-        loadingUser: false,
-        resultMessage: true,
       };
 
     case c.EDIT_PROFILE_ERROR:
       return {
         ...state,
         errorMessages: action.err,
-        loadingUser: false,
-        resultMessage: true,
       };
 
     case c.GET_ARTICLE_SUCCESS:

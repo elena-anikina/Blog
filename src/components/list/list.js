@@ -9,8 +9,8 @@ import Loader from '../loader/loader';
 
 const List = ({ articles: data, errorMessages, articlesCount }) => {
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
-  const pagination = articlesCount > 5 ? <Pagination /> : null;
-  const loader = !data.length && !errorMessages ? <Loader /> : null;
+  const pagination = articlesCount > 5 && <Pagination />;
+  const loader = !data.length && !errorMessages && <Loader />;
 
   return (
     <section className={classes.articlesAll}>

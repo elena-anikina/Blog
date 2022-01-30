@@ -12,7 +12,7 @@ const ArticleEdit = ({ getArticleForEditing, article, editArticle }) => {
     getArticleForEditing(slug);
   }, [getArticleForEditing, slug]);
 
-  return article ? <ArticleForm title="Edit article" type="edit" func={editArticle} /> : null;
+  return article && <ArticleForm title="Edit article" type="edit" func={editArticle} />;
 };
 
 ArticleEdit.propTypes = {
