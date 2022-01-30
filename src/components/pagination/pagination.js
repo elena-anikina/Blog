@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './pagination.module.scss';
 import * as actions from '../../redux/actions';
 import PaginationArrRender from './paginationArrRender';
+import classNames from 'classnames';
 
 const Pagination = ({
   pagination: { page },
@@ -16,10 +17,9 @@ const Pagination = ({
   const paginationArrRender = <PaginationArrRender />;
 
   const isEndArrowTrue = numberOfPages % 5 ? page <= numberOfPages - (numberOfPages % 5) : page <= numberOfPages - 5;
-  const isStartArrowTrue = page > 5;
 
-  const classNamesStart = isStartArrowTrue ? `${classes.arrow1} ${classes.activeArrow}` : classes.arrow1;
-  const classNamesEnd = isEndArrowTrue ? `${classes.arrow2} ${classes.activeArrow}` : classes.arrow2;
+  const classNamesStart = classNames(classes.arrow1, { [`${classes.activeArrow}`]: page > 5 });
+  const classNamesEnd = classNames(classes.arrow2, { [`${classes.activeArrow}`]: isEndArrowTrue });
 
   const articlesPerPage = 5;
   const howManyArticlesToFetch = 5;
@@ -31,7 +31,7 @@ const Pagination = ({
         type="button"
         aria-label="button left"
         onClick={() => {
-          if (isStartArrowTrue) {
+          if (page > 5) {
             const howManyArticlesToSkip = (page - 1 - 5) * articlesPerPage;
             fetchArticles(howManyArticlesToFetch, howManyArticlesToSkip);
             paginationArrowLeft();

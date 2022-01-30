@@ -2,9 +2,6 @@ import React from 'react';
 import classes from './form.module.scss';
 
 const Checkbox = ({ register, errors }) => {
-  // const style = {
-  //     border: Object.prototype.hasOwnProperty.call(errors, el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9',
-  // };
   const errorMessage = errors['checkbox']?.message && (
     <span className={classes.errorText}>{errors['checkbox'].message}</span>
   );
