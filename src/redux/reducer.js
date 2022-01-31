@@ -1,4 +1,5 @@
 import initialState from './state';
+import { token } from '../services/token';
 import handleLikes from '../helpers/handleLikes';
 import * as c from './actionTypes';
 
@@ -30,7 +31,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case c.SIGNUP_SUCCESS: {
-      localStorage.setItem('token', action.user.token);
+      token.set(action.user.token);
       return {
         ...state,
         errorMessages: null,
@@ -45,7 +46,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case c.SIGN_IN_SUCCESSFUL:
-      localStorage.setItem('token', action.user.token);
+      token.set(action.user.token);
       return {
         ...state,
         user: action.user,
@@ -63,7 +64,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case c.LOG_OUT:
-      localStorage.removeItem('token');
+      token.remove();
       return {
         ...state,
         pagination: {
