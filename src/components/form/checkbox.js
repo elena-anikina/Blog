@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './form.module.scss';
 
 const Checkbox = ({ register, errors }) => {
@@ -11,16 +11,16 @@ const Checkbox = ({ register, errors }) => {
   };
   return (
     <div className={classes.checkbox}>
-      <input
-        id="agreement"
-        type="checkbox"
-        defaultChecked
-        {...register('checkbox', {
-          required: 'Пожалуйста поставьте галочку в поле чекбокс',
-        })}
+      <input id="agreement" type="checkbox" {...register('checkbox')} />
+      <span
+        aria-label="checkbox"
+        role="checkbox"
+        tabIndex="0"
+        onClick={() => {
+          document.getElementById('label').click();
+        }}
       />
-      <span aria-label="checkbox" role="checkbox" tabIndex="0" />
-      <label className={classes.checkboxText} htmlFor="agreement">
+      <label id="label" className={classes.checkboxText} htmlFor="agreement" onClick={() => {}}>
         I agree to the processing of my personal information
       </label>
       <div style={textErrorStyle} className={classes.errorText}>

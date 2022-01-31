@@ -18,8 +18,12 @@ const SignUpPage = ({ signUpSubmit }) => {
     handleSubmit,
     reset,
     watch,
+    setValue,
   } = useForm({
-    mode: 'onBlur',
+    defaultValues: {
+      checkbox: true,
+    },
+    mode: 'onChange',
     resolver: yupResolver(signUpSchema),
   });
 
