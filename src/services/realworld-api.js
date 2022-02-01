@@ -13,7 +13,7 @@ class RealworldApi {
 
   getHeaders = () => (token.get() ? { ...headers, Authorization: `Token ${token.get()}` } : headers);
 
-  async getArticles(t, limit, offset) {
+  async getArticles(unused, limit, offset) {
     return fetch(`${this.baseUrl}/articles?limit=${limit}&offset=${offset}`, {
       headers: {
         ...headers,

@@ -3,6 +3,8 @@ import { success, error } from '../helpers/resultPopus';
 import { realWorldApi } from '../services/realworld-api';
 import { token } from '../services/token';
 
+export const getArticlesCount = (articlesCount) => ({ type: c.GET_ARTICLES_COUNT, articlesCount });
+
 export const fetchArticlesSuccess = (articles, articlesCount) => ({
   type: 'FETCH_ARTICLES_SUCCESS',
   articles,
@@ -28,8 +30,6 @@ export const fetchArticles = (limit, offset) => (dispatch) => {
     }
   );
 };
-
-export const getArticlesCount = (articlesCount) => ({ type: c.GET_ARTICLES_COUNT, articlesCount });
 
 export const calcPagination = (event) => {
   const { textContent: page } = event.target;
