@@ -7,7 +7,7 @@ import * as actions from '../../redux/actions';
 import classes from './user.module.scss';
 import EditButtons from './edit-buttons';
 
-const User = ({ author: { username, image }, createdAt, deleteArticle, user }) => {
+const User: any = ({ author: { username, image }, createdAt, deleteArticle, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const navFunc = () => navigate('/');

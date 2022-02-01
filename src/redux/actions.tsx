@@ -5,10 +5,9 @@ import { token } from '../services/token';
 
 export const getArticlesCount = (articlesCount) => ({ type: c.GET_ARTICLES_COUNT, articlesCount });
 
-export const fetchArticlesSuccess = (articles, articlesCount) => ({
+export const fetchArticlesSuccess = (articles) => ({
   type: 'FETCH_ARTICLES_SUCCESS',
-  articles,
-  articlesCount,
+  articles
 });
 
 export const fetchArticlesError = (err) => ({ type: c.FETCH_ARTICLES_ERROR, err });
@@ -133,14 +132,14 @@ export const editProfileSuccess = (user) => ({ type: c.EDIT_PROFILE_SUCCESS, use
 
 export const editProfileError = (err) => ({ type: c.EDIT_ARTICLE_ERROR, err });
 
-export const editProfile = (data) => {
+export const editProfile = (data, navFunc) => {
   const { 'Avatar image (url)': image, 'Email address': email, 'New password': password, Username: username } = data;
   return (dispatch) => {
     realWorldApi
       .updateUser(email, username, password, image)
       .then((response) => {
         if (response.user) {
-          success('editProfileSuccess');
+          success('editProfileSuccess', navFunc);
           localStorage.setItem('token', response.user.token);
           dispatch(editProfileSuccess(response.user));
           dispatch(setNoErrors());
@@ -155,7 +154,7 @@ export const editProfile = (data) => {
 
 export const getArticleForEditingSuccess = (article) => ({ type: c.GET_ARTICLE_SUCCESS, article });
 
-export const getArticleForEditingError = () => ({ type: c.GET_ARTICLE_ERROR });
+export const getArticleForEditingError = (err) => ({ type: c.GET_ARTICLE_ERROR, err });
 
 export const getError = (err) => ({ type: c.GET_ERROR, err });
 

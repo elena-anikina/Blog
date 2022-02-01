@@ -8,8 +8,13 @@ import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import * as actions from '../../redux/actions';
 import { editProfileLabels } from '../form/labels';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditProfile = ({ user, editProfile }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || '/';
+
   const {
     register,
     formState: { errors },
@@ -42,10 +47,18 @@ const EditProfile = ({ user, editProfile }) => {
     );
   });
 
+  const navFunc = () => {
+    navigate(fromPage);
+  };
+
+  const onSubmit = (data) => {
+    editProfile(data, navFunc);
+  };
+
   return (
     <div className={classes.formProfile}>
       <h1 className={classes.heading}>Edit Profile</h1>
-      <form className={classes.form} onSubmit={handleSubmit(editProfile)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         {inputs}
         <Button value="Save" />
       </form>
