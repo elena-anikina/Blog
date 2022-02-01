@@ -99,9 +99,7 @@ class RealworldApi {
       body: JSON.stringify({
         article: { title, description, body, tagList },
       }),
-    }).then((response) => {
-      return response.json();
-    });
+    }).then((response) => response.json());
   }
 
   async getArticle(slug) {

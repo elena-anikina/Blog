@@ -62,7 +62,7 @@ Pagination.propTypes = {
   fetchArticles: PropTypes.func.isRequired,
   pagination: PropTypes.shape({
     page: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => state;

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { editProfileSchema } from '../../helpers/schemaFormValidation';
-import { connect } from 'react-redux';
 import classes from '../form/form.module.scss';
 import Button from '../form/button';
 import * as actions from '../../redux/actions';

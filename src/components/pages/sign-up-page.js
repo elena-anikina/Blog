@@ -17,8 +17,6 @@ const SignUpPage = ({ signUpSubmit }) => {
     formState: { errors },
     handleSubmit,
     reset,
-    watch,
-    setValue,
   } = useForm({
     defaultValues: {
       checkbox: true,

@@ -23,8 +23,8 @@ export const fetchArticles = (limit, offset) => (dispatch) => {
         dispatch(fetchArticlesError(result.errors));
       }
     },
-    (error) => {
-      dispatch(fetchArticlesError(error));
+    (err) => {
+      dispatch(fetchArticlesError(err));
     }
   );
 };
@@ -118,7 +118,6 @@ export const newArticle = (slug, data, tagsArr, navigateToHomePage, reset) => (d
   realWorldApi
     .createArticle(title, description, body, tagsArr)
     .then((result) => {
-      console.log(result);
       reset();
       if (result.article) {
         success('newArticleSuccess', navigateToHomePage);

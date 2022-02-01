@@ -8,8 +8,6 @@ import Pagination from '../pagination/pagination';
 import Loader from '../loader/loader';
 
 const List = ({ articles: data, errorMessages, articlesCount }) => {
-  console.log(data);
-
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
   const pagination = articlesCount > 5 && <Pagination />;
   const loader = !data.length && !errorMessages && <Loader />;

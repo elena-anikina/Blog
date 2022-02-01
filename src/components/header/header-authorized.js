@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import classes from './header.module.scss';
 import Title from './components/title';
 import LogBtn from './components/log-btn';
-import User from '../user/user';
-import { Link } from 'react-router-dom';
 
 const HeaderAuthorized = ({ username, image, logOut }) => {
   const userImage = image ? image : 'https://api.realworld.io/images/smiley-cyrus.jpeg';
@@ -17,7 +16,7 @@ const HeaderAuthorized = ({ username, image, logOut }) => {
 
         <div className={classes.userContainer}>
           <div className={classes.userNameContainer}>
-            <Link to="/edit-profile" onClick={() => console.log('username click')} className={classes.userNameHeader}>
+            <Link to="/edit-profile" className={classes.userNameHeader}>
               {username}
             </Link>
           </div>
@@ -26,7 +25,7 @@ const HeaderAuthorized = ({ username, image, logOut }) => {
           </Link>
         </div>
 
-        <button className={`${classes.btn} ${classes.green}`} onClick={logOut}>
+        <button type="button" className={`${classes.btn} ${classes.green}`} onClick={logOut}>
           Log Out
         </button>
       </div>
