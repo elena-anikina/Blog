@@ -16,9 +16,9 @@ const Pagination = ({
   const numberOfPages = Math.ceil(articlesCount / 5);
   const paginationArrRender = <PaginationArrRender />;
 
-  const isEndArrowTrue = numberOfPages % 5 ? page <= numberOfPages - (numberOfPages % 5) : page <= numberOfPages - 5;
+  const isEndArrowTrue = page < numberOfPages;
 
-  const classNamesStart = classNames(classes.arrow1, { [`${classes.activeArrow}`]: page > 5 });
+  const classNamesStart = classNames(classes.arrow1, { [`${classes.activeArrow}`]: page > 1 });
   const classNamesEnd = classNames(classes.arrow2, { [`${classes.activeArrow}`]: isEndArrowTrue });
 
   const articlesPerPage = 5;
@@ -31,8 +31,8 @@ const Pagination = ({
         type="button"
         aria-label="button left"
         onClick={() => {
-          if (page > 5) {
-            const howManyArticlesToSkip = (page - 1 - 5) * articlesPerPage;
+          if (page > 1) {
+            const howManyArticlesToSkip = (page - 2) * articlesPerPage;
             fetchArticles(howManyArticlesToFetch, howManyArticlesToSkip);
             paginationArrowLeft();
           }
@@ -46,7 +46,7 @@ const Pagination = ({
         onClick={() => {
           if (isEndArrowTrue) {
             paginationArrowRight();
-            const howManyArticlesToSkip = (page - 1 + 5) * articlesPerPage;
+            const howManyArticlesToSkip = page * articlesPerPage;
             fetchArticles(howManyArticlesToFetch, howManyArticlesToSkip);
           }
         }}

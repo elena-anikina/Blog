@@ -1,6 +1,7 @@
 import * as c from './actionTypes';
 import { success, error } from '../helpers/resultPopus';
 import { realWorldApi } from '../services/realworld-api';
+import { token } from '../services/token';
 
 export const fetchArticlesSuccess = (articles, articlesCount) => ({
   type: 'FETCH_ARTICLES_SUCCESS',
@@ -8,26 +9,38 @@ export const fetchArticlesSuccess = (articles, articlesCount) => ({
   articlesCount,
 });
 
-export const fetchArticlesError = () => ({ type: c.FETCH_ARTICLES_ERROR });
+export const fetchArticlesError = (err) => ({ type: c.FETCH_ARTICLES_ERROR, err });
 
 export const fetchArticles = (limit, offset) => (dispatch) => {
-  const token = localStorage.getItem('token');
-  realWorldApi.getArticles(token, limit, offset).then(
+  realWorldApi.getArticles(token.get(), limit, offset).then(
     (result) => {
-      dispatch(fetchArticlesSuccess(result.articles, result.articlesCount));
+      if (result.articles) {
+        dispatch(fetchArticlesSuccess(result.articles));
+        dispatch(getArticlesCount(result.articlesCount));
+      }
+
+      if (result.errors) {
+        dispatch(fetchArticlesError(result.errors));
+      }
     },
-    () => {
-      dispatch(fetchArticlesError());
+    (error) => {
+      dispatch(fetchArticlesError(error));
     }
   );
 };
+
+export const getArticlesCount = (articlesCount) => ({ type: c.GET_ARTICLES_COUNT, articlesCount });
 
 export const calcPagination = (event) => {
   const { textContent: page } = event.target;
   return { type: c.CALC_PAGINATION, page };
 };
 
+export const setFirstPage = () => ({ type: c.SET_FIRST_PAGE });
+
 export const signUpSuccess = (user) => ({ type: c.SIGNUP_SUCCESS, user });
+
+export const setNoErrors = () => ({ type: c.SET_NO_ERRORS });
 
 export const signUpError = (err) => ({ type: c.SIGNUP_ERROR, err });
 
@@ -41,6 +54,7 @@ export const signUpSubmit = (data, reset, navFunc) => {
         if (result.user) {
           success('signUpSuccess', navFunc);
           dispatch(signUpSuccess(result.user));
+          dispatch(setNoErrors());
         }
         if (result.errors) {
           error('signUpError');
@@ -67,6 +81,8 @@ export const signInSubmit = (data, reset, navigate, fromPage, navFunc) => {
         if (response.user) {
           success('signInSuccess', navFunc);
           dispatch(signInSuccessful(response.user));
+          dispatch(setFirstPage());
+          dispatch(setNoErrors());
         } else {
           error('signInError');
           dispatch(signInError(response.errors));
@@ -87,9 +103,10 @@ export const checkingAuthentication = () => (dispatch) => {
     .catch((err) => err);
 };
 
-export const logOut = () => {
+export const logOut = () => (dispatch) => {
   localStorage.removeItem('token');
-  return { type: c.LOG_OUT };
+  dispatch({ type: c.LOG_OUT });
+  dispatch(setFirstPage());
 };
 
 export const newArticleSuccess = (article) => ({ type: c.NEW_ARTICLE_SUCCESS, article });
@@ -127,6 +144,7 @@ export const editProfile = (data) => {
           success('editProfileSuccess');
           localStorage.setItem('token', response.user.token);
           dispatch(editProfileSuccess(response.user));
+          dispatch(setNoErrors());
         } else {
           error('editProfileError');
           dispatch(editProfileError(response.errors));
@@ -138,17 +156,23 @@ export const editProfile = (data) => {
 
 export const getArticleForEditingSuccess = (article) => ({ type: c.GET_ARTICLE_SUCCESS, article });
 
-export const getArticleForEditingError = (err) => ({ type: c.GET_ARTICLE_ERROR, err });
+export const getArticleForEditingError = () => ({ type: c.GET_ARTICLE_ERROR });
+
+export const getError = (err) => ({ type: c.GET_ERROR, err });
 
 export const getArticleForEditing = (slug) => (dispatch) => {
   realWorldApi
     .getArticle(slug)
-    .then((response) =>
-      response.article
-        ? dispatch(getArticleForEditingSuccess(response.article))
-        : dispatch(getArticleForEditingError(response.errors))
-    )
-    .catch((err) => err);
+    .then((response) => {
+      if (response.article) {
+        dispatch(getArticleForEditingSuccess(response.article));
+      }
+      if (response.errors) {
+        dispatch(getArticleForEditingError(response.errors));
+        dispatch(getError(response.errors));
+      }
+    })
+    .catch((err) => getError(err));
 };
 
 export const editArticleSuccess = (article) => ({ type: c.EDIT_ARTICLE_SUCCESS, article });
@@ -162,8 +186,9 @@ export const editArticle = (slug, data, tagsArr, navigateToHomePage) => {
       .editArticle(slug, title, description, body, tagsArr)
       .then((response) => {
         if (response.article) {
-          dispatch(editArticleSuccess(response.article));
           success('articleEditSuccess', navigateToHomePage);
+          dispatch(editArticleSuccess(response.article));
+          dispatch(setNoErrors());
         }
         if (!response.article) {
           dispatch(editArticleError(response.errors));
@@ -174,7 +199,7 @@ export const editArticle = (slug, data, tagsArr, navigateToHomePage) => {
   };
 };
 
-export const deleteArticle = (slug, navigateToHomePage) => {
+export const deleteArticle = (slug, navigateToHomePage) => (dispatch) => {
   realWorldApi.deleteArticle(slug).then((response) => {
     if (response.ok) {
       success('articleDeleteSuccess', navigateToHomePage);
