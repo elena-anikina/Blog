@@ -6,7 +6,7 @@ import * as actions from '../../redux/actions';
 import PaginationArrRender from './paginationArrRender';
 import classNames from 'classnames';
 
-const Pagination = ({
+const Pagination: any = ({
   pagination: { page },
   articlesCount,
   fetchArticles,
