@@ -12,7 +12,7 @@ import { signInLabels } from '../form/labels';
 
 const SignInPage = ({ signInSubmit }) => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location: any = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
 
   const {
