@@ -1,20 +1,14 @@
 import { httpMethods } from './httpMethods';
 import { headers } from './headers';
 import { token } from './token';
+import {baseUrl} from './baseUrl';
 
 class RealworldApi {
-  baseUrl000 = '//kata.academy:8022/api';
-
-  baseUrl100 = 'https://api.realworld.io/api';
-
-  baseUrl200 = 'https://cirosantilli-realworld-next.herokuapp.com/api';
-
-  baseUrl = 'https://kata.academy:8021/api';
 
   getHeaders = () => (token.get() ? { ...headers, Authorization: `Token ${token.get()}` } : headers);
 
   async getArticles(unused, limit, offset) {
-    return fetch(`${this.baseUrl}/articles?limit=${limit}&offset=${offset}`, {
+    return fetch(`${baseUrl}/articles?limit=${limit}&offset=${offset}`, {
       headers: {
         ...headers,
         Authorization: token.get() ? `Token ${token.get()}` : null,
@@ -28,7 +22,7 @@ class RealworldApi {
   }
 
   async registerUser(username, email, password) {
-    return fetch(`${this.baseUrl}/users`, {
+    return fetch(`${baseUrl}/users`, {
       method: httpMethods.POST,
       headers: {
         ...headers,
@@ -42,7 +36,7 @@ class RealworldApi {
   }
 
   async loginUser(email, password) {
-    return fetch(`${this.baseUrl}/users/login`, {
+    return fetch(`${baseUrl}/users/login`, {
       method: httpMethods.POST,
       headers: {
         ...headers,
@@ -51,13 +45,16 @@ class RealworldApi {
         user: { email, password },
       }),
     }).then(
-      (response) => response.json(),
+      (response) => {
+        console.log(response);
+        return response.json();
+      },
       (error) => error
     );
   }
 
   async getCurrentUser() {
-    return fetch(`${this.baseUrl}/user`, {
+    return fetch(`${baseUrl}/user`, {
       method: httpMethods.GET,
       headers: {
         ...headers,
@@ -72,7 +69,7 @@ class RealworldApi {
   }
 
   async updateUser(email, username, password, image) {
-    return fetch(`${this.baseUrl}/user`, {
+    return fetch(`${baseUrl}/user`, {
       method: httpMethods.PUT,
       headers: {
         ...headers,
@@ -90,7 +87,7 @@ class RealworldApi {
   }
 
   async createArticle(title, description, body, tagList) {
-    return fetch(`${this.baseUrl}/articles`, {
+    return fetch(`${baseUrl}/articles`, {
       method: httpMethods.POST,
       headers: {
         ...headers,
@@ -103,7 +100,7 @@ class RealworldApi {
   }
 
   async getArticle(slug) {
-    return fetch(`${this.baseUrl}/articles/${slug}`).then((response) => {
+    return fetch(`${baseUrl}/articles/${slug}`).then((response) => {
       if (!response.ok) {
         throw new Error(`Ошибка, статус ошибки ${response.status}`);
       }
@@ -112,7 +109,7 @@ class RealworldApi {
   }
 
   async editArticle(slug, title, description, body, tagList) {
-    return fetch(`${this.baseUrl}/articles/${slug}`, {
+    return fetch(`${baseUrl}/articles/${slug}`, {
       method: httpMethods.PUT,
       headers: {
         ...headers,
@@ -125,7 +122,7 @@ class RealworldApi {
   }
 
   async deleteArticle(slug) {
-    return fetch(`${this.baseUrl}/articles/${slug}`, {
+    return fetch(`${baseUrl}/articles/${slug}`, {
       method: httpMethods.DELETE,
       headers: {
         ...headers,
@@ -135,7 +132,7 @@ class RealworldApi {
   }
 
   async favoriteArticle(slug) {
-    return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
+    return fetch(`${baseUrl}/articles/${slug}/favorite`, {
       method: httpMethods.POST,
       headers: {
         ...headers,
@@ -145,7 +142,7 @@ class RealworldApi {
   }
 
   async unFavoriteArticle(slug) {
-    return fetch(`${this.baseUrl}/articles/${slug}/favorite`, {
+    return fetch(`${baseUrl}/articles/${slug}/favorite`, {
       method: httpMethods.DELETE,
       headers: {
         ...headers,
