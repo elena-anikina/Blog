@@ -26,10 +26,10 @@ const SignUpPage = ({ signUpSubmit }) => {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const fromPage = location.state?.from?.pathname || '/';
+  const location: any = useLocation();
+  const fromPage: any = location.state?.from?.pathname || '/';
 
-  const inputs = signUpLabels.map((el) => {
+  const inputs = signUpLabels.map((el: any) => {
     const style = {
       border: Object.prototype.hasOwnProperty.call(errors, el.label) ? '1px solid #F5222D' : '1px solid #D9D9D9',
     };
