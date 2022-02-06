@@ -12,8 +12,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditProfile = ({ user, editProfile }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const fromPage = location.state?.from?.pathname || '/';
+  const location: any = useLocation();
+  const fromPage: any = location.state?.from?.pathname || '/';
 
   const {
     register,
@@ -30,7 +30,7 @@ const EditProfile = ({ user, editProfile }) => {
     },
   });
 
-  const inputs = editProfileLabels.map((el) => {
+  const inputs = editProfileLabels.map((el: any) => {
     const style = {
       border: Object.prototype.hasOwnProperty.call(errors, el) ? '1px solid #F5222D' : '1px solid #D9D9D9',
     };

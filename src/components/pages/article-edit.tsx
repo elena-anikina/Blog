@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ArticleForm from '../article/article-form';
 import * as actions from '../../redux/actions';
+import {IArticle} from "../../types/data";
 
-const ArticleEdit = ({ getArticleForEditing, article, editArticle }) => {
+interface IArticleEditProps {
+  getArticleForEditing: (slug: string) => void,
+  article: IArticle,
+  editArticle: () => void
+}
+
+const ArticleEdit: React.FC<IArticleEditProps> = ({ getArticleForEditing, article, editArticle }) => {
   const { slug } = useParams();
 
   useEffect(() => {
@@ -15,15 +21,6 @@ const ArticleEdit = ({ getArticleForEditing, article, editArticle }) => {
   return article && <ArticleForm title="Edit article" type="edit" func={editArticle} />;
 };
 
-ArticleEdit.propTypes = {
-  article: PropTypes.instanceOf(Object),
-  getArticleForEditing: PropTypes.func.isRequired,
-  editArticle: PropTypes.func.isRequired,
-};
-
-ArticleEdit.defaultProps = {
-  article: {},
-};
 
 const mapStateToProps = ({ article }) => ({ article });
 
