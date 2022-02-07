@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './header.module.scss';
-import Title from './components/title';
-import LogBtn from './components/log-btn';
+import Title from './title';
+import LogBtn from './log-btn';
 
 const HeaderNotAuthorized = () => (
   <header>

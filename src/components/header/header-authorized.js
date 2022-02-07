@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './header.module.scss';
-import Title from './components/title';
-import LogBtn from './components/log-btn';
+import Title from './title';
+import LogBtn from './log-btn';
 
 const HeaderAuthorized = ({ username, image, logOut }) => {
   const userImage = image ? image : 'https://api.realworld.io/images/smiley-cyrus.jpeg';

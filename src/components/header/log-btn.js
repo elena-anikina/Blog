@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classes from '../header.module.scss';
-import deleteLocalStorageArticleValues from '../../../helpers/deleteLocalStorageArticleValues';
+import classes from './header.module.scss';
+import deleteLocalStorageArticleValues from '../../helpers/deleteLocalStorageArticleValues';
 
 const LogBtn = ({ text, link, style }) => {
   const classNames = [classes.btn];

@@ -1,13 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classes from './list.module.scss';
 import Article from '../article/article';
-import * as actions from '../../redux/actions';
 import Pagination from '../pagination/pagination';
 import Loader from '../loader/loader';
+import {IArticle} from "../../types/data";
 
-const List = ({ articles: data, errorMessages, articlesCount }) => {
+interface IListProps {
+  articles: IArticle[],
+  errorMessages: null | object,
+  articlesCount: number,
+}
+
+const List: React.FC<IListProps> = ({ articles: data, errorMessages, articlesCount }) => {
+
   const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
   const pagination = articlesCount > 5 && <Pagination />;
   const loader = !data.length && !errorMessages && <Loader />;
@@ -21,17 +26,5 @@ const List = ({ articles: data, errorMessages, articlesCount }) => {
   );
 };
 
-List.propTypes = {
-  articles: PropTypes.instanceOf(Array),
-  errorMessages: PropTypes.instanceOf(Object),
-  articlesCount: PropTypes.number.isRequired,
-};
 
-List.defaultProps = {
-  articles: [],
-  errorMessages: {},
-};
-
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps, actions)(List);
+export default List;

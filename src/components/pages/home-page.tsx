@@ -1,26 +1,30 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import List from '../list/list';
 import * as actions from '../../redux/actions';
+import {IUser, IArticle} from "../../types/data";
 
-const HomePage = ({ fetchArticles, user }) => {
+interface IHomePageProps {
+  fetchArticles: (limit: number, offset: number) => void,
+  user: null | IUser,
+  articles: IArticle[],
+  errorMessages: null | object,
+  articlesCount: number
+}
+
+const HomePage: React.FC<IHomePageProps> = ({ fetchArticles, user, articles, errorMessages, articlesCount }) => {
   useEffect(() => {
     fetchArticles(5, 0);
   }, [user, fetchArticles]);
 
-  return <List />;
+  return <List
+              articles={articles}
+              errorMessages={errorMessages}
+              articlesCount={articlesCount}
+          />;
 };
 
-HomePage.propTypes = {
-  fetchArticles: PropTypes.func.isRequired,
-  user: PropTypes.instanceOf(Object),
-};
 
-HomePage.defaultProps = {
-  user: {},
-};
-
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps, actions)(HomePage);
