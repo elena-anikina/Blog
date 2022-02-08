@@ -1,18 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './header.module.scss';
 import Title from './title';
 import LogBtn from './log-btn';
 
-const HeaderAuthorized = ({ username, image, logOut }) => {
-  const userImage = image ? image : 'https://api.realworld.io/images/smiley-cyrus.jpeg';
+interface IHeaderAuthorizedProps {
+  username: string,
+  image: string | null,
+  logOut: () => void
+}
+
+
+const HeaderAuthorized: React.FC<IHeaderAuthorizedProps> = ({ username, image, logOut }) => {
+  const userImage = image || 'https://api.realworld.io/images/smiley-cyrus.jpeg';
   return (
     <header>
       <Title />
 
       <div className={`${classes.headerButtons} ${classes.authorized}`}>
-        <LogBtn text="Create article" link="/article-new" />
+        <LogBtn text="Create article" link="/article-new" style={null} />
 
         <div className={classes.userContainer}>
           <div className={classes.userNameContainer}>
@@ -33,6 +39,5 @@ const HeaderAuthorized = ({ username, image, logOut }) => {
   );
 };
 
-const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(HeaderAuthorized);
+export default HeaderAuthorized;

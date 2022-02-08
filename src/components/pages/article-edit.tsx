@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ArticleForm from '../article/article-form';
 import * as actions from '../../redux/actions';
-import {IArticle} from "../../types/data";
+import { IArticle } from '../../types/data';
 
 interface IArticleEditProps {
-  getArticleForEditing: (slug: string) => void,
-  article: IArticle,
-  editArticle: () => void
+  getArticleForEditing: (slug: string) => void;
+  article: IArticle;
+  editArticle: () => void;
 }
 
 const ArticleEdit: React.FC<IArticleEditProps> = ({ getArticleForEditing, article, editArticle }) => {
@@ -20,7 +20,6 @@ const ArticleEdit: React.FC<IArticleEditProps> = ({ getArticleForEditing, articl
 
   return article && <ArticleForm title="Edit article" type="edit" func={editArticle} />;
 };
-
 
 const mapStateToProps = ({ article }) => ({ article });
 

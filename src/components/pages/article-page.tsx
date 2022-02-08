@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Article from '../article/article';
 import * as actions from '../../redux/actions';
-import {IArticle} from "../../types/data";
+import { IArticle } from '../../types/data';
 
 interface IArticlePageProps {
-  articles: IArticle[],
-  fetchArticles: any,
-  getArticleForEditing: any
+  articles: IArticle[];
+  fetchArticles: any;
+  getArticleForEditing: any;
 }
 
 const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, getArticleForEditing }) => {
@@ -26,7 +26,6 @@ const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, get
 
   return !!article && <Article {...article} preview={false} />;
 };
-
 
 const mapStateToProps = ({ articles }) => ({ articles });
 

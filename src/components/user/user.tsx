@@ -5,13 +5,13 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import * as actions from '../../redux/actions';
 import classes from './user.module.scss';
 import EditButtons from './edit-buttons';
-import {IUser} from '../../types/data';
+import { IUser } from '../../types/data';
 
 interface IUserProps {
-  author: IUser,
-  createdAt: string,
-  deleteArticle: any,
-  user: IUser | null
+  author: IUser;
+  createdAt: string;
+  deleteArticle: any;
+  user: IUser | null;
 }
 
 const User: React.FC<IUserProps> = ({ author: { username, image }, createdAt, deleteArticle, user }) => {
@@ -42,6 +42,5 @@ const User: React.FC<IUserProps> = ({ author: { username, image }, createdAt, de
 };
 
 const mapStateToProps = (state) => state;
-
 
 export default connect(mapStateToProps, actions)(User);

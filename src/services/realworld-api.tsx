@@ -1,10 +1,9 @@
 import { httpMethods } from './httpMethods';
 import { headers } from './headers';
 import { token } from './token';
-import {baseUrl} from './baseUrl';
+import { baseUrl } from './baseUrl';
 
 class RealworldApi {
-
   getHeaders = () => (token.get() ? { ...headers, Authorization: `Token ${token.get()}` } : headers);
 
   async getArticles(unused, limit, offset) {

@@ -7,7 +7,7 @@ export const getArticlesCount = (articlesCount) => ({ type: c.GET_ARTICLES_COUNT
 
 export const fetchArticlesSuccess = (articles) => ({
   type: 'FETCH_ARTICLES_SUCCESS',
-  articles
+  articles,
 });
 
 export const fetchArticlesError = (err) => ({ type: c.FETCH_ARTICLES_ERROR, err });
