@@ -5,11 +5,10 @@ import Title from './title';
 import LogBtn from './log-btn';
 
 interface IHeaderAuthorizedProps {
-  username: string,
-  image: string | null,
-  logOut: () => void
+  username: string;
+  image: string | null;
+  logOut: () => void;
 }
-
 
 const HeaderAuthorized: React.FC<IHeaderAuthorizedProps> = ({ username, image, logOut }) => {
   const userImage = image || 'https://api.realworld.io/images/smiley-cyrus.jpeg';
@@ -38,6 +37,5 @@ const HeaderAuthorized: React.FC<IHeaderAuthorizedProps> = ({ username, image, l
     </header>
   );
 };
-
 
 export default HeaderAuthorized;

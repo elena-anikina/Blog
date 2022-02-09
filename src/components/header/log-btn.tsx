@@ -4,15 +4,13 @@ import classes from './header.module.scss';
 import deleteLocalStorageArticleValues from '../../helpers/deleteLocalStorageArticleValues';
 import classNames from 'classnames';
 
-
 interface ILogBtnProps {
-  text: string,
-  link: string,
-  style: string | null
+  text: string;
+  link: string;
+  style: string | null;
 }
 
 const LogBtn: React.FC<ILogBtnProps> = ({ text, link, style }) => {
-
   const classesBtn = classNames(classes.btn, { [`${classes[style]}`]: style });
 
   return (

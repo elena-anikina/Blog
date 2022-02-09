@@ -3,17 +3,15 @@ import { connect } from 'react-redux';
 import HeaderNotAuthorized from './header-not-authorized';
 import HeaderAuthorized from './header-authorized';
 import * as actions from '../../redux/actions';
-import {IUser} from "../../types/data";
+import { IUser } from '../../types/data';
 
 interface IHeaderProps {
-  user: IUser | null,
-  checkingAuthentication: () => void,
-  logOut: () => void
+  user: IUser | null;
+  checkingAuthentication: () => void;
+  logOut: () => void;
 }
 
-
 const Header: React.FC<IHeaderProps> = ({ user, checkingAuthentication, logOut }) => {
-
   useEffect(() => {
     checkingAuthentication();
   }, []);

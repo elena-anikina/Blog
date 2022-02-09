@@ -3,7 +3,6 @@ import classes from './header.module.scss';
 import Title from './title';
 import LogBtn from './log-btn';
 
-
 const HeaderNotAuthorized: React.FC = () => (
   <header>
     <Title />

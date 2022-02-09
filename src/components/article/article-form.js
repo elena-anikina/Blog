@@ -6,7 +6,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import classes from '../form/form.module.scss';
 import { articleNew } from '../form/labels';
-import { getStandardInput, getErrorMessage, getValidationStyleForInput } from '../form/getRedValidationStyleForInput';
+import { getStandardInput, getErrorMessage } from '../form/input';
+import getValidationStyleInput from '../../helpers/getValidationStyleInput';
 import * as actions from '../../redux/actions';
 import ArticleTags from './article-tags/article-tags';
 import { articleNewEditSchema } from '../../helpers/schemaFormValidation';
@@ -57,7 +58,7 @@ const ArticleForm = ({ title, type, func, article }) => {
             Text
             <textarea
               defaultValue={article?.body}
-              style={getValidationStyleForInput(errors, 'Text')}
+              style={getValidationStyleInput(errors, 'Text')}
               className={classes.inputTextarea}
               placeholder="Text"
               rows="10"
