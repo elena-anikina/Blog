@@ -181,7 +181,7 @@ input[type='checkbox'] + span {
 
 input[type='checkbox']:checked + span {
   border-radius: 2px;
-  background: no-repeat center url(./check.png), linear-gradient($infoColor, $infoColor);
+  background: no-repeat center url(./checkbox-img/check.png), linear-gradient($infoColor, $infoColor);
   border: 1px solid $infoColor;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './form.module.scss';
 
 const Checkbox = ({ register, errors }) => {
@@ -9,6 +9,7 @@ const Checkbox = ({ register, errors }) => {
   const textErrorStyle = {
     width: '100%',
   };
+
   return (
     <div className={classes.checkbox}>
       <input id="agreement" type="checkbox" {...register('checkbox')} />
