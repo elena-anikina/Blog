@@ -1,14 +1,14 @@
 import React from 'react';
 import classes from './form.module.scss';
+import {ValidationMessage} from "./validation-message";
 
-const Checkbox = ({ register, errors }) => {
-  const errorMessage = errors['checkbox']?.message && (
-    <span className={classes.errorText}>{errors['checkbox'].message}</span>
-  );
+interface ICheckboxProps {
+    register: (inputName) => object,
+    errors: object
+}
 
-  const textErrorStyle = {
-    width: '100%',
-  };
+
+const Checkbox: React.FC<ICheckboxProps> = ({ register, errors }) => {
 
   return (
     <div className={classes.checkbox}>
@@ -16,7 +16,7 @@ const Checkbox = ({ register, errors }) => {
       <span
         aria-label="checkbox"
         role="checkbox"
-        tabIndex="0"
+        tabIndex={0}
         onClick={() => {
           document.getElementById('label').click();
         }}
@@ -24,8 +24,8 @@ const Checkbox = ({ register, errors }) => {
       <label id="label" className={classes.checkboxText} htmlFor="agreement" onClick={() => {}}>
         I agree to the processing of my personal information
       </label>
-      <div style={textErrorStyle} className={classes.errorText}>
-        {errorMessage}
+      <div className={classes.errorText}>
+          <ValidationMessage errors={errors} input='checkbox' />
       </div>
     </div>
   );

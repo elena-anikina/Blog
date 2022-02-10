@@ -6,11 +6,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import classes from '../form/form.module.scss';
 import { articleNew } from '../form/labels';
-import { getStandardInput, getErrorMessage } from '../form/input';
+import { getStandardInput } from '../form/input';
 import getValidationStyleInput from '../../helpers/getValidationStyleInput';
 import * as actions from '../../redux/actions';
 import ArticleTags from './article-tags/article-tags';
 import { articleNewEditSchema } from '../../helpers/schemaFormValidation';
+import { ValidationMessage } from '../form/validation-message';
+import Button from '../form/button';
 
 const ArticleForm = ({ title, type, func, article }) => {
   const navigate = useNavigate();
@@ -68,7 +70,7 @@ const ArticleForm = ({ title, type, func, article }) => {
                 },
               })}
             />
-            {getErrorMessage(errors, 'Text')}
+            <ValidationMessage errors={errors} input="Text" />
           </label>
         </div>
         <div className={classes.form}>
@@ -77,9 +79,7 @@ const ArticleForm = ({ title, type, func, article }) => {
             {tags}
           </label>
         </div>
-        <button type="submit" className={classes.btnArticle}>
-          Send
-        </button>
+        <Button value="Send" />
       </form>
     </div>
   );
