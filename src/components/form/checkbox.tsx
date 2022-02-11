@@ -1,15 +1,13 @@
 import React from 'react';
 import classes from './form.module.scss';
-import {ValidationMessage} from "./validation-message";
+import { ValidationMessage } from './validation-message';
 
 interface ICheckboxProps {
-    register: (inputName) => object,
-    errors: object
+  register: (inputName) => object;
+  errors: object;
 }
 
-
 const Checkbox: React.FC<ICheckboxProps> = ({ register, errors }) => {
-
   return (
     <div className={classes.checkbox}>
       <input id="agreement" type="checkbox" {...register('checkbox')} />
@@ -25,7 +23,7 @@ const Checkbox: React.FC<ICheckboxProps> = ({ register, errors }) => {
         I agree to the processing of my personal information
       </label>
       <div className={classes.errorText}>
-          <ValidationMessage errors={errors} input='checkbox' />
+        <ValidationMessage errors={errors} input="checkbox" />
       </div>
     </div>
   );

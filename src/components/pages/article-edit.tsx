@@ -18,7 +18,7 @@ const ArticleEdit: React.FC<IArticleEditProps> = ({ getArticleForEditing, articl
     getArticleForEditing(slug);
   }, [getArticleForEditing, slug]);
 
-  return article && <ArticleForm title="Edit article" type="edit" func={editArticle} />;
+  return article && <ArticleForm title="Edit article" type="edit" func={editArticle} article={article} />;
 };
 
 const mapStateToProps = ({ article }) => ({ article });

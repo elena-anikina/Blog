@@ -11,7 +11,6 @@ interface IHeaderAuthorizedProps {
 }
 
 const HeaderAuthorized: React.FC<IHeaderAuthorizedProps> = ({ username, image, logOut }) => {
-
   const userImage = image || 'https://api.realworld.io/images/smiley-cyrus.jpeg';
 
   return (

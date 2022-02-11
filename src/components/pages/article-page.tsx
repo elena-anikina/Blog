@@ -19,12 +19,13 @@ const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, get
   const { slug } = useParams();
 
   useEffect(() => {
+    console.log('inside useEffect')
     getArticleForEditing(slug);
   }, [getArticleForEditing, slug]);
 
   const [article] = [...articles].filter((el) => el.slug === slug);
 
-  return !!article && <Article {...article} preview={false} />;
+  return article ? <Article {...article} preview={false} /> : null;
 };
 
 const mapStateToProps = ({ articles }) => ({ articles });

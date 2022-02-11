@@ -13,6 +13,16 @@
     0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
 }
 
+.articleForm {
+  max-height: 3000px;
+  width: 100%;
+  padding: 20px 25px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 26px;
+}
+
 .visibility {
   background-color: $white;
   transition: width 1s ease-in-out;
@@ -195,18 +205,6 @@ input[type='checkbox']:checked + span {
   text-decoration: none;
   color: $infoColor;
   cursor: pointer;
-}
-
-.articleForm {
-  max-height: 3000px;
-  width: 100%;
-  padding: 20px 25px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  margin-bottom: 26px;
-  font-family: $fontFamily;
-  background-color: $white;
 }
 
 .tagDelete {

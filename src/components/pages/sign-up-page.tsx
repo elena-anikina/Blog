@@ -10,6 +10,7 @@ import Button from '../form/button';
 import * as actions from '../../redux/actions';
 import Checkbox from '../form/checkbox';
 import { signUpLabels } from '../form/labels';
+import BaseLayout from "../form/base-layout";
 
 const SignUpPage = ({ signUpSubmit }) => {
   const {
@@ -59,17 +60,16 @@ const SignUpPage = ({ signUpSubmit }) => {
   };
 
   return (
-    <div className={classes.formProfile}>
-      <h1 className={classes.heading}>Create new account</h1>
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        {inputs}
-        <Checkbox register={register} errors={errors} />
-        <Button value="Create" />
-        <span className={classes.additionalText}>
+      <BaseLayout heading="Create new account">
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          {inputs}
+          <Checkbox register={register} errors={errors} />
+          <Button value="Create" />
+          <span className={classes.additionalText}>
           Already have an account?&nbsp;<Link to="/sign-in">Sign In</Link>.
         </span>
-      </form>
-    </div>
+        </form>
+      </BaseLayout>
   );
 };
 
