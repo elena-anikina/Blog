@@ -2,11 +2,16 @@ import React from 'react';
 import classes from './article.module.scss';
 import ArticlePreview from './article-preview/article-preview';
 import ArticleBody from './article-body/article-body';
+import {IArticle} from "../../types/data";
 
-const Article = ({ preview, ...article }) => {
+interface IArticleProps extends IArticle {
+    preview: boolean
+}
+
+const Article: React.FC<IArticleProps> = ({ preview, ...article }) => {
   return (
     <div className={classes.article}>
-      <ArticlePreview {...article} />
+      <ArticlePreview preview={true} {...article} />
       <ArticleBody preview={preview} {...article} />
     </div>
   );
