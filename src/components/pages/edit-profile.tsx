@@ -9,7 +9,7 @@ import Button from '../form/button';
 import * as actions from '../../redux/actions';
 import { editProfileLabels } from '../form/labels';
 import { useLocation, useNavigate } from 'react-router-dom';
-import BaseLayout from "../form/base-layout";
+import BaseLayout from '../form/base-layout';
 
 const EditProfile = ({ user, editProfile }) => {
   const navigate = useNavigate();
@@ -57,12 +57,12 @@ const EditProfile = ({ user, editProfile }) => {
   };
 
   return (
-      <BaseLayout heading="Edit Profile">
+    <BaseLayout heading="Edit Profile">
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         {inputs}
         <Button value="Save" />
       </form>
-      </BaseLayout>
+    </BaseLayout>
   );
 };
 

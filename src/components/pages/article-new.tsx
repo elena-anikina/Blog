@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import ArticleForm from '../article/article-form';
-import {IArticle} from "../../types/data";
+import { IArticle } from '../../types/data';
 
 interface IArticleNewProps {
-  newArticle: any,
-  article: null | IArticle
+  newArticle: any;
+  article: null | IArticle;
 }
 
 const ArticleNew: React.FC<IArticleNewProps> = ({ newArticle, article }) => (

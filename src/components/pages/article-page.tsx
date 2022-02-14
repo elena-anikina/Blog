@@ -19,7 +19,7 @@ const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, get
   const { slug } = useParams();
 
   useEffect(() => {
-    console.log('inside useEffect')
+    console.log('inside useEffect');
     getArticleForEditing(slug);
   }, [getArticleForEditing, slug]);
 
