@@ -17,7 +17,7 @@ const HomePage: React.FC<IHomePageProps> = ({ fetchArticles, user, articles, err
     fetchArticles(5, 0);
   }, [user, fetchArticles]);
 
-  return <List articles={articles} errorMessages={errorMessages} articlesCount={articlesCount} />;
+  return <List articles={articles} errorMessages={errorMessages} articlesCount={articlesCount} user={user} />;
 };
 
 const mapStateToProps = (state) => state;

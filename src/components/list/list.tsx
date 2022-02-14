@@ -4,15 +4,17 @@ import Article from '../article/article';
 import Pagination from '../pagination/pagination';
 import Loader from '../loader/loader';
 import { IArticle } from '../../types/data';
+import {IUser} from "../../types/data";
 
 interface IListProps {
-  articles: IArticle[];
-  errorMessages: null | object;
-  articlesCount: number;
+  articles: IArticle[],
+  errorMessages: null | object,
+  articlesCount: number,
+  user: null | IUser
 }
 
-const List: React.FC<IListProps> = ({ articles: data, errorMessages, articlesCount }) => {
-  const articles = data.map((article) => <Article key={article.slug} {...article} preview />);
+const List: React.FC<IListProps> = ({ articles: data, errorMessages, articlesCount, user }) => {
+  const articles = data.map((article) => <Article key={article.slug} {...article} preview user={user} />);
   const pagination = articlesCount > 5 && <Pagination />;
   const loader = !data.length && !errorMessages && <Loader />;
 

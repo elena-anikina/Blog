@@ -6,7 +6,7 @@ import classes from '../form/form.module.scss';
 import { articleNew } from '../form/labels';
 import { getStandardInput } from '../form/input';
 import getValidationStyleInput from '../../helpers/getValidationStyleInput';
-import ArticleTags from './article-tags/article-tags';
+import ArticleTags from './article-tags';
 import { articleNewEditSchema } from '../../helpers/schemaFormValidation';
 import { ValidationMessage } from '../form/validation-message';
 import Button from '../form/button';

@@ -4,30 +4,28 @@ import { connect } from 'react-redux';
 import Article from '../article/article';
 import * as actions from '../../redux/actions';
 import { IArticle } from '../../types/data';
+import {IUser} from "../../types/data";
 
 interface IArticlePageProps {
-  articles: IArticle[];
-  fetchArticles: any;
-  getArticleForEditing: any;
+  articles: IArticle[],
+  fetchArticles: any,
+  getArticleForEditing: any,
+  user: null | IUser,
 }
 
-const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, getArticleForEditing }) => {
-  if (!articles.length) {
-    fetchArticles();
-  }
+const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, getArticleForEditing, user }) => {
+
+  if (!articles.length) { fetchArticles() }
 
   const { slug } = useParams();
 
-  useEffect(() => {
-    console.log('inside useEffect');
-    getArticleForEditing(slug);
-  }, [getArticleForEditing, slug]);
+  useEffect(() => { getArticleForEditing(slug) }, [getArticleForEditing, slug]);
 
   const [article] = [...articles].filter((el) => el.slug === slug);
 
-  return article ? <Article {...article} preview={false} /> : null;
+  return article ? <Article {...article} preview={false} user={user} /> : null;
 };
 
-const mapStateToProps = ({ articles }) => ({ articles });
+const mapStateToProps = ({ articles, user }) => ({ articles, user });
 
 export default connect(mapStateToProps, actions)(ArticlePage);

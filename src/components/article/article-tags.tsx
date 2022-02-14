@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../form/form.module.scss';
+import classes from '../form/form.module.scss';
 
 interface IArticleTagsProps {
     tagsArr: string[],

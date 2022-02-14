@@ -1,17 +1,19 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import classes from './text-preview.module.scss';
-// import likeTrue from './like-true.svg';
 import { ReactComponent as LikeFalse } from './like-false.svg';
 import { ReactComponent as LikeTrue } from './like-true.svg';
-
 import { Link } from 'react-router-dom';
 import { success, error, info } from '../../../../helpers/resultPopus';
-import { realWorldApi } from '../../../../services/realworld-api';
 import * as actions from '../../../../redux/actions';
-import { fetchArticles } from '../../../../redux/actions';
+import {IArticle} from "../../../../types/data";
 
-const TextPreview = ({ title, favoritesCount, tagList = [], description, slug, id, user, favorited, handleLike }) => {
+interface ITextPreviewProps extends IArticle {
+    preview: boolean
+}
+
+const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagList = [], description, slug, id, user, favorited, handleLike, preview }) => {
   let like = favorited ? <LikeTrue /> : <LikeFalse />;
 
   const tags = tagList.map((tag, i) =>

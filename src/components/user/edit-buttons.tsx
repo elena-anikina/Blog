@@ -1,9 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import classes from './user.module.scss';
 import deleteLocalStorageArticleValues from '../../helpers/deleteLocalStorageArticleValues';
+import * as actions from '../../redux/actions';
 
 const EditButtons = ({ slug, deleteArticle, navFunc }) => (
   <div className={classes.editButtons}>
@@ -26,4 +28,4 @@ EditButtons.propTypes = {
   slug: PropTypes.string.isRequired,
 };
 
-export default EditButtons;
+export default connect(null, actions)(EditButtons);
