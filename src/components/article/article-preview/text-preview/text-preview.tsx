@@ -1,28 +1,20 @@
-// @ts-nocheck
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import classes from './text-preview.module.scss';
-import { ReactComponent as LikeFalse } from './like-false.svg';
-import { ReactComponent as LikeTrue } from './like-true.svg';
+import likeFalse from './like-false.svg';
+import likeTrue from './like-true.svg';
 import { Link } from 'react-router-dom';
-import { success, error, info } from '../../../../helpers/resultPopus';
-import * as actions from '../../../../redux/actions';
+import { info } from '../../../../helpers/resultPopus';
 import {IArticle} from "../../../../types/data";
 
 interface ITextPreviewProps extends IArticle {
-    preview: boolean
+    preview?: boolean,
+    user: any,
+    handleLike: (slug, favorited) => void,
 }
 
-const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagList = [], description, slug, id, user, favorited, handleLike, preview }) => {
-  let like = favorited ? <LikeTrue /> : <LikeFalse />;
+const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagList = [], description, slug, user, favorited, handleLike }) => {
 
-  const tags = tagList.map((tag, i) =>
-    tag.trim() ? (
-      <span key={i} className={classes.tag}>
-        {tag}
-      </span>
-    ) : null
-  );
+  const tags = tagList.map((tag, i) => tag.trim() ? (<span key={i} className={classes.tag}>{tag}</span>) : null);
 
   return (
     <div className={classes.container}>
@@ -33,11 +25,10 @@ const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagLi
         <div className={classes.likes}>
           <div
             className={classes.like}
-            onClick={() => {
-              user ? handleLike(slug, favorited) : info();
-            }}
+            onClick={ () => { user ? handleLike(slug, favorited) : info()} }
           >
-            {like}
+            <img src={favorited ? likeTrue : likeFalse} alt="like" />
+
           </div>
           <span className={classes.likesNumber}>{favoritesCount}</span>
         </div>
@@ -48,6 +39,5 @@ const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagLi
   );
 };
 
-const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, actions)(TextPreview);
+export default TextPreview;

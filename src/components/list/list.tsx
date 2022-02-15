@@ -10,11 +10,12 @@ interface IListProps {
   articles: IArticle[],
   errorMessages: null | object,
   articlesCount: number,
-  user: null | IUser
+  user: null | IUser,
+  handleLike: (slug, favorited) => void
 }
 
-const List: React.FC<IListProps> = ({ articles: data, errorMessages, articlesCount, user }) => {
-  const articles = data.map((article) => <Article key={article.slug} {...article} preview user={user} />);
+const List: React.FC<IListProps> = ({ articles: data, handleLike, errorMessages, articlesCount, user }) => {
+  const articles = data.map((article) => <Article key={article.slug} {...article} handleLike={handleLike} preview user={user} />);
   const pagination = articlesCount > 5 && <Pagination />;
   const loader = !data.length && !errorMessages && <Loader />;
 

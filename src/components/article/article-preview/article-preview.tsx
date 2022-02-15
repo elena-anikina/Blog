@@ -7,13 +7,14 @@ import {IUser} from "../../../types/data";
 
 interface IArticlePreviewProps extends IArticle {
     preview: boolean,
-    user: null | IUser
+    user: null | IUser,
+    handleLike: (slug, favorited) => void,
 }
 
-const ArticlePreview: React.FC<IArticlePreviewProps> = ({ preview, user, ...article }) => {
+const ArticlePreview: React.FC<IArticlePreviewProps> = ({ preview, handleLike, user, ...article }) => {
   return (
     <div className={classes.articlePreview}>
-      <TextPreview preview={preview} {...article}  />
+      <TextPreview preview={preview} handleLike={handleLike} user={user} {...article}  />
       <User {...article} user={user} />
     </div>
   );

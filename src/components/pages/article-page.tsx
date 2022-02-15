@@ -11,9 +11,10 @@ interface IArticlePageProps {
   fetchArticles: any,
   getArticleForEditing: any,
   user: null | IUser,
+  handleLike: (slug, favorited) => void,
 }
 
-const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, getArticleForEditing, user }) => {
+const ArticlePage: React.FC<IArticlePageProps> = ({ articles, handleLike, fetchArticles, getArticleForEditing, user }) => {
 
   if (!articles.length) { fetchArticles() }
 
@@ -23,7 +24,7 @@ const ArticlePage: React.FC<IArticlePageProps> = ({ articles, fetchArticles, get
 
   const [article] = [...articles].filter((el) => el.slug === slug);
 
-  return article ? <Article {...article} preview={false} user={user} /> : null;
+  return article ? <Article {...article} handleLike={handleLike} preview={false} user={user} /> : null;
 };
 
 const mapStateToProps = ({ articles, user }) => ({ articles, user });
