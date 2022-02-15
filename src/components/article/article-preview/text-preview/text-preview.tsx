@@ -19,16 +19,10 @@ const TextPreview: React.FC<ITextPreviewProps> = ({ title, favoritesCount, tagLi
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
-        <Link className={classes.title} to={`/articles/${slug}`}>
-          {title}
-        </Link>
+        <Link className={classes.title} to={`/articles/${slug}`}>{title}</Link>
         <div className={classes.likes}>
-          <div
-            className={classes.like}
-            onClick={ () => { user ? handleLike(slug, favorited) : info()} }
-          >
+          <div className={classes.like} onClick={ () => { user ? handleLike(slug, favorited) : info()} }>
             <img src={favorited ? likeTrue : likeFalse} alt="like" />
-
           </div>
           <span className={classes.likesNumber}>{favoritesCount}</span>
         </div>

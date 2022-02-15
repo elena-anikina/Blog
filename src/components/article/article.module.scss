@@ -37,3 +37,14 @@
   width: 46px;
   height: 46px;
 }
+
+.fullText {
+  display: block;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 14px;
+  line-height: 22px;
+  color: $textColor;
+}
+
+
