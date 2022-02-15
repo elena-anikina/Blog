@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './article.module.scss';
 import ArticlePreview from './article-preview/article-preview';
-import ArticleBody from './article-body/article-body';
+import ArticleBody from './article-body';
 import { IArticle } from '../../types/data';
 import {IUser} from "../../types/data";
 

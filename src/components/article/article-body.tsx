@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import classes from '../article.module.scss';
-import {IArticle} from "../../../types/data";
+import classes from './article.module.scss';
+import {IArticle} from "../../types/data";
 
 interface IArticleBodyProps extends IArticle {
   preview: boolean,
